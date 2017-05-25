@@ -9,10 +9,10 @@ App({
     wx.setStorageSync('logs', logs)
     var that = this;
   },
-  globalData:{
+  globalData:{ 
     userInfo:null,
     openid:"",
     ggwUserInfo:null
   }
 })
-//luyu
+//luyu s
