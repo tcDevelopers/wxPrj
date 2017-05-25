@@ -1,7 +1,7 @@
 ﻿// channel/channel.js
 var meafe = require('../utils/util_meafe.js');
 var app = getApp();
-Page({ 
+Page({
 
   /**
    * 页面的初始数据
