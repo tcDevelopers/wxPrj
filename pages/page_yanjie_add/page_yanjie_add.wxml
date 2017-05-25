@@ -1,0 +1,85 @@
+<view>
+    <loading hidden="{{hidden}}">
+        图片上传中...
+    </loading>
+</view>
+<view class="section_title">当前登陆：{{ggwUserInfo.person_name}}</view>
+<view class="section">
+  <view class="form_style">
+    
+    <view class="form-row">
+        <view  bindtap="" class="form-row-label-view">
+            <text>地址</text>
+        </view>
+         <view class="form-row-item">
+            <input class="form-row-input" bindinput="bindAddressInput" name="input" placeholder="" value="{{addressValue}}"/>
+        </view>
+    </view>
+    <view class="form-row">
+         <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapShowMap">在地图上选点</button>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>客户名称</text>
+        </view>
+        <view class="form-row-item">
+            <input class="form-row-input" bindinput="bindKehumingchengInput" name="input" placeholder="" value="{{kehumingchengValue}}"/>
+        </view>
+    </view>
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>联系人</text>
+        </view>
+        <view class="form-row-item">
+            <input class="form-row-input" bindinput="bindLianxirenInput" name="input" placeholder="" value="{{lianxirenValue}}"/>
+        </view>
+    </view>
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>联系电话</text>
+        </view>
+        <view class="form-row-item">
+            <input class="form-row-input" bindinput="bindLianxidianhuaInput" name="input" placeholder="" value="{{lianxidianhuaValue}}"/>
+        </view>
+    </view>
+    <view class="form-row">
+        <view  bindtap="tapShowMap" class="form-row-label-view">
+            <text>网格类型</text>
+        </view>
+        <view class="form-row-item flex2">
+            <picker class="form-row-picker" value="{{index}}" bindchange="bindPickerChange" range="{{wanggeTypeArray}}">
+                <view class="picker-text">
+                   {{wanggeTypeArray[wanggeTypeIndex]}}
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>其他描述</text>
+        </view>
+        <view class="form-row-item">
+            <input class="form-row-input" bindinput="bindDescInput" name="input" placeholder="店铺描述..." value="{{descValue}}"/>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>图片</text>
+            <text style="font-size:28rpx;">至少上传一张</text>
+        </view>
+        <view class="form-row-item">
+            <image src="{{ggw_img1}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap1"/>
+            <image src="{{ggw_img2}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap2"/>
+            <image src="{{ggw_img3}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap3"/>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <button class="{{delBtnClass}} delBtnRed" bindtap="tapDelete">删 除</button>
+        <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapSubmit">提 交</button>
+    </view>
+    <text>{{tipTxt}}</text>
+</view>
+</view>

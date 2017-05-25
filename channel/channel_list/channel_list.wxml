@@ -1,0 +1,14 @@
+<view class="page-section">
+  <block wx:for="{{applyList}}" wx:key="id">
+    <view class="list-item" bindtap="channelView" data-id="{{item.id}}" data-state="{{item.state}}">
+      <view class="item-section">
+        <label class="item-user">{{item.apply_user}}</label>
+        <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>
+      </view>
+      <view class="item-section">
+        <label class="item-state">{{item.state_name}}</label>
+        <label class="item-dt">{{item.dt}}</label>
+      </view>
+    </view>
+  </block>
+</view>

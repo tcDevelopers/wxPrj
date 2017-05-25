@@ -1,0 +1,50 @@
+<view class="page-section">
+    <view class="route">
+        <view class="node">
+            <view class="node-person">{{applyData.apply_user}}</view>
+            <view class="node-line"></view>
+            <view class="node-desc">{{node1}}</view>
+        </view>
+        <view class="node">
+          >>>
+        </view>
+        <view class="node">
+            <view class="node-person">{{applyData.check_user}}</view>
+            <view class="node-line"></view>
+            <view class="node-desc">{{node2}}</view>
+        </view> 
+        <view class="node" wx:if="{{applyData.state<=2}}">
+          >>>
+        </view>
+        <view class="node" wx:if="{{applyData.state<=2}}">
+            <view class="node-person">{{applyData.opt_user}}</view>
+            <view class="node-line"></view>
+            <view class="node-desc">{{node3}}</view>
+        </view>
+    </view>
+</view>
+<view class="page-section">
+    <view class="page-section-title">工号/渠道</view>
+    <radio-group name="apply_tp">
+        <radio value="1" checked="{{applyData.apply_tp == 1}}" disabled="true"/><label>工号</label>
+        <radio value="2" checked="{{applyData.apply_tp == 2}}" disabled="true"/><label>渠道</label>
+    </radio-group>
+</view>
+<view class="page-section">
+    <view class="page-section-title">动作类型</view>
+    <radio-group name="apply_act">
+        <radio value="1" checked="{{applyData.apply_act == 1}}" disabled="true"/><label>新增</label>
+        <radio value="2" checked="{{applyData.apply_act == 2}}" disabled="true"/><label>修改</label>
+        <radio value="3" checked="{{applyData.apply_act == 3}}" disabled="true"/><label>删除</label>
+    </radio-group>
+</view>
+<view class="page-section">
+    <view class="page-section-title">申请内容</view>
+        <view class="textarea-wrp">
+            <textarea disabled="true" value="{{applyData.apply_text}}" maxlength="200" auto-height />
+    </view>
+</view>
+<view class="page-section">
+    <button type="primary" bindtap="agree" class="btn">审核通过</button>
+    <button type="warn" bindtap="disagree" class="btn">退回</button>
+</view>

@@ -1,0 +1,5 @@
+.image-view{
+    width:750rpx;
+    margin:0px;
+    border:1px solid #eee;
+}

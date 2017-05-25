@@ -1,0 +1,17 @@
+<view class="page-section">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{person_name}}</text>
+  </view>
+</view>
+<view class="page-section">
+  <view class="list-item1" wx:if="{{!check_state}}">
+    <navigator class="font1" url="channel_apply/channel_apply">工号/渠道申请</navigator>
+  </view>
+  <view class="list-item1" wx:if="{{check_state}}">
+    <navigator class="font1" url="channel_list/channel_list?check_state={{check_state}}">审核申请</navigator>
+  </view>
+  <view class="list-item1">
+    <navigator class="font1" url="channel_list/channel_list">查看申请</navigator>
+  </view>
+</view>
