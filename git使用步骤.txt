@@ -1,0 +1,23 @@
+$ ssh -T git@github.com  
+$ git config --global user.name "meafe"  
+$ git config --global user.email "570495405@qq.com"  
+
+
+git init 
+git add .
+git remote add wx https://github.com/tcDevelopers/wxPrj.git
+git commit -m "first commit"
+git push -u wx master
+
+
+git init
+git clone https://github.com/meafe/wxPrj.git
+
+
+wxe2fab7d8fade2cff
+https://api.weixin.qq.com
+https://www.meafe.cn
+https://fundebug.com
+
+
+https://github.com/meafe/wxPrj.git   tcdev
