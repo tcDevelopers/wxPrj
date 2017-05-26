@@ -21,3 +21,5 @@ https://fundebug.com
 
 
 https://github.com/meafe/wxPrj.git   tcdev
+
+git pull wx master
