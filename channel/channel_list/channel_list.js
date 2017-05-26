@@ -27,7 +27,7 @@ Page({
   channelView: function(e){
     var id = e.currentTarget.dataset.id;
     var state = e.currentTarget.dataset.state;
-    if (app.globalData.chnlRole == '审核员' && state == 1 || app.globalData.chnlRole == '管理员' && state == 3)
+    if (app.globalData.ggwUserInfo.channel_role == '审核员' && state == 1 || app.globalData.ggwUserInfo.channel_role == '管理员' && state == 3)
       wx.navigateTo({
         url: '../channel_check/channel_check?id=' + id
       })

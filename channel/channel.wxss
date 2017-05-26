@@ -84,21 +84,10 @@ textarea {
   display: flex;
   flex-direction: row;
 }
-.list-item1 {
-  margin: 20rpx;
-  background-color: #FFFFFF;
-  padding: 10rpx 20rpx;
-  display: flex;
-  flex-direction: row;
-}
-
-.font1{
-  font-size: 54rpx;
-}
-
 navigator{
   text-align: center;
   width: 100%;
+  font-size: 54rpx;
 }
 .item-section{
   width: 50%;

@@ -17,16 +17,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (app.globalData.chnlRole != '审核员' && app.globalData.chnlRole != '管理员') {
-      wx.showModal({
-        title: "提醒",
-        content: "你无权访问此页",
-        showCancel: false,
-        success: function (res) {
-          wx.navigateBack({ delta: 1 });
-        }
-      });
-    };
     var _this = this;
     var sqlstr = "select id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user from channel_list where id=" + options.id;
     meafe.SQLQuery(sqlstr, function (obj) {
@@ -55,7 +45,6 @@ Page({
     else
       return;
     meafe.SQLEdit(sqlstr, function (obj) {
-      console.log(obj);
       wx.showModal({
         title: "操作完成",
         content: "审核通过",

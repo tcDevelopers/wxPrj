@@ -14,5 +14,9 @@ App({
     openid:"",
     ggwUserInfo:null
   }
+<<<<<<< HEAD
 })
 //luyu
+=======
+})
+>>>>>>> f634d57241d6c012fc36a7b0d31a8b885389ed2a
