@@ -13,10 +13,10 @@
             <view class="node-line"></view>
             <view class="node-desc">{{node2}}</view>
         </view> 
-        <view class="node" wx:if="{{applyData.state<=2}}">
+        <view class="node" wx:if="{{applyData.state == 3}}">
           >>>
         </view>
-        <view class="node" wx:if="{{applyData.state<=2}}">
+        <view class="node" wx:if="{{applyData.state == 3}}">
             <view class="node-person">{{applyData.opt_user}}</view>
             <view class="node-line"></view>
             <view class="node-desc">{{node3}}</view>

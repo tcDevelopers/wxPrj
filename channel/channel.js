@@ -1,4 +1,4 @@
-﻿// channel/channel.js
+// channel/channel.js
 var meafe = require('../utils/util_meafe.js');
 var app = getApp();
 Page({
@@ -18,36 +18,29 @@ Page({
   onLoad: function (options) {
     var _this = this;
     _this.setData({
-      person_name: app.globalData.ggwUserInfo.person_name
+      person_name: app.globalData.ggwUserInfo.person_name,
+      avatarUrl: app.globalData.userInfo.avatarUrl
     });
-    var sqlstr = "select user_role from channel_role where user_name='"+_this.data.person_name+"'";
     
-    meafe.SQLQuery(sqlstr, function (obj) {
-      if(obj.length>0){
-          app.globalData.chnlRole = obj[0].user_role;
-          if (app.globalData.chnlRole == '管理员')
-            _this.setData({ check_state: 3 });
-          else if (app.globalData.chnlRole == '审核员')
-            _this.setData({ check_state: 1 });
-      }
-      else{
-        wx.showModal({
-          title: "提醒",
-          content: "你无权访问此页",
-          showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 1 });
-          }
-        });
-      }
-    });
-    wx.getUserInfo({
-      success: function (res) {
-        _this.setData({
-          avatarUrl: res.userInfo.avatarUrl
-        })
-      }
-    });
+    if (app.globalData.ggwUserInfo.channel_role == '管理员'){
+      _this.setData({ check_state: 3 });
+    }
+    else if (app.globalData.ggwUserInfo.channel_role == '审核员'){
+      _this.setData({ check_state: 1 });
+    }
+    else if (app.globalData.ggwUserInfo.channel_role == '申请员') {
+      _this.setData({ check_state: 0 });
+    }
+    else{
+      wx.showModal({
+        title: "提醒",
+        content: "你无权访问此页",
+        showCancel: false,
+        success: function (res) {
+          wx.navigateBack({ delta: 1 });
+        }
+      });
+    }
   },
 
   /**

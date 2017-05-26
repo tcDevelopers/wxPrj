@@ -43,6 +43,7 @@ Page({
           var appid = 'wxe2fab7d8fade2cff';//填写微信小程序appid  
           var secret = 'a826603abc5285050e9163d40f61efb3';//填写微信小程序secret 
           wx.getUserInfo({
+              withCredentials: false,
               success: function (res) {
                 //头像，用户昵称等信息
                   app.globalData.userInfo = res.userInfo;
@@ -65,6 +66,7 @@ Page({
                       if(obj.length>0){
                           app.globalData.ggwUserInfo=obj[0];
                           _this.setData({userInfo:app.globalData.ggwUserInfo});
+                          console.log(app.globalData.ggwUserInfo);
                       }
                       else{
 
@@ -72,8 +74,7 @@ Page({
                       _this.setData({hidden:true});
                   });
               }  
-          }) ;
-            
+          });
         }
       })
   },
