@@ -1,6 +1,6 @@
 var meafe = require('utils/util_meafe.js');
 var fundebug = require('libs/fundebug.min.js');
-fundebug.apikey='a521937be063d9ff5bca4fe18c46e595582626055fe7bfdf2bc45fce0438b5ac';
+fundebug.apikey = 'c4fc693b8425ab58f470537137ea25b66004cbb806903a10b0662c65e95ddc6b';
 App({
   onLaunch: function () {
     //调用API从本地缓存中获取数据
