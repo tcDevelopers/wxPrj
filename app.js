@@ -14,6 +14,4 @@ App({
     openid:"",
     ggwUserInfo:null
   }
-
 })
-//luyu

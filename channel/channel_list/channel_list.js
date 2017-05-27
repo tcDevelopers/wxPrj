@@ -18,7 +18,7 @@ Page({
     if (options.check_state)
       cond = " where state=" + options.check_state;
     var _this = this;
-    var sqlstr = "select id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, CONVERT(varchar(12), apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id"+cond;
+    var sqlstr = "select id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, CONVERT(varchar(12), apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id" + cond +" order by apply_dt desc";
     meafe.SQLQuery(sqlstr,function(obj){
       _this.setData({ applyList: obj});
     });
@@ -29,7 +29,7 @@ Page({
     var state = e.currentTarget.dataset.state;
     if (app.globalData.ggwUserInfo.channel_role == '审核员' && state == 1 || app.globalData.ggwUserInfo.channel_role == '管理员' && state == 3)
       wx.navigateTo({
-        url: '../channel_check/channel_check?id=' + id
+        url: '../channel_check/channel_check?id=' + id + '&state=' + state
       })
     else
       wx.navigateTo({

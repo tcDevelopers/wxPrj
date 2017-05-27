@@ -1,5 +1,6 @@
 var app = getApp();
 var meafe = require('../../utils/util_meafe.js');
+var sms = require('../../utils/sms.js');
 Page({
 
   /**
@@ -19,18 +20,7 @@ Page({
   onLoad: function (options) {
     this.setData({
       person_name: app.globalData.ggwUserInfo.person_name
-      });
-    if (app.globalData.chnlRole != '申请员'){
-      wx.showModal({
-        title: "提醒",
-        content: "你无权访问此页",
-        showCancel: false,
-        success: function (res) {
-          wx.navigateBack({ delta: 1 });
-        }
-      });
-    }
-
+    });
   },
   
   tpChange: function(e) {
@@ -64,9 +54,18 @@ Page({
           content: "请耐心等待领导审阅",
           showCancel: false,
           success: function (res) {
-            wx.navigateBack({ delta: 1 })
+            wx.navigateBack({ delta: 1 });
           }
         });
+      });
+      meafe.SQLQuery("select mobile_phone from 广告位登记人员表 where id=" + app.globalData.ggwUserInfo.parent_id, function (obj) {
+        sms.sendSMS({
+          nbr: obj[0].mobile_phone,
+          cnt: "有一个" + _this.data.person_name + "发起的新申请待审批",
+          pri: "1",
+          from_sys: "小程序",
+          create_person: app.globalData.ggwUserInfo.person_name,
+        }, null);
       });
     }
   },
