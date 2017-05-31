@@ -21,7 +21,7 @@ Page({
       person_name: app.globalData.ggwUserInfo.person_name,
       avatarUrl: app.globalData.userInfo.avatarUrl
     });
-    
+
     if (app.globalData.ggwUserInfo.channel_role == '管理员'){
       _this.setData({ check_state: 3 });
     }

@@ -1,14 +1,44 @@
+<view>
+  <loading hidden="{{hidden}}">
+    数据加载中...
+  </loading>
+</view>
+<view class="page-section" wx:if="{{!check}}">
+  <view class="pick">
+    <view class="pick-left">申请人选择</view>
+    <picker value="{{pick1}}" range="{{applyUser}}" class="pick-right" bindchange="bindPick1">
+      {{applyUser[pick1]}}
+    </picker>
+  </view>
+  <view class="pick">
+    <view class="pick-left">申请单状态</view>
+    <picker value="{{pick2}}" range="{{applyState}}" class="pick-right" bindchange="bindPick2">
+      {{applyState[pick2]}}
+    </picker>
+  </view>
+  <view class="pick">
+    <view class="pick-left">申请单日期</view>
+    <picker mode="date" value="{{pick3}}" start="2017-05-01" end="2020-12-31" class="pick-right" bindchange="bindPick3">
+      {{pick3}}
+    </picker>
+  </view>
+</view>
+<view class="page-section" style="color: #9b9b9b; font-size: 20px; text-align: center; padding-top:10px" wx:if="{{applyList.length==0}}">
+  <text>无申请数据</text>
+</view>
 <view class="page-section">
-  <block wx:for="{{applyList}}" wx:key="id">
-    <view class="list-item" bindtap="channelView" data-id="{{item.id}}" data-state="{{item.state}}">
-      <view class="item-section">
-        <label class="item-user">{{item.apply_user}}</label>
-        <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>
+  <scroll-view scroll-y="true" bindscrolltolower="loadMore" upper-threshold="20">
+    <block wx:for="{{applyList}}" wx:key="id">
+      <view class="list-item" bindtap="channelView" data-id="{{item.id}}" data-state="{{item.state}}">
+        <view class="item-section">
+          <label class="item-user">{{item.apply_user}}</label>
+          <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>
+        </view>
+        <view class="item-section">
+          <label class="item-state">{{item.state_name}}</label>
+          <label class="item-dt">{{item.dt}}</label>
+        </view>
       </view>
-      <view class="item-section">
-        <label class="item-state">{{item.state_name}}</label>
-        <label class="item-dt">{{item.dt}}</label>
-      </view>
-    </view>
-  </block>
+    </block>
+  </scroll-view>
 </view>

@@ -8,7 +8,7 @@
   <view class="list-item" wx:if="{{!check_state}}">
     <navigator url="channel_apply/channel_apply">工号/渠道申请</navigator>
   </view>
-  <view class="list-item" wx:if="{{check_state}}">
+  <view class="list-item" wx:else>
     <navigator url="channel_list/channel_list?check_state={{check_state}}">审核申请</navigator>
   </view>
   <view class="list-item">

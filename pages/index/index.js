@@ -1,6 +1,5 @@
 var app = getApp();
 var meafe = require('../../utils/util_meafe.js');
-var sms = require('../../utils/sms.js');
 //获取应用实例
 var app = getApp()
 Page({
@@ -37,15 +36,6 @@ Page({
   },
   onLoad: function () {
     var _this = this;
-    // sms.sendSMS({
-    //   nbr:"18013775300",
-    //   cnt:"test",
-    //   pri:"1",
-    //   from_sys:"短信平台单条测试",
-    //   create_person:"ly"
-    // }, function (res) {
-    //   console.log(res);
-    // })
     //调用应用实例的方法获取全局数据
     _this.setData({hidden:false})
     wx.login({

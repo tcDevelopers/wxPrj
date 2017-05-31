@@ -12,6 +12,7 @@ Page({
     node1: '',
     node2: '',
     node3: '',
+    hidden: false,
   },
 
   /**
@@ -21,24 +22,24 @@ Page({
     var _this = this;
     _this.setData({ node1: '发起申请' });
     //状态1领导审批环节，根据ID取申请信息，申请人号码和领导对应的上级号码
-    if (options.state == 1){
+    if (options.state == 1) {
       _this.setData({ node2: '待审核' });
       var sqlstr = "select a.id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user,b.mobile_phone apply_phone,c.mobile_phone parent_phone from channel_list a left join 广告位登记人员表 b on a.apply_user = b.person_name left join 广告位登记人员表 c on b.parent_id = c.id where a.id =" + options.id;
     }
     //状态3管理员审批环节，根据ID取申请信息和申请人号码
-    else if (options.state == 3){
+    else if (options.state == 3) {
       _this.setData({ node2: '审核通过' });
       _this.setData({ node3: '待审核' });
       var sqlstr = "select a.id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user,b.mobile_phone apply_phone from channel_list a left join 广告位登记人员表 b on a.apply_user = b.person_name where a.id =" + options.id;
     }
     meafe.SQLQuery(sqlstr, function (obj) {
-      _this.setData({ applyData: obj[0] });
+      _this.setData({ applyData: obj[0], hidden: true });
     });
   },
 
-  agree: function(){
+  agree: function () {
     var _this = this;
-    if (_this.data.applyData.state == 1){
+    if (_this.data.applyData.state == 1) {
       var sqlstr = "update channel_list set state=3,check_user='" + app.globalData.ggwUserInfo.person_name + "',check_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
         wx.showModal({
@@ -65,7 +66,7 @@ Page({
         }, null);
       });
     }
-    else if (_this.data.applyData.state == 3){
+    else if (_this.data.applyData.state == 3) {
       var sqlstr = "update channel_list set state=5,opt_user='" + app.globalData.ggwUserInfo.person_name + "',opt_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
         wx.showModal({
@@ -89,7 +90,7 @@ Page({
 
   disagree: function () {
     var _this = this;
-    if (_this.data.applyData.state==1){
+    if (_this.data.applyData.state == 1) {
       var sqlstr = "update channel_list set state=2,check_user='" + app.globalData.ggwUserInfo.person_name + "',check_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
         wx.showModal({
@@ -109,7 +110,7 @@ Page({
         }, null);
       });
     }
-    else if (_this.data.applyData.state == 3){
+    else if (_this.data.applyData.state == 3) {
       var sqlstr = "update channel_list set state=4,opt_user='" + app.globalData.ggwUserInfo.person_name + "',opt_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
         wx.showModal({
@@ -134,62 +135,62 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   }
 })
