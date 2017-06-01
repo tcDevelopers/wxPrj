@@ -21,17 +21,19 @@ Page({
   onLoad: function (options) {
     var _this = this;
     _this.setData({ node1: '发起申请' });
-    //状态1领导审批环节，根据ID取申请信息，申请人号码和领导对应的上级号码
+    //状态1领导审批环节
     if (options.state == 1) {
       _this.setData({ node2: '待审核' });
-      var sqlstr = "select a.id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user,b.mobile_phone apply_phone,c.mobile_phone parent_phone from channel_list a left join 广告位登记人员表 b on a.apply_user = b.person_name left join 广告位登记人员表 c on b.parent_id = c.id where a.id =" + options.id;
     }
-    //状态3管理员审批环节，根据ID取申请信息和申请人号码
+    //状态3管理员审批环节
     else if (options.state == 3) {
       _this.setData({ node2: '审核通过' });
       _this.setData({ node3: '待审核' });
-      var sqlstr = "select a.id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user,b.mobile_phone apply_phone from channel_list a left join 广告位登记人员表 b on a.apply_user = b.person_name where a.id =" + options.id;
     }
+    //其他退出
+    else
+      return
+    var sqlstr = "select a.id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user,b.mobile_phone apply_phone from channel_list a left join 广告位登记人员表 b on a.apply_user = b.person_name where a.id =" + options.id;
     meafe.SQLQuery(sqlstr, function (obj) {
       _this.setData({ applyData: obj[0], hidden: true });
     });
@@ -56,14 +58,16 @@ Page({
           pri: "1",
           from_sys: "小程序",
           create_person: app.globalData.ggwUserInfo.person_name,
-        }, null);
-        sms.sendSMS({
-          nbr: _this.data.applyData.parent_phone,
-          cnt: "有一个" + _this.data.applyData.apply_user + "发起的新申请待审批",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: app.globalData.ggwUserInfo.person_name,
-        }, null);
+        });
+        meafe.SQLQuery("select mobile_phone from 广告位登记人员表 where id=" + app.globalData.ggwUserInfo.parent_id, function (obj) {
+          sms.sendSMS({
+            nbr: obj[0].mobile_phone,
+            cnt: "有一个" + _this.data.person_name + "发起的新申请待审批",
+            pri: "1",
+            from_sys: "小程序",
+            create_person: app.globalData.ggwUserInfo.person_name,
+          });
+        });
       });
     }
     else if (_this.data.applyData.state == 3) {
@@ -83,7 +87,7 @@ Page({
           pri: "1",
           from_sys: "小程序",
           create_person: app.globalData.ggwUserInfo.person_name,
-        }, null);
+        });
       });
     }
   },
@@ -107,7 +111,7 @@ Page({
           pri: "1",
           from_sys: "小程序",
           create_person: app.globalData.ggwUserInfo.person_name,
-        }, null);
+        });
       });
     }
     else if (_this.data.applyData.state == 3) {
@@ -127,7 +131,7 @@ Page({
           pri: "1",
           from_sys: "小程序",
           create_person: app.globalData.ggwUserInfo.person_name,
-        }, null);
+        });
       });
     }
   },

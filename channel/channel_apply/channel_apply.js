@@ -65,7 +65,7 @@ Page({
           pri: "1",
           from_sys: "小程序",
           create_person: app.globalData.ggwUserInfo.person_name,
-        }, null);
+        });
       });
     }
   },

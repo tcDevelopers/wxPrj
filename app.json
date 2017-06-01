@@ -1,5 +1,5 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/page_ggw_add/page_ggw_add",
@@ -16,10 +16,13 @@
     "channel/channel_view/channel_view",
     "channel/channel_list/channel_list"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "欢迎使用",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 5000
   }
 }

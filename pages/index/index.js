@@ -37,6 +37,10 @@ Page({
   onLoad: function () {
     var _this = this;
     //调用应用实例的方法获取全局数据
+    meafe.SQLQuery("select * from channel_list",
+      function (obj) {
+        console.log(obj);
+      });
     _this.setData({hidden:false})
     wx.login({
         success: function (loginCode) {
