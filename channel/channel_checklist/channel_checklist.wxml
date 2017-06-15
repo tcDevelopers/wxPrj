@@ -1,0 +1,22 @@
+<view>
+  <loading hidden="{{hidden}}">
+    数据加载中...
+  </loading>
+</view>
+<view class="no-data" wx:if="{{!applyList.length}}">
+  <text>无申请数据</text>
+</view>
+<view class="page-section" wx:else>
+  <block wx:for="{{applyList}}" wx:key="id">
+    <view class="list-item" bindtap="checkit" data-id="{{item.id}}">
+      <view class="item-section">
+        <label class="item-user">{{item.apply_user}}</label>
+        <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>
+      </view>
+      <view class="item-section">
+        <label class="item-state">{{item.state_name}}</label>
+        <label class="item-dt">{{item.dt}}</label>
+      </view>
+    </view>
+  </block>
+</view>

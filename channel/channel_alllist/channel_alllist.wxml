@@ -3,11 +3,11 @@
     数据加载中...
   </loading>
 </view>
-<view class="page-section" wx:if="{{!check}}">
+<view class="page-section">
   <view class="pick">
     <view class="pick-left">申请人选择</view>
-    <picker value="{{pick1}}" range="{{applyUser}}" class="pick-right" bindchange="bindPick1">
-      {{applyUser[pick1]}}
+    <picker value="{{pick1}}" range="{{applyUser}}" range-key="person_name" class="pick-right" bindchange="bindPick1">
+      {{applyUser[pick1].person_name}}
     </picker>
   </view>
   <view class="pick">
@@ -23,13 +23,13 @@
     </picker>
   </view>
 </view>
-<view class="page-section" style="color: #9b9b9b; font-size: 20px; text-align: center; padding-top:10px" wx:if="{{applyList.length==0}}">
+<view class="no-data" wx:if="{{!applyList.length}}">
   <text>无申请数据</text>
 </view>
-<view class="page-section">
+<view class="page-section" wx:else>
   <scroll-view scroll-y="true" bindscrolltolower="loadMore" upper-threshold="20">
     <block wx:for="{{applyList}}" wx:key="id">
-      <view class="list-item" bindtap="channelView" data-id="{{item.id}}" data-state="{{item.state}}">
+      <view class="list-item" bindtap="channelView" data-id="{{item.id}}">
         <view class="item-section">
           <label class="item-user">{{item.apply_user}}</label>
           <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>

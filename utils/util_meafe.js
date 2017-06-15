@@ -17,7 +17,9 @@ function SQLQuery(sql, callback1, callback2) {
       if (callback2)
         callback2(res);
     },
-    complete: function () { }
+    complete: function () {
+
+    }
   })
 }
 

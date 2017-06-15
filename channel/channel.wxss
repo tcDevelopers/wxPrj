@@ -107,7 +107,7 @@ navigator {
   font-size: 54rpx;
 }
 
-scroll-view{
+scroll-view {
   height: 700rpx;
 }
 
@@ -159,4 +159,11 @@ scroll-view{
 .pick-right {
   width: 70%;
   text-align: center;
+}
+
+.no-data {
+  color: #9b9b9b;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 10px;
 }

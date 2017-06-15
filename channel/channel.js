@@ -16,12 +16,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (!app.globalData.ggwUserInfo)
+      wx.showModal({
+        title: "提醒",
+        content: "你无权访问此页",
+        showCancel: false,
+        success: function (res) {
+          wx.navigateBack({ delta: 1 });
+        }
+      });
     var _this = this;
-    _this.setData({
-      person_name: app.globalData.ggwUserInfo.person_name,
-      avatarUrl: app.globalData.userInfo.avatarUrl
-    });
-    
     if (app.globalData.ggwUserInfo.channel_role == '管理员') {
       _this.setData({ check_state: 3 });
     }
@@ -41,6 +45,10 @@ Page({
         }
       });
     }
+    _this.setData({
+      person_name: app.globalData.ggwUserInfo.person_name,
+      avatarUrl: app.globalData.userInfo.avatarUrl
+    });
   },
 
   /**
