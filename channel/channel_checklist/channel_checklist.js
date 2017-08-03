@@ -1,4 +1,4 @@
-// channel/channel_view/channel_view.js
+// channel/channel_checklist/channel_checklist.js
 var meafe = require('../../utils/util_meafe.js');
 Page({
 
@@ -6,10 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    applyData: {},
-    node1: '',
-    node2: '',
-    node3: '',
+    applyList: [],
     hidden: false,
   },
 
@@ -18,26 +15,13 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-    var sqlstr = "select id,apply_tp,apply_act,apply_user,apply_text,state,isnull(check_user,'领导') check_user,isnull(opt_user,'管理员') opt_user from channel_list where id=" + options.id;
+    var sqlstr = "select id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id where state = " + options.state + " order by id desc";
     meafe.SQLQuery(sqlstr,
       function (obj) {
-        _this.setData({
-          applyData: obj[0],
-          hidden: true,
-          node1: '发起申请'
-        });
-        if (_this.data.applyData.state == 1)
-          _this.setData({ node2: '待审核' });
-        else if (_this.data.applyData.state == 2)
-          _this.setData({ node2: '退回' });
-        else
-          _this.setData({ node2: '审核通过' });
-        if (_this.data.applyData.state == 3)
-          _this.setData({ node3: '待审核' });
-        else if (_this.data.applyData.state == 4)
-          _this.setData({ node3: '退回' });
-        else
-          _this.setData({ node3: '审核通过' });
+        if (obj.length > 0) {
+          _this.setData({ applyList: obj, });
+        }
+        _this.setData({ hidden: true, });
       }, function (res) {
         wx.showModal({
           title: "数据请求失败",
@@ -46,8 +30,16 @@ Page({
           success: function (res) {
             wx.navigateBack({ delta: 1 });
           }
-        })
-      });
+        });
+      }
+    );
+  },
+
+  checkit: function (e) {
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../channel_check/channel_check?id=' + id
+    });
   },
 
   /**
@@ -96,20 +88,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
 
   }
 })

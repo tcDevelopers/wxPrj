@@ -53,6 +53,10 @@ Page({
         }
       });
     }
+    _this.setData({
+      person_name: app.globalData.ggwUserInfo.person_name,
+      avatarUrl: app.globalData.userInfo.avatarUrl
+    });
   },
 
   /**

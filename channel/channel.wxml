@@ -9,9 +9,9 @@
     <navigator url="channel_apply/channel_apply">工号/渠道申请</navigator>
   </view>
   <view class="list-item" wx:else>
-    <navigator url="channel_list/channel_list?check_state={{check_state}}">审核申请</navigator>
+    <navigator url="channel_checklist/channel_checklist?state={{check_state}}">审核申请</navigator>
   </view>
   <view class="list-item">
-    <navigator url="channel_list/channel_list">查看申请</navigator>
+    <navigator url="channel_alllist/channel_alllist">查看申请</navigator>
   </view>
 </view>

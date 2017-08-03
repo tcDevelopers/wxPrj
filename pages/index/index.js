@@ -51,7 +51,6 @@ Page({
             _this.setData({ motto: res.userInfo.avatarUrl });
           }
         });
-
         console.log("登陆完成...");
         wx.request({
           url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + loginCode.code + '&grant_type=authorization_code',

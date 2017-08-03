@@ -14,7 +14,8 @@
     "channel/channel_apply/channel_apply",
     "channel/channel_check/channel_check",
     "channel/channel_view/channel_view",
-    "channel/channel_list/channel_list"
+    "channel/channel_alllist/channel_alllist",
+    "channel/channel_checklist/channel_checklist"
   ],
   "window": {
     "backgroundTextStyle": "light",
