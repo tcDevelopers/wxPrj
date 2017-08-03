@@ -17,11 +17,23 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
+    if (!app.globalData.ggwUserInfo) {
+      wx.showModal({
+        title: "提醒",
+        content: "你无权访问此页",
+        showCancel: false,
+        success: function (res) {
+          wx.navigateBack({ delta: 1 });
+        }
+      });
+      return
+    }
+    
     _this.setData({
       person_name: app.globalData.ggwUserInfo.person_name,
       avatarUrl: app.globalData.userInfo.avatarUrl
     });
-    
+
     if (app.globalData.ggwUserInfo.channel_role == '管理员') {
       _this.setData({ check_state: 3 });
     }
