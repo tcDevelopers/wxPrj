@@ -65,12 +65,12 @@ Page({
               if (obj.length > 0) {
                 app.globalData.ggwUserInfo = obj[0];
                 _this.setData({ userInfo: app.globalData.ggwUserInfo });
+                console.log(app.globalData.ggwUserInfo);
               }
             });
           },
           complete: function () {
             _this.setData({ hidden: true });
-            console.log(app.globalData.ggwUserInfo);
           }
         });
       }
