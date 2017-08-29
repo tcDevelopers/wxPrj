@@ -22,36 +22,44 @@ Page({
       person_name: app.globalData.ggwUserInfo.person_name
     });
   },
-  
-  tpChange: function(e) {
-    this.setData({apply_tp: e.detail.value});
+
+  tpChange: function (e) {
+    this.setData({ apply_tp: e.detail.value });
   },
 
-  actChange: function(e) {
-    this.setData({apply_act: e.detail.value});
+  actChange: function (e) {
+    this.setData({ apply_act: e.detail.value });
   },
 
-  textBlur: function(e){
+  textBlur: function (e) {
     this.setData({ apply_text: e.detail.value });
   },
-  
-  submit: function(e){
+
+  submit: function (e) {
     var _this = this;
     if (_this.data.apply_text == '') {
       wx.showModal({
         title: "提醒",
         content: "申请内容不能为空",
         showCancel: false,
-        success: function(res){
-          _this.setData({text_focus: true});
+        success: function (res) {
+          _this.setData({ text_focus: true });
         }
       });
     }
-    else{
-      meafe.SQLEdit("insert into channel_list(apply_tp,apply_act,apply_text,apply_user,apply_dt,state) values(" + _this.data.apply_tp + "," + _this.data.apply_act + ",'" + _this.data.apply_text + "','" + app.globalData.ggwUserInfo.person_name + "',GetDate(),1)", function (obj) {
+    else {
+      var sqlstr;
+      var cont = "领导";
+      if (app.globalData.ggwUserInfo.channel_role == '部门申请员') {
+        sqlstr = "insert into channel_list(apply_tp,apply_act,apply_text,apply_user,apply_dt,state,check_user,check_dt) values(" + _this.data.apply_tp + "," + _this.data.apply_act + ",'" + _this.data.apply_text + "','" + app.globalData.ggwUserInfo.person_name + "',GetDate(),3,'" + app.globalData.ggwUserInfo.person_name + "', GetDate())";
+        cont = "管理员";
+      }
+      else
+        sqlstr = "insert into channel_list(apply_tp,apply_act,apply_text,apply_user,apply_dt,state) values(" + _this.data.apply_tp + "," + _this.data.apply_act + ",'" + _this.data.apply_text + "','" + app.globalData.ggwUserInfo.person_name + "',GetDate(),1)";
+      meafe.SQLEdit(sqlstr, function (obj) {
         wx.showModal({
           title: "申请成功",
-          content: "请耐心等待领导审阅",
+          content: "请耐心等待" + cont + "审阅",
           showCancel: false,
           success: function (res) {
             wx.navigateBack({ delta: 1 });

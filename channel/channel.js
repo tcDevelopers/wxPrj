@@ -1,4 +1,3 @@
-// channel/channel.js
 var meafe = require('../utils/util_meafe.js');
 var app = getApp();
 Page({
@@ -36,6 +35,9 @@ Page({
       _this.setData({ check_state: 1 });
     }
     else if (app.globalData.ggwUserInfo.channel_role == '申请员') {
+      _this.setData({ check_state: 0 });
+    }
+    else if (app.globalData.ggwUserInfo.channel_role == '部门申请员') {
       _this.setData({ check_state: 0 });
     }
     else {
