@@ -4,6 +4,7 @@ Page({
     data:{
         mobile_phone:true,
         selected1:false,
+        ReadySearch: null,
         list: []
     },
     onLoad:function(){
@@ -25,30 +26,47 @@ Page({
       var _this = this;
       var nbr = this.data.mobile_phone;
       var work_id = app.globalData.ggwUserInfo.work_id;
-      //查询号码是否存在
-      meafe.SCB3Query("select * from  wxd.wxd_accno_list@tcscb2 a "
-        + "left join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
-        + "where (b.nbr is null or (b.staff_no='" + work_id + "')) and b.nbr like '%" + nbr + "%' and rownum<100",
-        function (obj) {
-          _this.setData({list:obj})
-        },
-        function () {
-          meafe.Toast('获取数据失败');
-        }
-      );
+      var ReadySearch = _this.data.ReadySearch;
+      if (ReadySearch != null){
+        clearTimeout(ReadySearch)
+        
+      }
+      ReadySearch = setTimeout(function(){
+        wx.showLoading({
+          title: '正在获取数据',
+        })
+        //查询号码是否存在
+        meafe.SCB3Query("select * from  wxd.wxd_accno_list@tcscb2 a "
+          + "left join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
+          + "where (b.nbr is null or (b.staff_no='" + work_id + "')) and b.nbr like '%" + nbr + "%' and rownum<100",
+          function (obj) {
+            _this.setData({ list: obj })
+            wx.hideLoading();
+          },
+          function () {
+            wx.hideLoading();
+            meafe.Toast('获取数据失败');
+          }
+        );
+      },1000);
+      _this.setData({ ReadySearch: ReadySearch});
     },
     tapRecordSubmit:function(e){
       var _this = this;
       var nbr = this.data.mobile_phone;
       var word_id = app.globalData.ggwUserInfo.work_id;
-        //查询号码是否存在
+      //查询号码是否存在
+      wx.showLoading({
+        title: '正在查询..',
+      })
       meafe.SCB3Query("select * from  wxd.wxd_accno_list@tcscb2 a "
       +"left join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
         + "where (b.nbr is null or (b.staff_no='" + word_id +"')) and a.acc_no='"+nbr+"'" ,
         function (obj) {
           if (obj.length>0){
             var act='insert'
-            if (obj[0].NBR.length>0){
+            if (obj[0].NBR.length > 0) {
+              wx.hideLoading();
               meafe.Toast("号码已登记");
             }
             else {
@@ -57,7 +75,8 @@ Page({
               })
             }
           }
-          else{
+          else {
+            wx.hideLoading();
             meafe.Toast("非目标号码")
           }
         },
@@ -78,13 +97,10 @@ Page({
     clickImage: function (e) {
       var current = e.target.dataset.imgloc;
       var urls = [];
-      urls.push('https://www.meafe.cn/upfiles/wx/' + current.IMG1);
-      urls.push('https://www.meafe.cn/upfiles/wx/' + current.IMG2);
-      urls.push('https://www.meafe.cn/upfiles/wx/' + current.IMG3);
-      urls.push('https://www.meafe.cn/upfiles/wx/' + current.IMG4);
+      urls.push('https://www.meafe.cn/upfiles/wx/' + current);
       console.log(current)
       wx.previewImage({
-        current: 'https://www.meafe.cn/upfiles/wx/' + current.IMG1,
+        current: 'https://www.meafe.cn/upfiles/wx/' + current,
         urls: urls,
         fail: function () {
           console.log('fail')
