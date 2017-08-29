@@ -1,6 +1,6 @@
 $ ssh -T git@github.com  
-$ git config --global user.name "meafe"  
 $ git config --global user.email "570495405@qq.com"  
+$ git config --global user.name "meafe"  
 
 
 git init 
@@ -23,3 +23,5 @@ https://fundebug.com
 https://github.com/meafe/wxPrj.git   tcdev
 
 git pull wx master
+
+

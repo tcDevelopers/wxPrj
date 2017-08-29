@@ -101,6 +101,26 @@ function sendSMS(json, callback) {
   })
 }
 
+function sendSMSList(ary, callback, fail_cb) {
+  var base64_json_str = encode64(JSON.stringify(ary));
+  wx.request({
+    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    url: 'https://www.meafe.cn/sms/sendSMSList',
+    data: { v: base64_json_str, randnum: Math.random() + '' },
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    success: function (res) {
+      if (callback)
+        callback(res);
+    },
+    fail: function () { 
+		if(fail_cb)
+			fail_cb();
+	},
+    complete: function () { }
+  })
+}
+
 module.exports = {
-  sendSMS: sendSMS
+  sendSMS: sendSMS,
+  sendSMSList: sendSMSList
 }

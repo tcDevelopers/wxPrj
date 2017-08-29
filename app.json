@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/map/map",
     "pages/logs/logs",
     "pages/page_ggw_add/page_ggw_add",
     "pages/page_user_bind/page_user_bind",
@@ -20,7 +21,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "欢迎使用",
+    "navigationBarTitleText": "电信营业厅小助手",
     "navigationBarTextStyle": "black"
   },
   "networkTimeout": {
