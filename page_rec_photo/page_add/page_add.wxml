@@ -1,0 +1,55 @@
+<view class="section">
+  <view class="form_style">
+    
+    <view class="form-row">
+        <view  bindtap="" class="form-row-label-view">
+            <text>号码</text>
+        </view>
+         <view class="form-row-item">
+            <text>{{nbr}}</text>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>受理单</text>
+        </view>
+        <view class="form-row-item">
+            <image src="{{img1}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap1"/>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>身份证正面</text>
+        </view>
+        <view class="form-row-item">
+            <image src="{{img2}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap2"/>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>身份证反面</text>
+        </view>
+        <view class="form-row-item">
+            <image src="{{img3}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap3"/>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>手持身份证\n照片</text>
+        </view>
+        <view class="form-row-item">
+            <image src="{{img4}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap4"/>
+        </view>
+    </view>
+
+    <view class="form-row">
+        <button class="{{delBtnClass}} delBtnRed" bindtap="tapDelete">删 除</button>
+        <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapSubmit">提 交</button>
+    </view>
+    <text>{{tipTxt}}</text>
+</view>
+</view>

@@ -1,0 +1,50 @@
+<view class="section">
+    <view class="form-row">
+      
+        <view class="form-row-label-view">
+          号码
+          </view>
+        <view class="form-row-item flex2">
+            <input class="form-row-input" bindinput="bindInput" name="mobile_phone" placeholder="" />
+        </view>
+        
+        <view class="form-row-label-view">
+         <button style="background-color:#FECA41;margin:0rpx;" bindtap="tapRecordSubmit">登记</button>
+        </view>
+    </view>
+        
+  <view class="body">
+        
+      <!--logs.wxml-->
+      <view class="container log-list">
+        <block wx:for="{{list}}" class="item-block" wx:for-item="item"  wx:key="*this">
+          <view id="{{item.NBR}}"   class="item-box">
+            <view class="item-box" >
+                <view class="item-top">
+                    <text class="text36">客户号码：{{item.NBR}}  </text>
+                </view> 
+                <view class="item-top">
+                    <text class="text24">上传者:{{item.STAFF_NM}} 上传时间:{{item.GENERATE_DT}} </text>
+                </view>
+                <view class="form-row-item-image-area">
+                      <image lazy-load="true" mode="aspectFill" bindtap="clickImage" data-imgloc="{{item}}" 
+                      class="{{item.handler_result==''?'form-row-item-image':'form-row-item-image-small'}}" 
+                      src="https://www.meafe.cn/upfiles/wx/{{item.IMG1_SMALL}}"></image>
+                      <image lazy-load="true" mode="aspectFill" bindtap="clickImage" data-imgloc="{{item}}" 
+                      class="{{item.handler_result==''?'form-row-item-image':'form-row-item-image-small'}}"  
+                      src="https://www.meafe.cn/upfiles/wx/{{item.IMG2_SMALL}}"></image>
+                      <image lazy-load="true" mode="aspectFill" bindtap="clickImage" data-imgloc="{{item}}" 
+                      class="{{item.handler_result==''?'form-row-item-image':'form-row-item-image-small'}}"  
+                      src="https://www.meafe.cn/upfiles/wx/{{item.IMG3_SMALL}}"></image>
+                      <image lazy-load="true" mode="aspectFill" bindtap="clickImage" data-imgloc="{{item}}" 
+                      class="{{item.handler_result==''?'form-row-item-image':'form-row-item-image-small'}}"  
+                      src="https://www.meafe.cn/upfiles/wx/{{item.IMG4_SMALL}}"></image>
+                       <button id="{{item.NBR}}" bindtap="tapListItem"  class="btn_show">操作</button>
+                  </view>
+                </view>
+                
+            </view>
+          </block>
+      </view>
+    </view>
+</view>

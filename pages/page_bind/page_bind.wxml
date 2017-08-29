@@ -1,0 +1,26 @@
+<view class="section">
+  <view class="form_style">
+    
+    <view class="form-row">
+        <view  bindtap="tapShowMap" class="form-row-label-view">
+            <text>工号</text>
+        </view>
+        <view class="form-row-item ">
+            <input class="form-row-input" bindinput="bindInput1" name="input" placeholder="" />
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
+            <text>手机号码</text>
+        </view>
+        <view class="form-row-item">
+            <input class="form-row-input" bindinput="bindInput2" name="input" placeholder="" />
+        </view>
+    </view>
+
+    <view class="form-row">
+        <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapSubmit">提 交</button>
+    </view>
+</view>
+</view>

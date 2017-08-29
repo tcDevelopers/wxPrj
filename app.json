@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/page_user_bind/page_user_bind",
     "pages/map/map",
     "pages/logs/logs",
     "pages/page_ggw_add/page_ggw_add",
-    "pages/page_user_bind/page_user_bind",
     "pages/page_ggw_list/page_ggw_list",
     "pages/page_ggw_listforxiaoqu/page_ggw_listforxiaoqu",
     "pages/page_ggw_handler/page_ggw_handler",
@@ -16,12 +16,15 @@
     "channel/channel_check/channel_check",
     "channel/channel_view/channel_view",
     "channel/channel_alllist/channel_alllist",
-    "channel/channel_checklist/channel_checklist"
+    "channel/channel_checklist/channel_checklist",
+    "page_rec_photo/page_add/page_add",
+    "page_rec_photo/page_main/page_main",
+    "pages/page_bind/page_bind"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "电信营业厅小助手",
+    "navigationBarTitleText": "电信支撑",
     "navigationBarTextStyle": "black"
   },
   "networkTimeout": {
