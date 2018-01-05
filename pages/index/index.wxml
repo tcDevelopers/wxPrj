@@ -5,12 +5,12 @@
     <view  bindtap="bindViewTap" class="userinfo">
         <image class="userinfo-avatar" src="{{motto}}" mode="aspectFill"></image>  
         <text class="userinfo-txt1">{{userInfo.person_name}}</text>
-        <text class="userinfo-txt2">{{userInfo.fenju}},{{userInfo.belong_department}}</text>
+        <text class="userinfo-txt2">{{userInfo.fenju}}   {{userInfo.belong_department}}</text>
     </view>
     <view class="usermotto">
         <button hidden="{{btn_hidden}}" style="background-color:#FECA41;margin-top:10px;" bindtap="bindGGWDJ">广告位登记</button>
-        <button hidden="{{btn_hidden}}" style="background-color:#9ED86A;margin-top:10px;" bindtap="bindKehuPhoto">客户照片登记</button>
+        <button hidden="" style="background-color:#9ED86A;margin-top:10px;" bindtap="bindKehuPhoto">实名制登记</button>
         <button hidden="{{btn_hidden}}" style="background-color:#90CAC9;margin-top:10px;" bindtap="bindChannel">渠道支撑</button>
-        <button style="background-color:#DDDDDD;margin-top:10px;"bindtap="bindGGWUser">用户绑定</button>
+        <button style="background-color:#DDDDDD;margin-top:10px;"bindtap="bindGGWUser">员工绑定</button>
     </view>
 </view>

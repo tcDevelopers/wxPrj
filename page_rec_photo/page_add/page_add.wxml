@@ -12,6 +12,15 @@
 
     <view class="form-row">
         <view class="form-row-label-view">
+          联系电话
+          </view>
+        <view class="form-row-item ">
+            <input class="form-row-input" bindinput="bindInput" name="" value="{{contact_phone}}" placeholder="" />
+        </view>
+    </view>
+
+    <view class="form-row">
+        <view class="form-row-label-view">
             <text>受理单</text>
         </view>
         <view class="form-row-item">
@@ -47,7 +56,7 @@
     </view>
 
     <view class="form-row">
-        <button class="{{delBtnClass}} delBtnRed" bindtap="tapDelete">删 除</button>
+        <button class="{{delBtnClass}} delBtnRed {{del_hidden}}" bindtap="tapDelete">删 除</button>
         <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapSubmit">提 交</button>
     </view>
     <text>{{tipTxt}}</text>

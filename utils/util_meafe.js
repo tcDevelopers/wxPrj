@@ -18,7 +18,7 @@ function SQLQuery(sql, callback1, callback2) {
         callback2(res);
     },
     complete: function () {
-
+      
     }
   })
 }
@@ -130,6 +130,7 @@ function FileDelete(file_loc) {
 
 function FileChooseAndUpload(upload_folder, selectedCallback, uploadedcallback) {
   wx.chooseImage({
+    count:1,
     success: function (res) {
       var tempFilePaths = res.tempFilePaths
       selectedCallback(tempFilePaths[0]);

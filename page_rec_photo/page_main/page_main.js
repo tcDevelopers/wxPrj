@@ -2,10 +2,10 @@ var app = getApp();
 var meafe = require('../../utils/util_meafe.js');
 Page({
     data:{
-        mobile_phone:true,
-        selected1:false,
-        ReadySearch: null,
-        list: []
+        mobile_phone : "",
+        selected1 : false,
+        ReadySearch : null,
+        list : []
     },
     onLoad:function(){
        
@@ -26,25 +26,35 @@ Page({
       var _this = this;
       var nbr = this.data.mobile_phone;
       var work_id = app.globalData.ggwUserInfo.work_id;
+      var role = app.globalData.ggwUserInfo.smz_role;
+      console.log("用户角色："+role);
       var ReadySearch = _this.data.ReadySearch;
+      if (nbr.length==0){
+        if (ReadySearch != null) {
+          clearTimeout(ReadySearch)
+        }
+        return;
+      }
       if (ReadySearch != null){
         clearTimeout(ReadySearch)
         
       }
       ReadySearch = setTimeout(function(){
-        wx.showLoading({
-          title: '正在获取数据',
-        })
+       
+        var sql = "select a.ACC_NO,b.* from wxd.wxd_accno_list@tcscb2 a "
+          + "join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
+          + "where b.staff_no='" + work_id + "' and b.nbr like '%" + nbr + "%' and rownum<100";
+        if (role=='管理员'){
+          sql = "select a.ACC_NO, b.* from  wxd.wxd_accno_list@tcscb2 a "
+            + "join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
+            + "where a.acc_no='" + nbr + "'" ;
+        }
         //查询号码是否存在
-        meafe.SCB3Query("select * from  wxd.wxd_accno_list@tcscb2 a "
-          + "left join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
-          + "where (b.nbr is null or (b.staff_no='" + work_id + "')) and b.nbr like '%" + nbr + "%' and rownum<100",
+        meafe.SCB3Query(sql,
           function (obj) {
             _this.setData({ list: obj })
-            wx.hideLoading();
           },
           function () {
-            wx.hideLoading();
             meafe.Toast('获取数据失败');
           }
         );
@@ -54,34 +64,63 @@ Page({
     tapRecordSubmit:function(e){
       var _this = this;
       var nbr = this.data.mobile_phone;
-      var word_id = app.globalData.ggwUserInfo.work_id;
+      var work_id = app.globalData.ggwUserInfo.work_id;
+      console.log(work_id)
       //查询号码是否存在
       wx.showLoading({
         title: '正在查询..',
       })
-      meafe.SCB3Query("select * from  wxd.wxd_accno_list@tcscb2 a "
-      +"left join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr "
-        + "where (b.nbr is null or (b.staff_no='" + word_id +"')) and a.acc_no='"+nbr+"'" ,
+      
+      meafe.SCB3Query("select * from wxd.wxd_accno_list@tcscb2 a "
+        + "left join ly_sys_user_photo@tcscb2 b on a.acc_no=b.nbr" 
+        + " where a.acc_no='" + nbr + "'",
         function (obj) {
+          wx.hideLoading();
           if (obj.length>0){
-            var act='insert'
-            if (obj[0].NBR.length > 0) {
-              wx.hideLoading();
-              meafe.Toast("号码已登记");
-            }
-            else {
+            if(obj[0].NBR==''){
               wx.navigateTo({
                 url: '../page_add/page_add?nbr=' + nbr + '&act=insert'
               })
             }
+            else{
+              if (obj[0].STAFF_NO == work_id) {
+                wx.showModal({
+                  title: '提示',
+                  content: '此号码已登记，是否重新登记',
+                  success: function (res) {
+                    if (res.confirm) {
+                      wx.navigateTo({
+                        url: '../page_add/page_add?nbr=' + nbr + '&act=update'
+                      })
+                    }
+                  }
+                })
+              }
+              else {
+                wx.showModal({
+                  title: '提示',
+                  content: '此号码已登记',
+                  success: function (res) {
+                    if (res.confirm) {
+                    }
+                  }
+                })
+              }
+            }
           }
           else {
-            wx.hideLoading();
-            meafe.Toast("非目标号码")
+            wx.showModal({
+              title: '提示',
+              content: '非有效号码',
+              success: function (res) {
+                if (res.confirm) {
+                }
+              }
+            })
           }
         },
-        function(){
-
+        function () {
+          wx.hideLoading();
         }
       );
     },
