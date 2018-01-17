@@ -11,14 +11,17 @@ Page({
     img2: 'https://www.meafe.cn/wx/sys_img/select_img.png',
     img3: 'https://www.meafe.cn/wx/sys_img/select_img.png',
     img4: 'https://www.meafe.cn/wx/sys_img/select_img.png',
+    img5: 'https://www.meafe.cn/wx/sys_img/select_img.png',
     img1_save: '',
     img2_save: '',
     img3_save: '',
     img4_save: '',
+    img5_save: '',
     img1_small_save: '',
     img2_small_save: '',
     img3_small_save: '',
-    img4_small_save: ''
+    img4_small_save: '',
+    img5_small_save: ''
   },
   onLoad:function(option){
     console.log(option)
@@ -41,14 +44,17 @@ Page({
           img2: 'https://www.meafe.cn/upfiles/wx/' + d['IMG2_SMALL'],
           img3: 'https://www.meafe.cn/upfiles/wx/' + d['IMG3_SMALL'],
           img4: 'https://www.meafe.cn/upfiles/wx/' + d['IMG4_SMALL'],
+          img5: 'https://www.meafe.cn/upfiles/wx/' + d['IMG5_SMALL'],
           img1_save: d['IMG1'],
           img2_save: d['IMG2'],
           img3_save: d['IMG3'],
           img4_save: d['IMG4'],
+          img5_save: d['IMG5'],
           img1_small_save: d['IMG1_SMALL'],
           img2_small_save: d['IMG2_SMALL'],
           img3_small_save: d['IMG3_SMALL'],
           img4_small_save: d['IMG4_SMALL'],
+          img5_small_save: d['IMG5_SMALL'],
           contact_phone: d["CONTACT_PHONE"]
         });
       },function(){
@@ -172,6 +178,28 @@ Page({
       }
     );
   },
+  imgTap5: function (e) {
+    var _this = this;
+    //删除旧文件，添加新文件
+    meafe.FileChooseAndUpload('user_photo',
+      function (localPath) {
+        if (localPath.length > 0) {
+          _this.setData({ img5: localPath });
+          wx.showLoading({
+            title: '正在上传',
+          })
+        }
+      },
+      function (obj) {
+        _this.setData({ img5_save: obj.origin, img5_small_save: obj.small });
+        wx.hideLoading();
+      },
+      function () {
+        wx.hideLoading();
+        meafe.Toast('上传失败')
+      }
+    );
+  },
   imageLoaded:function(){
       console.log("图片加载完成")
   },
@@ -214,7 +242,7 @@ Page({
       }
 
       //检查是否满足提交的条件
-      if (this.data.img1_save == '' || this.data.img2_save == '' || this.data.img3_save == '' || this.data.img4_save == ''){
+      if (this.data.img1_save == '' || this.data.img2_save == '' || this.data.img3_save == '' || this.data.img4_save == '' || this.data.img5_save == ''){
           meafe.Toast("请上传所有图片");return;
       }
       var act = _this.data.act;
@@ -235,10 +263,12 @@ Page({
           img2: this.data.img2_save,
           img3: this.data.img3_save,
           img4: this.data.img4_save,
+          img5: this.data.img5_save,
           img1_small: this.data.img1_small_save,
           img2_small: this.data.img2_small_save,
           img3_small: this.data.img3_small_save,
           img4_small: this.data.img4_small_save,
+          img5_small: this.data.img5_small_save,
           is_handler:0,
           staff_nm: app.globalData.ggwUserInfo.person_name
       };

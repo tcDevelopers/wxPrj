@@ -56,6 +56,14 @@
     </view>
 
     <view class="form-row">
+        <view class="form-row-label-view">
+            <text>UIM卡\n照片</text>
+        </view>
+        <view class="form-row-item">
+            <image src="{{img5}}" class="form-row-item-image" mode="aspectFill" bindtap="imgTap5"/>
+        </view>
+    </view>
+    <view class="form-row">
         <button class="{{delBtnClass}} delBtnRed {{del_hidden}}" bindtap="tapDelete">删 除</button>
         <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapSubmit">提 交</button>
     </view>
