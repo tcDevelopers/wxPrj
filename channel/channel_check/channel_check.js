@@ -57,6 +57,20 @@ Page({
     if (_this.data.applyData.state == 1) {
       var sqlstr = "update channel_list set state=3,check_user='" + app.globalData.ggwUserInfo.person_name + "',check_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
+        sms.sendSMS({
+          nbr: _this.data.applyData.apply_phone,
+          cnt: "你的申请已通过" + app.globalData.ggwUserInfo.person_name + "审批",
+          pri: "1",
+          from_sys: "小程序",
+          create_person: app.globalData.ggwUserInfo.person_name,
+        });
+        sms.sendSMS({
+          nbr: "18006226337",
+          cnt: "有一个" + _this.data.applyData.apply_user + "发起的新申请待审批",
+          pri: "1",
+          from_sys: "小程序",
+          create_person: app.globalData.ggwUserInfo.person_name,
+        });
         wx.showModal({
           title: "操作完成",
           content: "审核通过",
@@ -64,28 +78,19 @@ Page({
           success: function (res) {
             wx.navigateBack({ delta: 2 })
           }
-        });
-        sms.sendSMS({
-          nbr: _this.data.applyData.apply_phone,
-          cnt: "你的申请已通过领导审批",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: app.globalData.ggwUserInfo.person_name,
-        });
-        meafe.SQLQuery("select mobile_phone from 广告位登记人员表 where id=" + app.globalData.ggwUserInfo.parent_id, function (obj) {
-          sms.sendSMS({
-            nbr: obj[0].mobile_phone,
-            cnt: "有一个" + _this.data.applyData.apply_user + "发起的新申请待审批",
-            pri: "1",
-            from_sys: "小程序",
-            create_person: app.globalData.ggwUserInfo.person_name,
-          });
         });
       });
     }
     else if (_this.data.applyData.state == 3) {
       var sqlstr = "update channel_list set state=5,opt_user='" + app.globalData.ggwUserInfo.person_name + "',opt_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
+        sms.sendSMS({
+          nbr: _this.data.applyData.apply_phone,
+          cnt: "你的申请已通过管理员审批",
+          pri: "1",
+          from_sys: "小程序",
+          create_person: app.globalData.ggwUserInfo.person_name,
+        });
         wx.showModal({
           title: "操作完成",
           content: "审核通过",
@@ -93,13 +98,6 @@ Page({
           success: function (res) {
             wx.navigateBack({ delta: 2 })
           }
-        });
-        sms.sendSMS({
-          nbr: _this.data.applyData.apply_phone,
-          cnt: "你的申请已通过管理员审批",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: app.globalData.ggwUserInfo.person_name,
         });
       });
     }
@@ -110,40 +108,40 @@ Page({
     if (_this.data.applyData.state == 1) {
       var sqlstr = "update channel_list set state=2,check_user='" + app.globalData.ggwUserInfo.person_name + "',check_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
+        sms.sendSMS({
+          nbr: _this.data.applyData.apply_phone,
+          cnt: "你的申请被" + app.globalData.ggwUserInfo.person_name + "退回",
+          pri: "1",
+          from_sys: "小程序",
+          create_person: app.globalData.ggwUserInfo.person_name,
+        });
         wx.showModal({
           title: "操作完成",
-          content: "审核通过",
+          content: "申请退回",
           showCancel: false,
           success: function (res) {
             wx.navigateBack({ delta: 2 })
           }
-        });
-        sms.sendSMS({
-          nbr: _this.data.applyData.apply_phone,
-          cnt: "你的申请被领导退回",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: app.globalData.ggwUserInfo.person_name,
         });
       });
     }
     else if (_this.data.applyData.state == 3) {
       var sqlstr = "update channel_list set state=4,opt_user='" + app.globalData.ggwUserInfo.person_name + "',opt_dt=GetDate() where id=" + _this.data.applyData.id;
       meafe.SQLEdit(sqlstr, function (obj) {
-        wx.showModal({
-          title: "操作完成",
-          content: "审核通过",
-          showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 2 })
-          }
-        });
         sms.sendSMS({
           nbr: _this.data.applyData.apply_phone,
           cnt: "你的申请被管理员退回",
           pri: "1",
           from_sys: "小程序",
           create_person: app.globalData.ggwUserInfo.person_name,
+        });
+        wx.showModal({
+          title: "操作完成",
+          content: "申请退回",
+          showCancel: false,
+          success: function (res) {
+            wx.navigateBack({ delta: 2 })
+          }
         });
       });
     }

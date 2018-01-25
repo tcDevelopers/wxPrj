@@ -37,9 +37,6 @@ Page({
     else if (app.globalData.ggwUserInfo.channel_role == '申请员') {
       _this.setData({ check_state: 0 });
     }
-    else if (app.globalData.ggwUserInfo.channel_role == '部门申请员') {
-      _this.setData({ check_state: 0 });
-    }
     else {
       wx.showModal({
         title: "提醒",

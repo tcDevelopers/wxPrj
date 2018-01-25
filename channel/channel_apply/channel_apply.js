@@ -48,32 +48,39 @@ Page({
       });
     }
     else {
-      var sqlstr;
-      var cont = "领导";
-      if (app.globalData.ggwUserInfo.channel_role == '部门申请员') {
-        sqlstr = "insert into channel_list(apply_tp,apply_act,apply_text,apply_user,apply_dt,state,check_user,check_dt) values(" + _this.data.apply_tp + "," + _this.data.apply_act + ",'" + _this.data.apply_text + "','" + app.globalData.ggwUserInfo.person_name + "',GetDate(),3,'" + app.globalData.ggwUserInfo.person_name + "', GetDate())";
-        cont = "管理员";
-      }
-      else
-        sqlstr = "insert into channel_list(apply_tp,apply_act,apply_text,apply_user,apply_dt,state) values(" + _this.data.apply_tp + "," + _this.data.apply_act + ",'" + _this.data.apply_text + "','" + app.globalData.ggwUserInfo.person_name + "',GetDate(),1)";
-      meafe.SQLEdit(sqlstr, function (obj) {
-        wx.showModal({
-          title: "申请成功",
-          content: "请耐心等待" + cont + "审阅",
-          showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 1 });
+      var sqlstr = "select person_name,mobile_phone from 广告位登记人员表 where channel_role='审核员'";
+      meafe.SQLQuery(sqlstr, function (obj) {
+        var arr = [];
+        var nbr = [];
+        for (var i = 0; i < obj.length; i++) {
+          arr.push(obj[i].person_name);
+          nbr.push(obj[i].mobile_phone);
+        };
+        wx.showActionSheet({
+          itemList: arr,
+          success: function (e) {
+            if(e.cancel)
+              return
+            sqlstr = "insert into channel_list(apply_tp,apply_act,apply_text,apply_user,apply_dt,state) values(" + _this.data.apply_tp + "," + _this.data.apply_act + ",'" + _this.data.apply_text + "','" + app.globalData.ggwUserInfo.person_name + "',GetDate(),1)";
+            meafe.SQLEdit(sqlstr, function (obj) {
+              sms.sendSMS({
+                nbr: nbr[e.tapIndex],
+                cnt: "有一个" + _this.data.person_name + "发起的新申请待审批",
+                pri: "1",
+                from_sys: "小程序",
+                create_person: app.globalData.ggwUserInfo.person_name,
+              });
+              wx.showModal({
+                title: "申请成功",
+                content: "请耐心等待" + arr[e.tapIndex] + "审阅",
+                showCancel: false,
+                success: function (res) {
+                  wx.navigateBack({ delta: 1 });
+                }
+              });
+            });
           }
-        });
-      });
-      meafe.SQLQuery("select mobile_phone from 广告位登记人员表 where id=" + app.globalData.ggwUserInfo.parent_id, function (obj) {
-        sms.sendSMS({
-          nbr: obj[0].mobile_phone,
-          cnt: "有一个" + _this.data.person_name + "发起的新申请待审批",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: app.globalData.ggwUserInfo.person_name,
-        });
+        })
       });
     }
   },

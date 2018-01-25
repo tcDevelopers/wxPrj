@@ -12,9 +12,9 @@ Page({
   //事件处理函数
   bindViewTap: function () {
   },
-  bindGGWDJ: function () {
+  bindQuery: function () {
     wx.navigateTo({
-      url: '../page_ggw_list/page_ggw_list'
+      url: '../../query/query'
     })
   },
   bindGGWUser: function () {
@@ -40,7 +40,7 @@ Page({
   onShow: function () {
     var _this = this;
     _this.refreshLogo();
-    console.log('show')
+    //console.log('show')
   },
   refreshLogo:function(){
     var _this = this;
@@ -104,8 +104,8 @@ Page({
         if(suc) suc(res);
       },
       fail: function (res) {
-        console.log("wx.getUserInfo Error");
-        console.log(res);
+        //console.log("wx.getUserInfo Error");
+        //console.log(res);
         _this.setLoginFailed();
         if(fail) fail(res);
       }
@@ -117,10 +117,10 @@ Page({
       title: '登陆中...',
     })
     _this.wxLogin(function(res){
-        console.log(res)
+        //console.log(res)
         app.globalData.code = res.code;
         _this.getUserInfo(function(res){
-            console.log(res)
+            //console.log(res)
             app.globalData.userInfo = res.userInfo ;
             _this.refreshLogo();
         });
@@ -141,8 +141,8 @@ Page({
       success: function (res) {
         //根据openid获取用户信息
         app.globalData.openid = res.data.openid;
-        console.log("getOpenid")
-        console.log(res);
+        //console.log("getOpenid")
+        //console.log(res);
         if(suc) suc(res)
       },
       fail: function () {
@@ -157,7 +157,7 @@ Page({
       wx.hideLoading();
       if (obj.length > 0) {
         app.globalData.ggwUserInfo = obj[0];
-        console.log(app.globalData.ggwUserInfo);
+        //console.log(app.globalData.ggwUserInfo);
         if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
           _this.setData({ userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '' });
         }

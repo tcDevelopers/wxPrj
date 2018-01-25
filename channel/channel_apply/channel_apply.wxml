@@ -29,5 +29,5 @@
     </view>
 </view>
 <view class="page-section">
-    <button type="primary" bindtap="submit" class="btn">提交</button>
+    <button type="primary" bindtap="submit" class="btn">选择审批人</button>
 </view>
