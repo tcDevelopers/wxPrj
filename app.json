@@ -20,7 +20,8 @@
     "page_rec_photo/page_add/page_add",
     "page_rec_photo/page_main/page_main",
     "pages/page_bind/page_bind",
-    "query/query"
+    "query/query",
+    "neiwang/page_news/page_news"
   ],
   "window": {
     "backgroundTextStyle": "light",

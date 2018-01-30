@@ -1,13 +1,14 @@
-<view>
-
-</view>
 <view class="container">
     <view  bindtap="bindViewTap" class="userinfo">
         <image class="userinfo-avatar" src="{{motto}}" mode="aspectFill"></image>  
         <text class="userinfo-txt1">{{userInfo.person_name}}</text>
-        <text class="userinfo-txt2">{{userInfo.fenju}}</text>
+        <text class="userinfo-txt2">{{userInfo.belong_department}}</text>
     </view>
-    <view class="usermotto">
+      <view class="nw" hidden='{{neiwangModuleHide}}'>
+        <view class="bc_gwsw" bindtap="bindNeiwangGrswClick">个人事务({{grswUnReadNum}})</view>
+        <view class="bc_nwxx" bindtap="bindNeiwangGsxxClick">公司内网信息</view>
+      </view>
+    <view class="usermotto"> 
         <button hidden="" style="background-color:#9ED86A;margin-top:10px;" bindtap="bindKehuPhoto">实名制登记</button>
         <button hidden="{{btn_hidden}}" style="background-color:#90CAC9;margin-top:10px;" bindtap="bindChannel">渠道支撑</button>
         <button hidden="True" style="background-color:#FECA41;margin-top:10px;" bindtap="bindQuery">数据决策</button>

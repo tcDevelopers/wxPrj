@@ -12,7 +12,6 @@ Page({
     // 页面渲染完成
   },
   onShow:function(){
-    
   },
   onHide:function(){
     // 页面隐藏
@@ -69,7 +68,7 @@ Page({
       }
       else {
         wx.hideLoading();
-        meafe.Toast('您的工号未配置，请联系管理员')
+        meafe.Toast('没有找到您的工号，请联系管理员添加')
       }
     }, function () {
       wx.hideLoading();

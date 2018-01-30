@@ -7,7 +7,9 @@ Page({
     motto: '',
     hidden: true,
     btn_hidden: true,
-    userInfo: {}
+    userInfo: {},
+    grswUnReadNum:0,
+    neiwangModuleHide : true
   },
   //事件处理函数
   bindViewTap: function () {
@@ -153,13 +155,17 @@ Page({
   },
   loginRemoteServer:function(){
     var _this = this;
-    meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "' order by id desc", function (obj) {
+    meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "' order by id desc",
+     function (obj) {
       wx.hideLoading();
       if (obj.length > 0) {
         app.globalData.ggwUserInfo = obj[0];
         //console.log(app.globalData.ggwUserInfo);
         if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
-          _this.setData({ userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '' });
+          _this.setData({ 
+            userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '', 
+            neiwangModuleHide: obj[0].person_type != '主业'
+            });
         }
         //调用应用实例的方法获取全局数据
         _this.setData({ userInfo: app.globalData.ggwUserInfo });
@@ -199,6 +205,18 @@ Page({
         ok_cb();
       }
     })
-  }
+  },
+  //公司信息
+  bindNeiwangGsxxClick: function () {
+    wx.navigateTo({
+      url: '../../neiwang/page_news/page_news'
+    })
+  },
+  //个人事务
+  bindNeiwangGrswClick: function () {
+    wx.navigateTo({
+      url: '../../neiwang/page_news/page_news'
+    })
+  },
 })
 
