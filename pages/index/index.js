@@ -206,16 +206,16 @@ Page({
       }
     })
   },
-  //公司信息
-  bindNeiwangGsxxClick: function () {
-    wx.navigateTo({
-      url: '../../neiwang/page_news/page_news'
-    })
-  },
   //个人事务
   bindNeiwangGrswClick: function () {
     wx.navigateTo({
-      url: '../../neiwang/page_news/page_news'
+      url: '../../neiwang/page_detial/page_detial?id=1545194&type=grsw_shou'
+    })
+  },
+  //公司信息
+  bindNeiwangGsxxClick: function () {
+    wx.navigateTo({
+      url: '../../neiwang/page_detial/page_detial?id=409&type=gsxx'
     })
   },
 })
