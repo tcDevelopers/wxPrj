@@ -151,6 +151,9 @@ Page({
     })
   },
   newsDetail: function(e){
-    console.log(e.currentTarget.dataset.id);
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../../neiwang/page_detial/page_detial?id='+id+"&type=gsxx",
+    })
   }
 })

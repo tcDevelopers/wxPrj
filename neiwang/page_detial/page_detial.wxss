@@ -1,0 +1,65 @@
+@import "/wxParse/wxParse.wxss";
+
+.border_bottom{
+  border-bottom:1rpx dashed #3466bb;
+}
+/* pages/page_ggw/page_ggw_add.wxss */
+.section{
+  display: flex;
+  flex:1;
+  flex-direction:column;
+  background:#ffffff;
+}
+
+.section_title{
+    display: flex;
+    justify-content:center;
+    align-content:center;
+    font-size: 14rpx;
+    padding:10rpx;
+    background:#ddd;
+}
+page{background-color:#edf0f3;}
+.nav{width:100%;height:100rpx;display:flex;flex-direction:row;background:#eeeeee;}
+.default{line-height:100rpx;text-align:center;flex:1;border-right:1px solid gainsboro;color:#000;font-weight:bold;font-size:36rpx;}
+.red{line-height:100rpx;text-align:center;color:#fc5558;flex:1;border-right:1px solid gainsboro;font-weight:bold;font-size:36rpx;}
+.show  {display:block;text-align:center;justify-content:center;font-size:30rpx;}
+.hidden{display:none;text-align:center;justify-content:center;font-size:30rpx;}
+
+.log-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-block{
+  flex:1;
+  flex-grow: 1;
+}
+.item-box{
+  flex-direction: row;
+  display: flex;
+  flex:1;
+  align-items:center;
+  justify-content: center;
+  padding:0rpx;
+  background:white;
+  border-bottom:1rpx solid #ddd;
+}
+
+.item-left{flex:1;}
+
+.item-center{flex:8;}
+
+.item-right{flex:1}
+.fontBold{font-weight:bold;}
+.text36{font-size:32rpx;}
+.text_sender{font-size:36rpx;border-radius:6rpx; background:#60D7F3;border:1rpx solid #00B7C3;color:#00B7C3;}
+.text24{font-size:24rpx;
+  border-radius: 3px;
+  background:#eff;color:black;padding:3rpx;}
+.color_gray{color:#999;}
+.color_red{color:red;}
+
+.hide{
+  display:none;
+}
