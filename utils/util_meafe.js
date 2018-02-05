@@ -18,7 +18,7 @@ function SQLQuery(sql, callback1, callback2) {
         callback2(res);
     },
     complete: function () {
-      
+
     }
   })
 }
@@ -92,7 +92,7 @@ function SCB3Edit(sql, callback1, callback2) {
   })
 }
 
-function SQLUpdate(URL, dataMap, tableName, whereCause, callback ,fail_cb) {
+function SQLUpdate(URL, dataMap, tableName, whereCause, callback, fail_cb) {
   dataMap["tableName"] = tableName;
   dataMap["randnum"] = Math.random() + '';
   if (whereCause != null)
@@ -108,10 +108,10 @@ function SQLUpdate(URL, dataMap, tableName, whereCause, callback ,fail_cb) {
       callback(obj);
     },
     fail: function () {
-      if (fail_cb){
+      if (fail_cb) {
         fail_cb();
       }
-     },
+    },
     complete: function () { }
   })
 }
@@ -130,7 +130,7 @@ function FileDelete(file_loc) {
 
 function FileChooseAndUpload(upload_folder, selectedCallback, uploadedcallback) {
   wx.chooseImage({
-    count:1,
+    count: 1,
     success: function (res) {
       var tempFilePaths = res.tempFilePaths
       selectedCallback(tempFilePaths[0]);
@@ -139,7 +139,7 @@ function FileChooseAndUpload(upload_folder, selectedCallback, uploadedcallback) 
   })
 }
 
-function FileUpload(upload_folder, file_loc, callback ,fail_cb) {
+function FileUpload(upload_folder, file_loc, callback, fail_cb) {
   wx.uploadFile({
     url: 'https://www.meafe.cn/wx/UploadFileNew', //仅为示例，非真实的接口地址
     filePath: file_loc,
@@ -147,13 +147,13 @@ function FileUpload(upload_folder, file_loc, callback ,fail_cb) {
     formData: { 'upload_folder': upload_folder },
     success: function (res) {
       //do something
-      console.log('上传结果:'+res.data);
+      console.log('上传结果:' + res.data);
       var obj = JSON.parse(res.data);
       callback(obj);
     },
-    fail:function(res){
-      if (fail_cb){
-         fail_cb(res);
+    fail: function (res) {
+      if (fail_cb) {
+        fail_cb(res);
       }
     }
   })
@@ -186,6 +186,30 @@ function ArrayIndex(findStr, array, columnIndex) {
   }
   return -1;
 }
+function nwMsg(p1, p2, cb, cbf, cbc) {
+  wx.request({
+    url: 'https://www.meafe.cn/sxf/oa_news/',
+    data: {
+      top: p1,
+      fl: p2
+    },
+    method: 'POST',
+    success: function (res) {
+      //console.log(res);
+      if (cb)
+        cb(res);
+    },
+    fail: function (res) {
+      if (cbf)
+        cbf(res);
+    },
+    complete: function (res) {
+      if (cbc)
+        cbc(res);
+    }
+  })
+}
+
 module.exports = {
   SQLQuery: SQLQuery,
   FileUpload: FileUpload,
@@ -197,5 +221,6 @@ module.exports = {
   SCB3Query: SCB3Query,
   SCB3Edit: SCB3Edit,
   ArrayIndex: ArrayIndex,
-  ArrayIndex1: ArrayIndex1
+  ArrayIndex1: ArrayIndex1,
+  nwMsg: nwMsg
 }

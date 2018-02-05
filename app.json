@@ -21,7 +21,8 @@
     "page_rec_photo/page_main/page_main",
     "pages/page_bind/page_bind",
     "query/query",
-    "neiwang/page_news/page_news"
+    "neiwang/news_list/news_list",
+    "neiwang/grsw_list/grsw_list"
   ],
   "window": {
     "backgroundTextStyle": "light",

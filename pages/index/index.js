@@ -209,13 +209,13 @@ Page({
   //公司信息
   bindNeiwangGsxxClick: function () {
     wx.navigateTo({
-      url: '../../neiwang/page_news/page_news'
+      url: '../../neiwang/news_list/news_list'
     })
   },
   //个人事务
   bindNeiwangGrswClick: function () {
     wx.navigateTo({
-      url: '../../neiwang/page_news/page_news'
+      url: '../../neiwang/gsrw_list/gsrw_list'
     })
   },
 })

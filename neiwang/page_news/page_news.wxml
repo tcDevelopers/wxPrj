@@ -1,7 +1,0 @@
-<import src="../../wxParse/wxParse.wxml"/>
-<view class="section">
-    <view class="form-row">
-      
-       <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-    </view>
-</view>

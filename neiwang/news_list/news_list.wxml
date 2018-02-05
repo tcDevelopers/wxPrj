@@ -1,0 +1,30 @@
+<view>
+  <loading hidden="{{loadingHidden}}">
+    数据加载中...
+  </loading>
+</view>
+<view class="stv-container">
+  <view class="tab-bar">
+    <view wx:for="{{tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap" class="tab {{activeTab==index?'tab-active':''}}" style="width: {{stv.windowWidth/tabs.length}}px">
+      <text>{{item}}</text>
+    </view>
+    <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
+  </view>
+  <view class="scroll-view">
+    <view bindtouchstart="handlerStart" catchtouchmove="handlerMove" bindtouchcancel="handlerCancel" bindtouchend="handlerEnd" class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
+      <view style="width: {{stv.windowWidth}}px;" wx:for="{{tabs}}" wx:key="unique" class="one-scene">
+        <scroll-view style="height:100%" scroll-y="true" bindscrolltolower="loadMore">
+          <block wx:for="{{tabData[activeTab]}}" wx:key="unique">
+            <view class="news-list" bindtap="newsDetail" data-id="{{item[0]}}">
+              <label class="news-content">{{item[1]}}</label>
+              <view class="news-info">
+              <label class="news-auth">{{item[2]}}</label>
+              <label class="news-dt">{{item[3]}}</label>
+              </view>
+            </view>
+          </block>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+</view>
