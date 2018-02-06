@@ -90,16 +90,16 @@ Page({
       var path = re.fujian[i][1];
       var name = re.fujian[i][0];
       var ftype = "file";
-      if (path.endsWith(".doc") || path.endsWith(".docx")) {
+      if (path.toLowerCase().endsWith(".doc") || path.toLowerCase().endsWith(".docx")) {
         ftype = "word";
       }
-      else if (path.endsWith(".xls") || path.endsWith(".xlsx")) {
+      else if (path.toLowerCase().endsWith(".xls") || path.toLowerCase().endsWith(".xlsx")) {
         ftype = "excel";
       }
-      else if (path.endsWith(".ppt") || path.endsWith(".pptx")) {
+      else if (path.toLowerCase().endsWith(".ppt") || path.toLowerCase().endsWith(".pptx")) {
         ftype = "ppt";
       }
-      else if (ftype.endsWith(".pdf")) {
+      else if (path.toLowerCase().endsWith(".pdf")) {
         ftype = "pdf";
       }
       else {
