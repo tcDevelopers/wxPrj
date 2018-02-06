@@ -11,9 +11,9 @@
     <view style="width: {{stv.lineWidth}}px; left: {{stv.offset/tabs.length}}px" class="under-line {{!stv.tStart? 'withAnimate': ''}}"></view>
   </view>
   <view class="scroll-view">
-    <view bindtouchstart="handlerStart" catchtouchmove="handlerMove" bindtouchcancel="handlerCancel" bindtouchend="handlerEnd" class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
+    <view class="scroll-view-wrapper {{!stv.tStart? 'withAnimate': ''}}" style="left: -{{stv.offset}}px">
       <view style="width: {{stv.windowWidth}}px;" wx:for="{{tabs}}" wx:key="unique" class="one-scene">
-        <scroll-view style="height:100%" scroll-y="true" bindscrolltolower="loadMore">
+        <scroll-view style="height:100%" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reloadPage">
           <block wx:for="{{tabData[activeTab]}}" wx:key="unique">
             <view class="news-list" bindtap="newsDetail" data-id="{{item[0]}}">
               <label class="news-content">{{item[1]}}</label>

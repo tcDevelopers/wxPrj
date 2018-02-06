@@ -23,7 +23,7 @@
     "query/query",
     "neiwang/news_list/news_list",
     "neiwang/grsw_list/grsw_list",
-    "neiwang/page_detial/page_detial",
+    "neiwang/page_detail/page_detail",
     "pages/webview/webview"
   ],
   "window": {
