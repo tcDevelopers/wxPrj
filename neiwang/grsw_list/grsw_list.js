@@ -1,7 +1,6 @@
 // neiwang/grsw_list/grsw_list.js
 var app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -10,7 +9,7 @@ Page({
     sender: '',
     title: '',
     pageData: [],
-    hidden: true,
+    scrollViewHeight: 900
   },
 
   /**
@@ -18,8 +17,26 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
+    var that = this;
     let { pageSize, sender, title } = _this.data;
     _this.getList(app.globalData.ggwUserInfo.work_id, pageSize, sender, title);
+
+    wx.getSystemInfo({
+      success: function (res) {
+        let height = res.windowHeight;
+        console.log('sys height '+height);
+        var query = wx.createSelectorQuery()//创建节点查询器 query
+        query.select('#search_bar').boundingClientRect()//这段代码的意思是选择Id=the-id的节点，获取节点位置信息的查询请求
+        query.exec(function (res) {
+          console.log(res);
+          that.setData({
+            scrollViewHeight: height - res[0].height 
+          });
+        })
+      },
+      fail:function(){
+      }
+    });
   },
 
   /**
@@ -51,14 +68,17 @@ Page({
     var url = 'https://www.meafe.cn/sxf/get_grsw_shou_list/';
     url += '?staff_no=' + p1 + '&top_n=' + p2
       + '&search_user=' + p3 + '&search_title=' + p4;
-    _this.setData({ hidden: false });
+    wx.showLoading({
+      title: '正在加载...',
+      mask:true
+    })
     wx.request({
       url: url,
       success: function (res) {
         _this.setData({ pageData: res.data })
       },
       complete: function (res) {
-        _this.setData({ hidden: true });
+        wx.hideLoading();
       }
     })
   },
@@ -81,7 +101,10 @@ Page({
     var url = 'https://www.meafe.cn/sxf/get_grsw_shou_list/';
     url += '?staff_no=' + app.globalData.ggwUserInfo.work_id + '&top_n=' +
       (pageSize + 10) + '&search_user=' + sender + '&search_title=' + title;
-    _this.setData({ hidden: false });
+    wx.showLoading({
+      title: '正在加载..',
+      mask:true
+    })
     wx.request({
       url: url,
       success: function (res) {
@@ -93,7 +116,7 @@ Page({
         })
       },
       complete: function (res) {
-        _this.setData({ hidden: true });
+        wx.hideLoading();
       }
     })
   },

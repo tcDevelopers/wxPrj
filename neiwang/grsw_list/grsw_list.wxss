@@ -56,8 +56,7 @@ page {
 }
 
 .section {
-  margin-top: 30rpx;
-  padding: 10rpx 20rpx;
+  padding: 20rpx 30rpx;
   line-height: 1.8;
   font-size: 35rpx;
   background-color: #fff;
@@ -65,6 +64,8 @@ page {
   border-bottom: 1rpx solid #d9d9d9;
   display: flex;
   flex-direction: row;
+  background:white;
+
 }
 
 .section-left {
