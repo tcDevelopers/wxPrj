@@ -24,7 +24,10 @@
       </view>
     </block>
   </view>
-  <view class="form-row" style="background:white;">
+  <view class="form-row" style="background:white;" style="width:auto;">
        <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+  </view>
+  <view class="form-row" style="background:white;" style="width:auto;margin-top:30rpx;height:100rpx;align-content:center;justify-content:center;">
+       <text style="height:72rpx;color:#999;" bindtap="bindSrcHtml">显示格式不对？点击查看原始内容</text>
   </view>
 </view>

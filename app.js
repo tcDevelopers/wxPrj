@@ -12,5 +12,6 @@ App({
     userInfo:null,
     openid:"",
     ggwUserInfo:{work_id:'',person_name:'',smz_role:''}
-  }
+  },
+  webview_url:""
 })
