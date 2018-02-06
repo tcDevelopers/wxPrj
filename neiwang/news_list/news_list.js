@@ -150,10 +150,17 @@ Page({
       wx.hideLoading();
     })
   },
+  reloadPage: function(e){
+    this.reLoad(this.data.activeTab);
+  },
   newsDetail: function(e){
     var id = e.currentTarget.dataset.id;
+    wx.showLoading({
+      title: '数据加载中...',
+      mask: true,
+    })
     wx.navigateTo({
-      url: '../../neiwang/page_detial/page_detial?id='+id+"&type=gsxx",
+      url: '../../neiwang/page_detail/page_detail?id='+id+"&type=gsxx",
     })
   }
 })

@@ -1,27 +1,30 @@
 <!--neiwang/grsw_list/grsw_list.wxml-->
-<view class="section">
-  <view class="section-left">
-    <label>发送人</label>
-  </view>
-  <view class="section-right">
-    <input placeholder="按发件人搜索" />
-  </view>
+<view>
+  <loading hidden="{{hidden}}">
+    数据加载中...
+  </loading>
 </view>
 <view class="section">
   <view class="section-left">
-    <label>标题</label>
+    <input placeholder="发件人搜索" bindinput='changeSender' />
+  </view>
+  <view class="section-mid">
+    <input placeholder="标题搜索" bindinput='changeTitle' />
   </view>
   <view class="section-right">
-    <input placeholder="按标题搜索" />
+    <text type="primary" bindtap="search" class="btn">搜索</text>
   </view>
 </view>
-<button type="primary" bindtap="submit" class="btn">搜索</button>
-<block wx:for="{{pageData}}" wx:key="index">
-  <view class="news-list" bindtap="grswDetail" data-id="{{item[0]}}">
-    <label class="news-content">{{item[1]}}</label>
-    <view class="news-info">
-      <label class="news-auth">{{item[2]}}</label>
-      <label class="news-dt">{{item[3]}}</label>
+<scroll-view style="height:80%" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reLoad">
+  <block wx:for="{{pageData}}" wx:key="index">
+    <view class="news-list" bindtap="grswDetail" data-id="{{item[0]}}">
+      <label class="news-content">{{item[1]}}</label>
+      <view class="news-info">
+        <label class="news-auth">{{item[4]}}</label>
+        <label class="news-state" wx:if="{{item[2]}}">已读</label>
+        <label class="news-state1" wx:else>未读</label>
+        <label class="news-dt">{{item[3]}}</label>
+      </view>
     </view>
-  </view>
-</block>
+  </block>
+</scroll-view>
