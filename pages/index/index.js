@@ -1,15 +1,13 @@
 var app = getApp();
 var meafe = require('../../utils/util_meafe.js');
-//获取应用实例
-var app = getApp()
 Page({
   data: {
     motto: '',
     hidden: true,
     btn_hidden: true,
     userInfo: {},
-    grswUnReadNum:0,
-    neiwangModuleHide : true
+    grswUnReadNum: 0,
+    neiwangModuleHide: true
   },
   //事件处理函数
   bindViewTap: function () {
@@ -44,7 +42,7 @@ Page({
     _this.refreshLogo();
     //console.log('show')
   },
-  refreshLogo:function(){
+  refreshLogo: function () {
     var _this = this;
     if (app.globalData.userInfo && app.globalData.userInfo.avatarUrl) {
       _this.setData({
@@ -58,23 +56,23 @@ Page({
       });
     }
   },
-  wxLogin: function (success,fail) {
+  wxLogin: function (success, fail) {
     var _this = this;
     wx.login({
       success: function (res) {
-        if (success){
+        if (success) {
           success(res);
         }
       },
       fail: function (res) {
         _this.setLoginFailed();
-        if (fail){
+        if (fail) {
           fail(res)
         }
       }
     });
   },
-  tryAuth:function(){
+  tryAuth: function () {
     /*
     var _this = this;
     // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
@@ -99,17 +97,17 @@ Page({
       }
     })*/
   },
-  getUserInfo:function(suc,fail) {
+  getUserInfo: function (suc, fail) {
     wx.getUserInfo({
       withCredentials: true,
       success: function (res) {
-        if(suc) suc(res);
+        if (suc) suc(res);
       },
       fail: function (res) {
         //console.log("wx.getUserInfo Error");
         //console.log(res);
         _this.setLoginFailed();
-        if(fail) fail(res);
+        if (fail) fail(res);
       }
     })
   },
@@ -118,25 +116,25 @@ Page({
     wx.showLoading({
       title: '登陆中...',
     })
-    _this.wxLogin(function(res){
+    _this.wxLogin(function (res) {
+      //console.log(res)
+      app.globalData.code = res.code;
+      _this.getUserInfo(function (res) {
         //console.log(res)
-        app.globalData.code = res.code;
-        _this.getUserInfo(function(res){
-            //console.log(res)
-            app.globalData.userInfo = res.userInfo ;
-            _this.refreshLogo();
-        });
-        _this.getOpenid(function(res){
-          _this.loginRemoteServer();
-        });
+        app.globalData.userInfo = res.userInfo;
+        _this.refreshLogo();
+      });
+      _this.getOpenid(function (res) {
+        _this.loginRemoteServer();
+      });
     })
 
   },
-  getOpenid: function (suc,fail) {
+  getOpenid: function (suc, fail) {
     var appid = 'wxe2fab7d8fade2cff';//填写微信小程序appid  
     var secret = 'a826603abc5285050e9163d40f61efb3';//填写微信小程序secret 
     wx.request({
-      url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' +app.globalData.code + '&grant_type=authorization_code',
+      url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + app.globalData.code + '&grant_type=authorization_code',
       header: {
         'content-type': 'application/json'
       },
@@ -145,41 +143,46 @@ Page({
         app.globalData.openid = res.data.openid;
         //console.log("getOpenid")
         //console.log(res);
-        if(suc) suc(res)
+        if (suc) suc(res)
       },
       fail: function () {
         _this.setLoginFailed();
-        if(fail)fail();
+        if (fail) fail();
       }
     });
   },
-  loginRemoteServer:function(){
+  loginRemoteServer: function () {
     var _this = this;
     meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "' order by id desc",
-     function (obj) {
-      wx.hideLoading();
-      if (obj.length > 0) {
-        app.globalData.ggwUserInfo = obj[0];
-        //console.log(app.globalData.ggwUserInfo);
-        if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
-          _this.setData({ 
-            userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '', 
-            neiwangModuleHide: obj[0].person_type != '主业'
+      function (obj) {
+        wx.hideLoading();
+        if (obj.length > 0) {
+          app.globalData.ggwUserInfo = obj[0];
+          wx.request({
+            url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id
+            , success: function (res) {
+              _this.setData({ grswUnReadNum: res.data[0][0] })
+            }
+          })
+          if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
+            _this.setData({
+              userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '',
+              neiwangModuleHide: obj[0].person_type != '主业'
             });
+          }
+          //调用应用实例的方法获取全局数据
+          _this.setData({ userInfo: app.globalData.ggwUserInfo });
         }
-        //调用应用实例的方法获取全局数据
-        _this.setData({ userInfo: app.globalData.ggwUserInfo });
-      }
-      else {
-        if (app.globalData.ggwUserInfo == null) {
-          //wx.navigateTo({
-          //  url: '../page_bind/page_bind'
-          //})
+        else {
+          if (app.globalData.ggwUserInfo == null) {
+            //wx.navigateTo({
+            //  url: '../page_bind/page_bind'
+            //})
+          }
         }
-      }
-    }, function () {
-      _this.setLoginFailed();
-    });
+      }, function () {
+        _this.setLoginFailed();
+      });
   },
   setLoginFailed: function () {
     wx.hideLoading();
@@ -196,20 +199,20 @@ Page({
       }
     })
   },
-  alert:function(msg,ok_cb){
+  alert: function (msg, ok_cb) {
     wx.showModal({
       title: msg,
       content: '',
       success: function (res) {
-        if(ok_cb)
-        ok_cb();
+        if (ok_cb)
+          ok_cb();
       }
     })
   },
   //个人事务
   bindNeiwangGrswClick: function () {
     wx.navigateTo({
-      url: '../../neiwang/gsrw_list/gsrw_list'
+      url: '../../neiwang/grsw_list/grsw_list'
     })
   },
   //公司信息

@@ -1,1 +1,66 @@
 /* neiwang/grsw_list/grsw_list.wxss */
+page {
+  background-color: #f8f8f8;
+  height: 100%;
+  line-height: 1.6;
+}
+.news-list {
+  margin: 20rpx;
+  background-color: #fff;
+  padding: 10rpx 20rpx;
+}
+
+.news-content {
+  display: block;
+  font-size: 32rpx;
+
+}
+.news-info{
+  padding: 5rpx 10rpx 0 10rpx;
+  display: flex;
+  flex-flow: row;
+}
+.news-auth{
+  color: #808080;
+  text-align: left;
+  font-size: 30rpx;
+  padding-left: 10rpx;
+  display: block;
+  width: 50%;
+}
+.news-dt{
+  color: #808080;
+  text-align: right;
+  font-size: 30rpx;
+  padding-right: 10rpx;
+  display: block;
+  width: 50%;
+}
+.section {
+  margin-top: 30rpx;
+  padding: 10rpx 20rpx;
+  line-height: 1.8;
+  font-size: 18px;
+  background-color: #fff;
+  border-top: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+}
+.section-left {
+  width: 30%;
+  text-align: center;
+}
+.section-right {
+  width: 70%;
+  text-align: center;
+}
+.btn {
+  max-width: 400rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+input{
+  margin-top: 6rpx;
+  color: #336699;
+}
