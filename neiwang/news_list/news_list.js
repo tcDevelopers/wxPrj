@@ -77,7 +77,7 @@ Page({
           }
         }
         stv.offset = stv.windowWidth * activeTab;
-      } 
+      }
       /*else {
         快速滑动 但是Y距离大于50 所以用户是左右滚动
         let page = Math.round(offset / windowWidth);
@@ -142,25 +142,22 @@ Page({
       tabdata[tab] = res.data;
       _this.setData({ tabData: tabdata });
     }, function () {
-      wx.showToast({
-        title: '数据加载失败',
-        mask: true,
-      })
+      console.log('数据加载失败')
     }, function () {
       wx.hideLoading();
     })
   },
-  reloadPage: function(e){
+  reloadPage: function (e) {
     this.reLoad(this.data.activeTab);
   },
-  newsDetail: function(e){
+  newsDetail: function (e) {
     var id = e.currentTarget.dataset.id;
     wx.showLoading({
       title: '数据加载中...',
       mask: true,
     })
     wx.navigateTo({
-      url: '../../neiwang/page_detail/page_detail?id='+id+"&type=gsxx",
+      url: '../../neiwang/page_detail/page_detail?id=' + id + "&type=gsxx",
     })
   }
 })
