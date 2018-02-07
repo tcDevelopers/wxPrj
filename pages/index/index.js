@@ -40,7 +40,7 @@ Page({
   onShow: function () {
     var _this = this;
     _this.refreshLogo();
-    //console.log('show')
+    _this.getGrswCount();
   },
   refreshLogo: function () {
     var _this = this;
@@ -158,12 +158,7 @@ Page({
         wx.hideLoading();
         if (obj.length > 0) {
           app.globalData.ggwUserInfo = obj[0];
-          wx.request({
-            url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id
-            , success: function (res) {
-              _this.setData({ grswUnReadNum: res.data[0][0] })
-            }
-          })
+          _this.getGrswCount();
           if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
             _this.setData({
               userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '',
@@ -221,5 +216,17 @@ Page({
       url: '../../neiwang/news_list/news_list'
     })
   },
+  getGrswCount:function(){
+    var _this = this;
+    if (app.globalData.ggwUserInfo.work_id && app.globalData.ggwUserInfo.work_id.length > 0) {
+      console.log('get grsw count');
+      wx.request({
+        url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id
+        , success: function (res) {
+          _this.setData({ grswUnReadNum: res.data[0][0] })
+        }
+      })
+    }
+  }
 })
 
