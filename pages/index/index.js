@@ -219,7 +219,7 @@ Page({
   getGrswCount:function(){
     var _this = this;
     if (app.globalData.ggwUserInfo.work_id && app.globalData.ggwUserInfo.work_id.length > 0) {
-      console.log('get grsw count');
+      //console.log('get grsw count');
       wx.request({
         url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id
         , success: function (res) {

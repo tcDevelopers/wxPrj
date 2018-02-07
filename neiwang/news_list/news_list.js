@@ -126,6 +126,7 @@ Page({
       }, function () {
         wx.showToast({
           title: '数据加载失败',
+          icon: 'loading',
           mask: true
         })
       }, function () {
@@ -142,7 +143,7 @@ Page({
       tabdata[tab] = res.data;
       _this.setData({ tabData: tabdata });
     }, function () {
-      console.log('数据加载失败')
+
     }, function () {
       wx.hideLoading();
     })

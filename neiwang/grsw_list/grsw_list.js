@@ -24,17 +24,17 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         let height = res.windowHeight;
-        console.log('sys height '+height);
+        console.log('sys height ' + height);
         var query = wx.createSelectorQuery()//创建节点查询器 query
         query.select('#search_bar').boundingClientRect()//这段代码的意思是选择Id=the-id的节点，获取节点位置信息的查询请求
         query.exec(function (res) {
           console.log(res);
           that.setData({
-            scrollViewHeight: height - res[0].height 
+            scrollViewHeight: height - res[0].height
           });
         })
       },
-      fail:function(){
+      fail: function () {
       }
     });
   },
@@ -70,7 +70,7 @@ Page({
       + '&search_user=' + p3 + '&search_title=' + p4;
     wx.showLoading({
       title: '正在加载...',
-      mask:true
+      mask: true
     })
     wx.request({
       url: url,
@@ -103,7 +103,7 @@ Page({
       (pageSize + 10) + '&search_user=' + sender + '&search_title=' + title;
     wx.showLoading({
       title: '正在加载..',
-      mask:true
+      mask: true
     })
     wx.request({
       url: url,
@@ -115,7 +115,14 @@ Page({
           pageSize: pageSize
         })
       },
-      complete: function (res) {
+      fail: function () {
+        wx.showToast({
+          title: '数据加载失败',
+          icon: 'loading',
+          mask: true
+        })
+      },
+      complete: function () {
         wx.hideLoading();
       }
     })
