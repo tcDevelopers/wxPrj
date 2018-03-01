@@ -4,15 +4,15 @@ var WxParse = require('../../wxParse/wxParse.js');
 Page({
   data: {
     id: -1,
-    detail_type:"gsxx",
+    detail_type: "gsxx",
     receiver_hidden: true,
     mobile_phone: "",
     fj_list:[] ,
-    sender:"加载中...",
-    time:"",
-    receiver:"加载中...",
-    title:"加载中...",
-    neirong:"加载中...",
+    sender: "加载中...",
+    time: "",
+    receiver: "加载中...",
+    title: "加载中...",
+    neirong: "加载中...",
     neirong_url1: "",
     neirong_url: ""
   },
@@ -102,6 +102,10 @@ Page({
       else if (path.toLowerCase().endsWith(".pdf")) {
         ftype = "pdf";
       }
+      else if (path.toLowerCase().endsWith('.jpg') || path.toLowerCase().endsWith('.png')
+        || path.toLowerCase().endsWith('.bmp') | path.toLowerCase().endsWith('.jpeg')) {
+        ftype = "img";
+      }
       else {
         ftype = "file";
       }
@@ -122,34 +126,53 @@ Page({
 
   },
   tapListItem: function (e) {
-    wx.showLoading({ title: "准备下载..", mask:true});
     var path = e.currentTarget.id;
-    
     var down_url = "https://www.meafe.cn/nw/upload/fjgrsw/201801/2018_1_30_989468_严伟_小区分类调整-下发版.xlsx";
-    down_url = "https://www.meafe.cn/nw/"+path;
+    down_url = "https://www.meafe.cn/nw/" + path;
     console.log(down_url);
-    const downloadTask = wx.downloadFile({
-      url: down_url,
-      success: function (res) {
-        wx.hideLoading();
-        if (res.statusCode === 200) {
-          wx.openDocument({
-            filePath: res.tempFilePath,
-          });
-        }
-        else {
+    if (down_url.toLowerCase().endsWith('.jpg') || down_url.toLowerCase().endsWith('.png')
+      || down_url.toLowerCase().endsWith('.bmp') | down_url.toLowerCase().endsWith('.jpeg')){
+
+      var current = e.target.dataset.imgloc;
+      var urls = [];
+      urls.push(down_url);
+      console.log(current)
+      wx.previewImage({
+        current: down_url,
+        urls: urls,
+        fail: function () {
+          console.log('fail')
+        },
+        complete: function () {
+          //console.info("点击图片了");
+        },
+      })
+    }
+    else {
+      wx.showLoading({ title: "准备下载..", mask: true });
+      const downloadTask = wx.downloadFile({
+        url: down_url,
+        success: function (res) {
+          wx.hideLoading();
+          if (res.statusCode === 200) {
+            wx.openDocument({
+              filePath: res.tempFilePath,
+            });
+          }
+          else {
+            meafe.Toast("文件下载失败");
+          }
+        },
+        fail: function () {
+          wx.hideLoading();
           meafe.Toast("文件下载失败");
         }
-      },
-      fail:function(){
-        wx.hideLoading();
-        meafe.Toast("文件下载失败");
-      }
-    });
-    downloadTask.onProgressUpdate((res) => {
-      wx.showLoading({ title: "下载进度" + res.progress + "%", mask:true});
-      
-    })
+      });
+      downloadTask.onProgressUpdate((res) => {
+        wx.showLoading({ title: "下载进度" + res.progress + "%", mask: true });
+      })
+    }
+    
   },
   bindSrcHtml: function () {
     app.webview_url = this.data.neirong_url1;
