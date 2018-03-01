@@ -9,8 +9,6 @@ Page({
     grswUnReadNum: 0,
     neiwangModuleHide: true
   },
-  //事件处理函数
-  bindViewTap: function () {},
   bindQuery: function () {
     wx.navigateTo({
       url: '../../query/query'

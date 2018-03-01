@@ -68,7 +68,7 @@
   width: 33%;
   height: 240rpx;
   background: white;
-  border-left:1px solid #ddd;
+  border-right:1px solid #ddd;
   border-bottom:1px solid #ddd;
   display: flex;
   align-items: center;
