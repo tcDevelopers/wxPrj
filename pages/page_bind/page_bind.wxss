@@ -16,6 +16,13 @@
   padding: 20rpx;
   flex:2;
 }
+.form-row-item-left{
+  display: flex;
+  justify-content:flex-start;
+  align-items:left;
+  padding: 20rpx;
+  flex:2;
+}
 .form-row-label-view{
   display: flex;
   justify-content:center;

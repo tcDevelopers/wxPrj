@@ -2,7 +2,7 @@ var app = getApp();
 var meafe = require('../../utils/util_meafe.js');
 Page({
   data: {
-    motto: '',
+    motto: "../../img/timg.jpg",
     hidden: true,
     btn_hidden: true,
     userInfo: {},
@@ -10,8 +10,7 @@ Page({
     neiwangModuleHide: true
   },
   //事件处理函数
-  bindViewTap: function () {
-  },
+  bindViewTap: function () {},
   bindQuery: function () {
     wx.navigateTo({
       url: '../../query/query'
@@ -34,12 +33,13 @@ Page({
   },
   onLoad: function () {
     var _this = this;
+    _this.getWxUserInfo();
     _this.tryLogin();
   },
   //设置下方代码主要是从其他界面返回的时候，显示最新的用户信息，有可能在用户绑定界面就改变了用户信息
   onShow: function () {
     var _this = this;
-    _this.refreshLogo();
+    _this.getWxUserInfo();
     _this.getGrswCount();
   },
   refreshLogo: function () {
@@ -72,42 +72,13 @@ Page({
       }
     });
   },
-  tryAuth: function () {
-    /*
+  getWxUserInfo: function () {
     var _this = this;
-    // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
-    wx.getSetting({
-      success(res) {
-        console.log(res)
-        if (!res.authSetting['scope.userInfo']) {
-          wx.authorize({
-            scope: 'scope.userInfo',
-            success() {
-              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
-              
-            },
-            fail(r) {
-              _this.alert("检查权限失败");
-              console.log(r)
-            }
-          })
-        }
-      },
-      fail:function(r){
-      }
-    })*/
-  },
-  getUserInfo: function (suc, fail) {
     wx.getUserInfo({
       withCredentials: true,
       success: function (res) {
-        if (suc) suc(res);
-      },
-      fail: function (res) {
-        //console.log("wx.getUserInfo Error");
-        //console.log(res);
-        _this.setLoginFailed();
-        if (fail) fail(res);
+        app.globalData.userInfo = res.userInfo;
+        _this.refreshLogo();
       }
     })
   },
@@ -117,20 +88,16 @@ Page({
       title: '登陆中...',
     })
     _this.wxLogin(function (res) {
-      //console.log(res)
       app.globalData.code = res.code;
-      _this.getUserInfo(function (res) {
-        //console.log(res)
-        app.globalData.userInfo = res.userInfo;
-        _this.refreshLogo();
-      });
       _this.getOpenid(function (res) {
+        console.log(res);
         _this.loginRemoteServer();
       });
     })
 
   },
   getOpenid: function (suc, fail) {
+    var _this = this;
     var appid = 'wxe2fab7d8fade2cff';//填写微信小程序appid  
     var secret = 'a826603abc5285050e9163d40f61efb3';//填写微信小程序secret 
     wx.request({
@@ -141,8 +108,6 @@ Page({
       success: function (res) {
         //根据openid获取用户信息
         app.globalData.openid = res.data.openid;
-        //console.log("getOpenid")
-        //console.log(res);
         if (suc) suc(res)
       },
       fail: function () {
@@ -153,7 +118,7 @@ Page({
   },
   loginRemoteServer: function () {
     var _this = this;
-    meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "' order by id desc",
+    meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "'",
       function (obj) {
         wx.hideLoading();
         if (obj.length > 0) {
@@ -194,10 +159,10 @@ Page({
       }
     })
   },
-  alert: function (msg, ok_cb) {
+  alert: function (msg,sub_msg, ok_cb) {
     wx.showModal({
       title: msg,
-      content: '',
+      content: sub_msg,
       success: function (res) {
         if (ok_cb)
           ok_cb();
@@ -212,6 +177,11 @@ Page({
   },
   //公司信息
   bindNeiwangGsxxClick: function () {
+    wx.navigateTo({
+      url: '../../neiwang/news_list/news_list'
+    })
+  },
+  bindNeiwangTxlClick: function () {
     wx.navigateTo({
       url: '../../neiwang/news_list/news_list'
     })

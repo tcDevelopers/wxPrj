@@ -9,9 +9,9 @@ App({
   },
   globalData:{ 
     code:'',
-    userInfo:null,
+    userInfo: {},
     openid:"",
-    ggwUserInfo:{work_id:'',person_name:'',smz_role:''}
+    ggwUserInfo: {}
   },
   webview_url:""
 })

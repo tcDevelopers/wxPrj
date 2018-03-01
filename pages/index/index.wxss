@@ -1,32 +1,47 @@
 /**index.wxss**/
+
+
 .userinfo {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  background: #4B89F2;
+  color:white;
+  width:100%;
+  padding-bottom:20rpx;
 }
 
 .userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+  width: 108rpx;
+  height: 108rpx;
+  margin-left: 30rpx;
+  margin-right: 20rpx;
+  margin-bottom: 0rpx;
+  margin-top: 20rpx;
   border-radius: 50%;
 }
 
 .userinfo-nickname {
-  margin-top: 50rpx;
+  margin-top: 0rpx;
   color: #666;
   font-size:36rpx;
   font-weight:bold;
 }
-
+.userinfo-txt-view{
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: flex-start;
+  padding-left:30rpx;
+}
 .userinfo-txt1{
-  color: #666;
+  color: white;
   font-size:54rpx;
 }
 
 .userinfo-txt2{
-  color: #666;
-  font-size:36rpx;
+  color: white;
+  font-size:28rpx;
 }
 
 .userinfo-txt3{
@@ -42,11 +57,23 @@
 }
 
 .nw{
-  margin-top:25rpx;
   display: flex;
-  flex-direction: row;
-  flex:1;
+  flex-wrap: wrap;
+  flex: 1;
   width: 100%;
+}
+
+.nw_btn{
+  flex-direction: column;
+  width: 33%;
+  height: 240rpx;
+  background: white;
+  border-left:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  font-size:32rpx;
 }
 
 .bc_gwsw{
@@ -65,4 +92,20 @@
   display: flex;
   align-items: center;
   justify-content:center;
+}
+.bc_txl{
+  flex:1;
+  height: 120rpx;
+  background: #A7F0FE;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+.btn_icon{
+  width: 120rpx;
+  height: 120rpx;
+  margin-bottom: 30rpx;
+  margin-top: 20rpx;
+  border-radius: 5%;
 }
