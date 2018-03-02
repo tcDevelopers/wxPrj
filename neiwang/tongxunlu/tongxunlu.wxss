@@ -41,38 +41,39 @@ input {
   background-color: #fff;
   padding: 10rpx 20rpx;
 }
-.staff-nm {
-  display: block;
-  font-size: 32rpx;
-}
-.staff-dep{
-  display: block;
-  font-size: 32rpx;
-}
 .staff-info {
   padding: 5rpx 10rpx 0 10rpx;
   display: flex;
   flex-flow: row;
 }
-.staff-mobile {
-  color: #808080;
+.staff-nm {
+  color: #d2b72b;
   text-align: left;
+  padding-left: 20rpx;
+  font-size: 32rpx;
+  width: 30%;
+}
+.staff-dep{
+  color: #0d3556;
+  text-align: right;
+  padding-right: 10rpx;
+  font-size: 32rpx;
+  width: 70%;
+}
+.staff-mobile {
+  text-align: left;
+  padding-left: 20rpx;
   font-size: 30rpx;
-  padding-left: 10rpx;
-  display: block;
   width: 40%;
 }
 .staff-short {
-  color: #808080;
   text-align: center;
   font-size: 30rpx;
-  display: block;
-  width: 10%;
+  width: 20%;
 }
 .staff-guhua {
-  color: #808080;
   text-align: right;
+  padding-right: 10rpx;
   font-size: 30rpx;
-  display: block;
-  width: 50%;
+  width: 40%;
 }
