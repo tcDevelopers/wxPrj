@@ -182,6 +182,7 @@ Page({
 
   bindNeiwangTxlClick: function () {
     wx.navigateTo({
+      url: '../../neiwang/tongxunlu/tongxunlu'
     })
   },
   getGrswCount:function(){
