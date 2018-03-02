@@ -6,8 +6,7 @@ Page({
     hidden: true,
     btn_hidden: true,
     userInfo: {},
-    grswUnReadNum: 0,
-    neiwangModuleHide: true
+    grswUnReadNum: 0
   },
   bindQuery: function () {
     wx.navigateTo({
@@ -124,8 +123,7 @@ Page({
           _this.getGrswCount();
           if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
             _this.setData({
-              userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == '',
-              neiwangModuleHide: obj[0].person_type != '主业'
+              userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == ''
             });
           }
           //调用应用实例的方法获取全局数据
