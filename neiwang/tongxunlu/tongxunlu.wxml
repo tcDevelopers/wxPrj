@@ -23,6 +23,7 @@
 </view>
 <button type='primary' class='btn' bindtap='search'>查询</button>
 <block wx:for="{{staffList}}" wx:key="index">
+<view data-id="{{item}}"  bindtap="openMakeCallOption">
   <view class="staff-list">
     <view class="staff-info">
       <label class="staff-nm">{{item.person_name}}</label>
@@ -34,4 +35,14 @@
       <label class="staff-guhua">{{item.gd_phone}}</label>
     </view>
   </view>
+  </view>
 </block>
+
+<!--默认action-sheet为隐藏，由button触发-->
+<action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" >
+    <block wx:for-items="{{actionSheetItems}}"> 
+        <action-sheet-item data-id="{{item}}" bindtap="makeCall">{{item}}</action-sheet-item>
+    </block>
+    <!--自动隐藏action-sheet-->
+    <action-sheet-cancel>取消</action-sheet-cancel>
+</action-sheet>

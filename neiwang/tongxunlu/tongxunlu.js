@@ -13,6 +13,8 @@ Page({
     staffGh: '',
     staffSj: '',
     staffDh: '',
+    actionSheetHidden: true,
+    actionSheetItems: []
   },
 
   /**
@@ -112,4 +114,32 @@ Page({
   onShareAppMessage: function () {
 
   }
+  , makeCall: function (e) {
+    var nbr = e.currentTarget.dataset.id;
+    wx.makePhoneCall({
+      phoneNumber: nbr
+    })
+  }
+  , openMakeCallOption: function(e){
+    var item = e.currentTarget.dataset.id;
+    var nbrs = [];
+    if (item.mobile_phone.length > 0) {
+      nbrs.push(item.mobile_phone);
+    }
+    if(item.short_phone.length>0){
+      nbrs.push(item.short_phone);
+    }
+    if (item.gd_phone.length > 0) {
+      nbrs.push(item.gd_phone);
+    }
+    this.setData({
+      actionSheetItems:nbrs,
+      actionSheetHidden: false
+    });
+  },
+  listenerActionSheet: function (e) {
+    this.setData({
+      actionSheetHidden: true
+    })
+  },
 })
