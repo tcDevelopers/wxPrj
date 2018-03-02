@@ -1,6 +1,6 @@
 <view class="container">
     <view class="userinfo">
-        <view>
+        <view> 
           <image class="userinfo-avatar" src="{{motto}}" mode="aspectFill"></image>  
         </view>
         <view hidden="{{!userInfo.work_id}}" class="userinfo-txt-view">
