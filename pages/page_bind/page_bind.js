@@ -45,6 +45,9 @@ Page({
           _this.setData({ sendWait: 30 });
           _this.sendWaitProd();
         }
+        else {
+          meafe.Toast(res.data.trim());
+        }
       }
     })
   },
@@ -109,6 +112,9 @@ Page({
             meafe.Toast('请重试')
           });
         }
+      },
+      fail(){
+        meafe.Toast("网络失败，请重试")
       }
     })   
   }
