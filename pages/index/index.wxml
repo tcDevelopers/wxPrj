@@ -11,6 +11,7 @@
     <view class="usermotto"> 
         <button hidden="" style="background-color:#9ED86A;margin-top:10px;" bindtap="bindKehuPhoto">实名制登记</button>
         <button hidden="{{btn_hidden}}" style="background-color:#90CAC9;margin-top:10px;" bindtap="bindChannel">渠道支撑</button>
+        <button style="background-color:#FECA41;margin-top:10px;" bindtap="bindTXL">通讯录</button>
         <button hidden="True" style="background-color:#FECA41;margin-top:10px;" bindtap="bindQuery">数据决策</button>
         <button style="background-color:#DDDDDD;margin-top:10px;"bindtap="bindGGWUser">员工绑定</button>
     </view>

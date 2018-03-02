@@ -216,6 +216,12 @@ Page({
       url: '../../neiwang/news_list/news_list'
     })
   },
+  //通讯录
+  bindTXL:function(){
+    wx.navigateTo({
+      url: '../../neiwang/tongxunlu/tongxunlu',
+    })
+  },
   getGrswCount:function(){
     var _this = this;
     if (app.globalData.ggwUserInfo.work_id && app.globalData.ggwUserInfo.work_id.length > 0) {
