@@ -1,0 +1,78 @@
+/* neiwang/tongxunlu/tongxunlu.wxss */
+page {
+  background-color: #f8f8f8;
+  line-height: 1.6;
+}
+
+.section {
+  margin: 30rpx 0 0 0; 
+  padding: 20rpx 30rpx;
+  line-height: 1.8;
+  font-size: 35rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  background:white;
+}
+.section-left {
+  width: 30%;
+  text-align: center;
+}
+.section-mid {
+  width: 40%;
+  text-align: center;
+}
+.section-right {
+  width: 30%;
+  text-align: center;
+}
+input {
+  color: #369;
+}
+.btn {
+  max-width: 500rpx;
+  margin-top: 30rpx;
+}
+
+.staff-list {
+  margin: 20rpx;
+  background-color: #fff;
+  padding: 10rpx 20rpx;
+}
+.staff-nm {
+  display: block;
+  font-size: 32rpx;
+}
+.staff-dep{
+  display: block;
+  font-size: 32rpx;
+}
+.staff-info {
+  padding: 5rpx 10rpx 0 10rpx;
+  display: flex;
+  flex-flow: row;
+}
+.staff-mobile {
+  color: #808080;
+  text-align: left;
+  font-size: 30rpx;
+  padding-left: 10rpx;
+  display: block;
+  width: 40%;
+}
+.staff-short {
+  color: #808080;
+  text-align: center;
+  font-size: 30rpx;
+  display: block;
+  width: 10%;
+}
+.staff-guhua {
+  color: #808080;
+  text-align: right;
+  font-size: 30rpx;
+  display: block;
+  width: 50%;
+}

@@ -179,9 +179,9 @@ Page({
       url: '../../neiwang/news_list/news_list'
     })
   },
+
   bindNeiwangTxlClick: function () {
     wx.navigateTo({
-      url: '../../neiwang/news_list/news_list'
     })
   },
   getGrswCount:function(){

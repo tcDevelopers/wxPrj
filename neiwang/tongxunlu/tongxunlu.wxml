@@ -1,0 +1,35 @@
+<!--neiwang/tongxunlu/tongxunlu.wxml-->
+<view class="section">
+    <view class="section-left">
+      <input placeholder="部门" bindinput='changeNamer' />
+    </view>
+    <view class="section-mid">
+      <input placeholder="班组" bindinput='changePhone' />
+    </view>
+    <view class="section-right">
+      <input placeholder="姓名" bindinput='changePhone' />
+    </view>
+</view>
+<view class="section">
+    <view class="section-left">
+      <input placeholder="固话" bindinput='changeNamer' />
+    </view>
+    <view class="section-mid">
+      <input placeholder="手机" bindinput='changePhone' />
+    </view>
+    <view class="section-right">
+      <input placeholder="短号" bindinput='changePhone' />
+    </view>
+</view>
+<button type='primary' class='btn'>查询</button>
+<block wx:for="{{staffList}}" wx:key="index">
+  <view class="staff-list">
+    <label class="staff-nm">姓名</label>
+    <label class="staff-dep">部门/班组</label>
+    <view class="staff-info">
+      <label class="staff-mobile">{{item[4]}}</label>
+      <label class="staff-short" wx:if="{{item[2]}}">已读</label>
+      <label class="staff-guhua">{{item[3]}}</label>
+    </view>
+  </view>
+</block>

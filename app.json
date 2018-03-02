@@ -24,7 +24,8 @@
     "neiwang/news_list/news_list",
     "neiwang/grsw_list/grsw_list",
     "neiwang/page_detail/page_detail",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "neiwang/tongxunlu/tongxunlu"
   ],
   "window": {
     "backgroundTextStyle": "light",
