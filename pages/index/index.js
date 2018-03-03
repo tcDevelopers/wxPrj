@@ -87,24 +87,21 @@ Page({
     _this.wxLogin(function (res) {
       app.globalData.code = res.code;
       _this.getOpenid(function (res) {
+        console.log("openid is :")
         console.log(res);
         _this.loginRemoteServer();
       });
     })
-
   },
   getOpenid: function (suc, fail) {
     var _this = this;
     var appid = 'wxe2fab7d8fade2cff';//填写微信小程序appid  
     var secret = 'a826603abc5285050e9163d40f61efb3';//填写微信小程序secret 
     wx.request({
-      url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + app.globalData.code + '&grant_type=authorization_code',
-      header: {
-        'content-type': 'application/json'
-      },
+      url: 'https://www.meafe.cn/wx/GetXcxOpenid?&code=' + app.globalData.code ,
       success: function (res) {
         //根据openid获取用户信息
-        app.globalData.openid = res.data.openid;
+        app.globalData.openid = res.data;
         if (suc) suc(res)
       },
       fail: function () {

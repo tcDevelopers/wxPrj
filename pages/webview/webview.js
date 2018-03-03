@@ -6,6 +6,7 @@ Page({
     url: "",
   },
   onLoad: function () {
+    wx.hideLoading();
     var thiz = this;
     console.log("url->" + app.webview_url)
     thiz.setData({

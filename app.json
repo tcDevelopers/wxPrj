@@ -4,6 +4,7 @@
     "pages/page_user_bind/page_user_bind",
     "pages/map/map",
     "pages/logs/logs",
+    "pages/file_download/file_download",
     "pages/page_ggw_add/page_ggw_add",
     "pages/page_ggw_list/page_ggw_list",
     "pages/page_ggw_listforxiaoqu/page_ggw_listforxiaoqu",

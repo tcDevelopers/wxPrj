@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageSize: 10,
+    pageSize: 50,
     sender: '',
     title: '',
     pageData: [],
@@ -88,8 +88,8 @@ Page({
    */
   reLoad: function (e) {
     let { sender, title } = this.data;
-    this.setData({ pageSize: 10 });
-    this.getList(app.globalData.ggwUserInfo.work_id, 10, sender, title);
+    this.setData({ pageSize: 50 });
+    this.getList(app.globalData.ggwUserInfo.work_id, 50, sender, title);
   },
 
   /**
@@ -100,7 +100,7 @@ Page({
     var { pageSize, sender, title } = _this.data;
     var url = 'https://www.meafe.cn/sxf/get_grsw_shou_list/';
     url += '?staff_no=' + app.globalData.ggwUserInfo.work_id + '&top_n=' +
-      (pageSize + 10) + '&search_user=' + sender + '&search_title=' + title;
+      (pageSize + 50) + '&search_user=' + sender + '&search_title=' + title;
     wx.showLoading({
       title: '正在加载..',
       mask: true
@@ -109,7 +109,7 @@ Page({
       url: url,
       success: function (res) {
         if (res.data.length > pageSize)
-          pageSize += 10;
+          pageSize += 50;
         _this.setData({
           pageData: res.data,
           pageSize: pageSize
@@ -137,8 +137,9 @@ Page({
       title: '数据加载中...',
       mask: true,
     })
+    app.webview_url = 'https://www.meafe.cn/sxf/get_grsw_shou_html/?id=' + id + "&type=grsw";
     wx.navigateTo({
-      url: '../../neiwang/page_detail/page_detail?id=' + id + "&type=grsw_shou",
+      url: '../../pages/webview/webview',
     })
   },
 

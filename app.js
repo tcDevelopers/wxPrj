@@ -13,5 +13,6 @@ App({
     openid:"",
     ggwUserInfo: {}
   },
-  webview_url:""
+  webview_url:"",
+  downloadTask: null
 })

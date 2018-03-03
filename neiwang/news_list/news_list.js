@@ -11,7 +11,7 @@ Page({
     },
     activeTab: 0,
     tabData: [],
-    pageSize: [10, 10, 10, 10],
+    pageSize: [50, 50, 50, 50],
     loadingHidden: true,
   },
   onLoad: function (options) {
@@ -113,13 +113,13 @@ Page({
     if (!_this.data.loadingHidden)
       return
     _this.setData({ loadingHidden: false });
-    meafe.nwMsg(pagesize[tab] + 10, _this.data.tabs[tab],
+    meafe.nwMsg(pagesize[tab] + 50, _this.data.tabs[tab],
       function (res) {
         let tabdata = _this.data.tabData;
         tabdata[tab] = res.data;
         _this.setData({ tabData: tabdata });
         if (res.data.length > pagesize[tab])
-          pagesize[tab] = pagesize[tab] + 10
+          pagesize[tab] = pagesize[tab] + 50
         _this.setData({
           pageSize: pagesize
         })
@@ -156,9 +156,10 @@ Page({
     wx.showLoading({
       title: '数据加载中...',
       mask: true,
-    })
+    });
+    app.webview_url = 'https://www.meafe.cn/sxf/get_gsxx_html/?id=' + id+"&type=gsxx";
     wx.navigateTo({
-      url: '../../neiwang/page_detail/page_detail?id=' + id + "&type=gsxx",
+      url: '../../pages/webview/webview',
     })
   }
 })

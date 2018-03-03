@@ -1,0 +1,4 @@
+<view class="section">
+    <button style="background-color:white;margin-top:10px;" bindtap="download">打开{{file_name}}</button>
+    <button style="background-color:white;margin-top:10px;" bindtap="returnBack">返回</button>
+</view>
