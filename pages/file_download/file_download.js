@@ -30,7 +30,7 @@ Page({
     if (down_url.toLowerCase().endsWith('.jpg') || down_url.toLowerCase().endsWith('.png')
       || down_url.toLowerCase().endsWith('.bmp') | down_url.toLowerCase().endsWith('.jpeg')) {
 
-      var current = e.target.dataset.imgloc;
+      var current = down_url;
       var urls = [];
       urls.push(down_url);
       console.log(current)
