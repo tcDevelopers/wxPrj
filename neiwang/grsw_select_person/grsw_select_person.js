@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selectedPerson:[]
+    selectedPerson:[] //格式：["路郁","沈旭锋"]
   },
 
   /**
