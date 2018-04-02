@@ -1,0 +1,3 @@
+<!--neiwang/grsw_select_person.wxml-->
+<text>联系人界面</text>
+<text>{{selectedPerson.join("_")}}</text>

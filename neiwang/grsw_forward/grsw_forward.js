@@ -3,19 +3,16 @@ var meafe = require('../../utils/util_meafe.js');
 var util = require('../../utils/util.js');
 Page({
   data: {
-    id: null,
-    receivers: "",
+    id: -1,
+    receivers: "路郁",
     title: '',
     content: '',
-    sender: '',
-    user_no: ''
+    user_no: '',
+    fj_ids:[]
   },
   onLoad: function (option) {
     var thiz = this;
-    thiz.setData({ id: option.id, 
-      reply: option.reply,
-      user_no: option.user_no 
-    });
+    thiz.setData({ id: option.id, reply: option.reply });
     thiz.getData();
     var _this = this;
     var work_id = app.globalData.ggwUserInfo.work_id;
@@ -25,7 +22,7 @@ Page({
     // 页面渲染完成
   },
   onShow: function () {
-    this.setData({ receivers: (app.receivers).join(" ")})
+    this.setData({ receivers: (app.receivers).join(" ") })
   },
   onHide: function () {
     // 页面隐藏
@@ -49,11 +46,10 @@ Page({
     return result;
   },
   getData: function () {
-    var thiz = this;
-    if (thiz.data.id == null) return;
     wx.showLoading({
       title: '正在加载..',
     })
+    var thiz = this;
     //获取数据内容
     wx.request({
       url: "https://www.meafe.cn/sxf/get_grsw_shou_detail/?id=" + thiz.data.id,
@@ -65,25 +61,16 @@ Page({
       success: function (res) {
         console.log(res.data);
         var sender = res.data.sender.trim();
-        var receiver = res.data.receiver;
-        var reply_person = sender;
-        if (thiz.data.reply == '2') {
-          reply_person = sender + " " + receiver.trim();
+        var fj_ids = [];
+        for (var i in res.data.fujian){
+          fj_ids.push(res.data.fujian[i][2]);
         }
-        reply_person = reply_person.replace(res.data.shouuser, "");
-        reply_person = reply_person.replace(res.data.shouuser, "");
-        reply_person = reply_person.replace(res.data.shouuser, "");
-        reply_person = reply_person.replace("  ", " ");
-        reply_person = reply_person.replace("  ", " ");
-        reply_person = reply_person.trim();
-        var plist = reply_person.split(" ");
-        plist = thiz.distinct(plist);
-        app.receivers = plist;  
         thiz.setData({
-          title: (thiz.data.reply=='1'?"回复 ":"回复所有人 ") + res.data.title,
-          receivers: app.receivers.join(" "),
+          title: "转发 " + res.data.title,
+          content: res.data.neirong,
           sender: res.data.sender,
           user_no: res.data.user_no,
+          fj_ids: fj_ids
         });
       },
       fail: function (res) {
@@ -134,18 +121,15 @@ Page({
         meafe.Toast("请输入标题");
         return;
       }
-      if (thiz.data.content.trim().length == 0) {
-        meafe.Toast("请输入内容");
-        return;
-      }
-      console.log(thiz.data)
       wx.request({
-        url: "https://www.meafe.cn/sxf/fa_grsw/",
+        url: "https://www.meafe.cn/sxf/zhuanfa_grsw/",
         data: {
           receivers: thiz.data.receivers.split(" "),
-          sender: app.globalData.ggwUserInfo.work_id,
+          sender: thiz.data.user_no,
           title: thiz.data.title,
-          content: thiz.data.content
+          content: thiz.data.content,
+          fj_ids: thiz.data.fj_ids,
+          shouid: thiz.data.id
         },
         method: "POST",
         dataType: "json",
@@ -179,7 +163,7 @@ Page({
       })
     }, 300);
   },
-  selectContact: function () {
+  selectContact:function(){
     wx.navigateTo({
       url: '../grsw_select_person/grsw_select_person',
     })

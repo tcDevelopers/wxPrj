@@ -190,5 +190,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  open_send: function () {
+    wx.navigateTo({
+      url: '../grsw_reply/grsw_reply',
+    })
   }
 })

@@ -1,10 +1,14 @@
 <!--neiwang/grsw_list/grsw_list.wxml-->
 <view class="section" id="search_bar">
+    <view class="section-left1">
+      <text type="primary" bindtap="open_send" class="btn1">发送</text>
+    </view>
     <view class="section-left">
-      <input placeholder="发件人搜索" bindinput='changeSender' />
+
+      <input placeholder="发件人" bindinput='changeSender' />
     </view>
     <view class="section-mid">
-      <input placeholder="标题搜索" bindinput='changeTitle' />
+      <input placeholder="标题" bindinput='changeTitle' />
     </view>
     <view class="section-right">
       <text type="primary" bindtap="search" class="btn">搜索</text>

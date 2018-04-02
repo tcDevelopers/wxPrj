@@ -66,14 +66,17 @@ page {
   flex-direction: row;
   background:white;
 }
-
+.section-left {
+  width: 20%;
+  text-align: center;
+}
 .section-left {
   width: 30%;
   text-align: center;
 }
 
 .section-mid {
-  width: 50%;
+  width: 30%;
   text-align: center;
 }
 
@@ -86,6 +89,16 @@ page {
   height: 60rpx;
   color: #fff;
   background-color: #1aad19;
+  border-radius: 5px;
+  padding-left: 14px;
+  padding-right: 14px;
+  display:block;
+}
+
+.btn1 {
+  height: 60rpx;
+  color: #fff;
+  background-color: #4D8CF5;
   border-radius: 5px;
   padding-left: 14px;
   padding-right: 14px;
