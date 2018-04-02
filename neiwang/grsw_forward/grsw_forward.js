@@ -7,12 +7,14 @@ Page({
     receivers: "路郁",
     title: '',
     content: '',
-    user_no: '',
     fj_ids:[]
   },
   onLoad: function (option) {
     var thiz = this;
-    thiz.setData({ id: option.id, reply: option.reply });
+    thiz.setData({
+      id: option.id, 
+      reply: option.reply,
+    });
     thiz.getData();
     var _this = this;
     var work_id = app.globalData.ggwUserInfo.work_id;
@@ -69,7 +71,6 @@ Page({
           title: "转发 " + res.data.title,
           content: res.data.neirong,
           sender: res.data.sender,
-          user_no: res.data.user_no,
           fj_ids: fj_ids
         });
       },
@@ -125,7 +126,7 @@ Page({
         url: "https://www.meafe.cn/sxf/zhuanfa_grsw/",
         data: {
           receivers: thiz.data.receivers.split(" "),
-          sender: thiz.data.user_no,
+          sender: app.globalData.ggwUserInfo.work_id,
           title: thiz.data.title,
           content: thiz.data.content,
           fj_ids: thiz.data.fj_ids,

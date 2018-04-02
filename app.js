@@ -11,7 +11,7 @@ App({
     openid:"",
     ggwUserInfo: {}
   },
-  receivers:["路郁"],
+  receivers:[],
   webview_url:"",
   downloadTask: null
 })

@@ -7,18 +7,15 @@ Page({
     receivers: "",
     title: '',
     content: '',
-    sender: '',
-    user_no: ''
+    sender: ''
   },
   onLoad: function (option) {
     var thiz = this;
     thiz.setData({ id: option.id, 
-      reply: option.reply,
-      user_no: option.user_no 
+      reply: option.reply
     });
     thiz.getData();
     var _this = this;
-    var work_id = app.globalData.ggwUserInfo.work_id;
     app.receivers = [];  
   },
   onReady: function () {
@@ -82,8 +79,7 @@ Page({
         thiz.setData({
           title: (thiz.data.reply=='1'?"回复 ":"回复所有人 ") + res.data.title,
           receivers: app.receivers.join(" "),
-          sender: res.data.sender,
-          user_no: res.data.user_no,
+          sender: res.data.sender
         });
       },
       fail: function (res) {
