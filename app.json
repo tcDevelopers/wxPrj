@@ -26,7 +26,10 @@
     "neiwang/grsw_list/grsw_list",
     "neiwang/page_detail/page_detail",
     "pages/webview/webview",
-    "neiwang/tongxunlu/tongxunlu"
+    "neiwang/tongxunlu/tongxunlu",
+    "neiwang/grsw_reply/grsw_reply",
+    "neiwang/grsw_forward/grsw_forward",
+    "neiwang/grsw_select_person/grsw_select_person"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,169 @@
+page {
+  background-color: #f8f8f8;
+  height: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
+}
+
+.page-section {
+  width: 100%;
+  margin-bottom: 30rpx;
+}
+
+.page-section-title {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 10rpx;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+}
+
+.route {
+  display: flex;
+  flex-direction: row;
+}
+
+.node {
+  padding: 10rpx;
+  text-align: center;
+  margin: auto;
+}
+
+.node-person {
+  display: inline-block;
+  padding: 0 30rpx 10rpx 30rpx;
+  font-size: 32rpx;
+  color: #666;
+}
+
+.node-line {
+  margin: 0 auto;
+  width: 150rpx;
+  height: 2rpx;
+  background-color: #d8d8d8;
+}
+
+.node-desc {
+  padding-top: 10rpx;
+  color: #9b9b9b;
+  font-size: 32rpx;
+}
+
+radio {
+  margin-right: 10rpx;
+  padding-left: 30rpx;
+}
+
+label {
+  display: inline-block;
+  min-width: 75rpx;
+}
+
+.textarea-wrp {
+  padding: 0 25rpx;
+  background-color: #fff;
+  
+}
+
+textarea {
+  width: 700rpx;
+  padding: 25rpx 0;
+}
+
+.btn {
+  max-width: 500rpx;
+  margin-bottom: 30rpx;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin-top: 50rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  margin: 20rpx 0 30rpx;
+  color: #9b9b9b;
+}
+
+.list-item {
+  margin: 20rpx;
+  background-color: #fff;
+  padding: 10rpx 20rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+navigator {
+  text-align: center;
+  width: 100%;
+  font-size: 54rpx;
+}
+
+scroll-view {
+  height: 700rpx;
+}
+
+.item-section {
+  width: 50%;
+}
+
+.item-user {
+  display: block;
+  font-size: 40rpx;
+  color: #03c;
+  font-weight: bolder;
+}
+
+.item-act {
+  display: block;
+  font-size: 28rpx;
+  color: #808080;
+}
+
+.item-state {
+  text-align: right;
+  display: block;
+}
+
+.item-dt {
+  text-align: right;
+  display: block;
+  color: #808080;
+}
+
+.pick {
+  margin-top: 30rpx;
+  padding: 10rpx 20rpx;
+  line-height: 1.8;
+  font-size: 18px;
+  background-color: #fff;
+  border-top: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+}
+
+.pick-left {
+  width: 30%;
+  text-align: center;
+}
+
+.pick-right {
+  width: 70%;
+  text-align: center;
+}
+
+.no-data {
+  color: #9b9b9b;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 10px;
+}
