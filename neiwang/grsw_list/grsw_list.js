@@ -137,6 +137,9 @@ Page({
       title: '数据加载中...',
       mask: true,
     })
+    wx.request({
+      url: 'https://www.meafe.cn/sxf/chakan_grsw/?shouid=' + id,
+    })
     app.webview_url = 'https://www.meafe.cn/sxf/get_grsw_shou_html/?id=' + id + "&type=grsw";
     wx.navigateTo({
       url: '../../pages/webview/webview',
