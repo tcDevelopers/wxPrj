@@ -88,6 +88,7 @@ icon {
 
 .weui-cells_after-title {
   margin-top: 0;
+  padding-bottom:20rpx;
 }
 
 .weui-cells__tips {
@@ -195,6 +196,14 @@ icon {
   margin-right: 4.6px;
 }
 
+.weui-check__label{
+border-radius:30rpx;
+border:1px solid #ddd;
+margin-left:20rpx;
+margin-top:20rpx;
+background:#f8f8f8;
+}
+
 .weui-check__label:active {
   background-color: #ececec;
 }
@@ -209,7 +218,7 @@ icon {
 }
 
 .weui-cell__ft_in-radio {
-  padding-left: 0.35em;
+  padding-left: 0.1em;
 }
 
 .weui-cell_input {

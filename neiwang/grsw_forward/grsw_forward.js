@@ -123,6 +123,9 @@ Page({
         meafe.Toast("请输入标题");
         return;
       }
+      wx.showLoading({
+        title: '正在发送...',
+      })
       wx.request({
         url: "https://www.meafe.cn/sxf/zhuanfa_grsw/",
         data: {
@@ -138,6 +141,7 @@ Page({
         responseType: "text",
         success: function (res) {
           console.log(res.data);
+          wx.hideLoading();
           if (res.data == true) {
             meafe.Toast("发送成功");
             wx.removeStorageSync("selected");
@@ -150,8 +154,9 @@ Page({
           }
         },
         fail: function (res) {
+          wx.hideLoading();
           wx.showModal({
-            title: '服务器开小差了，是否重新获取数据？',
+            title: '服务器开小差了，是否重新发送数据？',
             content: '',
             success: function (res) {
               if (res.confirm) {

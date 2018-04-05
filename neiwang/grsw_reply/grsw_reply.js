@@ -135,7 +135,10 @@ Page({
         meafe.Toast("请输入内容");
         return;
       }
-      console.log(thiz.data)
+      console.log(thiz.data);
+      wx.showLoading({
+        title: '正在发送...',
+      })
       wx.request({
         url: "https://www.meafe.cn/sxf/fa_grsw/",
         data: {
@@ -148,6 +151,7 @@ Page({
         dataType: "json",
         responseType: "text",
         success: function (res) {
+          wx.hideLoading();
           console.log(res.data);
           if (res.data == true) {
             meafe.Toast("发送成功");
@@ -161,8 +165,9 @@ Page({
           }
         },
         fail: function (res) {
+          wx.hideLoading();
           wx.showModal({
-            title: '服务器开小差了，是否重新获取数据？',
+            title: '服务器开小差了，是否重新发送数据？',
             content: '',
             success: function (res) {
               if (res.confirm) {
