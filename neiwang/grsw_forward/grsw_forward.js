@@ -4,27 +4,28 @@ var util = require('../../utils/util.js');
 Page({
   data: {
     id: -1,
-    receivers: "路郁",
+    receivers: [],
     title: '',
     content: '',
-    fj_ids:[]
+    fj_ids: []
   },
   onLoad: function (option) {
     var thiz = this;
-    thiz.setData({
-      id: option.id, 
-      reply: option.reply,
-    });
+    if (option.id)
+      thiz.setData({
+        id: option.id,
+        reply: option.reply,
+      });
     thiz.getData();
-    var _this = this;
     var work_id = app.globalData.ggwUserInfo.work_id;
-    app.receivers = [];  
   },
   onReady: function () {
     // 页面渲染完成
   },
   onShow: function () {
-    this.setData({ receivers: (app.receivers).join(" ") })
+    let selected = wx.getStorageSync('selected');
+    if (selected)
+      this.setData({ receivers: selected.map(val => val.nm) });
   },
   onHide: function () {
     // 页面隐藏
@@ -64,7 +65,7 @@ Page({
         console.log(res.data);
         var sender = res.data.sender.trim();
         var fj_ids = [];
-        for (var i in res.data.fujian){
+        for (var i in res.data.fujian) {
           fj_ids.push(res.data.fujian[i][2]);
         }
         thiz.setData({
@@ -114,7 +115,7 @@ Page({
   submit: function () {
     var thiz = this;
     setTimeout(function () {
-      if (thiz.data.receivers.trim().length == 0) {
+      if (thiz.data.receivers.length == 0) {
         meafe.Toast("请选择联系人");
         return;
       }
@@ -125,7 +126,7 @@ Page({
       wx.request({
         url: "https://www.meafe.cn/sxf/zhuanfa_grsw/",
         data: {
-          receivers: thiz.data.receivers.split(" "),
+          receivers: thiz.data.receivers,
           sender: app.globalData.ggwUserInfo.work_id,
           title: thiz.data.title,
           content: thiz.data.content,
@@ -137,9 +138,9 @@ Page({
         responseType: "text",
         success: function (res) {
           console.log(res.data);
-          if (res.data==true) {
+          if (res.data == true) {
             meafe.Toast("发送成功");
-            app.receivers = [];
+            wx.removeStorageSync("selected");
             wx.navigateBack({
               delta: 1
             })
@@ -164,7 +165,7 @@ Page({
       })
     }, 300);
   },
-  selectContact:function(){
+  selectContact: function () {
     wx.navigateTo({
       url: '../grsw_select_person/grsw_select_person',
     })

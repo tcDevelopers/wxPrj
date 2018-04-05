@@ -1,22 +1,22 @@
 <view class="page-section">
-    <view class="page-section-title">收件人</view>
-     <view bindtap="selectContact" style="margin-left:2%;border:1px solid black;width:92%;padding:10rpx;border-radius:10rpx;background:#FCCB43;">
-     {{receivers.length==0?"点击选择联系人":receivers}}
-     </view>
+  <view class="page-section-title">收件人</view>
+  <view bindtap="selectContact" style="margin-left:2%;border:1px solid black;width:92%;padding:10rpx;border-radius:10rpx;background:#FCCB43;">
+    {{!receivers.length?"点击选择联系人":receivers}}
+  </view>
 </view>
 <view class="page-section">
-    <view class="page-section-title">标题</view>
-    <view class="textarea-wrp">
-     <textarea bindblur='textBlur' style="height:100rpx;" placeholder="输入标题" value="{{title}}" />
-    </view>
+  <view class="page-section-title">标题</view>
+  <view class="textarea-wrp">
+    <textarea bindblur='textBlur' style="height:100rpx;" placeholder="输入标题" value="{{title}}" />
+  </view>
 </view>
 
 <view class="page-section">
-    <view class="page-section-title">内容</view>
-    <view class="textarea-wrp">
-        <textarea bindblur='textBlur2' style="min-height:300rpx;" placeholder="输入回复内容" value="{{content}}" auto-height />
-    </view>
+  <view class="page-section-title">内容</view>
+  <view class="textarea-wrp">
+    <textarea bindblur='textBlur2' style="min-height:300rpx;" placeholder="输入回复内容" value="{{content}}" auto-height />
+  </view>
 </view>
 <view class="page-section">
-    <button type="primary" bindtap="submit" class="btn">发送</button>
+  <button type="primary" bindtap="submit" class="btn">发送</button>
 </view>

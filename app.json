@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "neiwang/grsw_select_person/grsw_select_person",
     "pages/page_user_bind/page_user_bind",
     "pages/map/map",
     "pages/logs/logs",
@@ -28,8 +29,7 @@
     "pages/webview/webview",
     "neiwang/tongxunlu/tongxunlu",
     "neiwang/grsw_reply/grsw_reply",
-    "neiwang/grsw_forward/grsw_forward",
-    "neiwang/grsw_select_person/grsw_select_person"
+    "neiwang/grsw_forward/grsw_forward"
   ],
   "window": {
     "backgroundTextStyle": "light",

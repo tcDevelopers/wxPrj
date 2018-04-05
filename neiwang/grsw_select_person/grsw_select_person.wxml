@@ -1,3 +1,21 @@
-<!--neiwang/grsw_select_person.wxml-->
-<text>联系人界面</text>
-<text>{{selectedPerson.join("_")}}</text>
+<view class="search">
+  <view class="search_arr">
+    <icon class="searchcion" size='20' type='search'></icon>
+    <input confirm-type="search" placeholder="搜索联系人" bindinput="changeName" bindconfirm="search" />
+  </view>
+</view>
+<view class="weui-cells weui-cells_after-title" wx:if="{{searchList.length}}">
+  <checkbox-group bindchange="checkboxChange">
+    <label class="weui-cell weui-check__label" wx:for="{{searchList}}" wx:key="value">
+      <checkbox class="weui-check" value="{{item.gh}}" checked="{{item.checked}}" />
+      <view class="weui-cell__hd weui-check__hd_in-checkbox">
+        <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
+        <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
+      </view>
+      <view class="weui-cell__bd">{{item.nm}}</view>
+    </label>
+  </checkbox-group>
+</view>
+<view class="section">
+  <button class="btn" type="primary" bindtap="submit">确认</button>
+</view>

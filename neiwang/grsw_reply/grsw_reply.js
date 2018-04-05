@@ -4,25 +4,27 @@ var util = require('../../utils/util.js');
 Page({
   data: {
     id: null,
-    receivers: "",
+    receivers: [],
     title: '',
     content: '',
     sender: ''
   },
   onLoad: function (option) {
     var thiz = this;
-    thiz.setData({ id: option.id, 
-      reply: option.reply
-    });
+    if (option.id)
+      thiz.setData({
+        id: option.id,
+        reply: option.reply,
+      });
     thiz.getData();
-    var _this = this;
-    app.receivers = [];  
   },
   onReady: function () {
     // 页面渲染完成
   },
   onShow: function () {
-    this.setData({ receivers: (app.receivers).join(" ")})
+    let selected = wx.getStorageSync('selected');
+    if (selected)
+      this.setData({ receivers: selected.map(val => val.nm) });
   },
   onHide: function () {
     // 页面隐藏
@@ -60,7 +62,7 @@ Page({
       dataType: "json",
       responseType: "text",
       success: function (res) {
-        console.log(res.data);
+        //console.log(res.data);
         var sender = res.data.sender.trim();
         var receiver = res.data.receiver;
         var reply_person = sender;
@@ -75,10 +77,9 @@ Page({
         reply_person = reply_person.trim();
         var plist = reply_person.split(" ");
         plist = thiz.distinct(plist);
-        app.receivers = plist;  
         thiz.setData({
-          title: (thiz.data.reply=='1'?"回复 ":"回复所有人 ") + res.data.title,
-          receivers: app.receivers.join(" "),
+          title: (thiz.data.reply == '1' ? "回复 " : "回复所有人 ") + res.data.title,
+          receivers: plist,
           sender: res.data.sender
         });
       },
@@ -122,7 +123,7 @@ Page({
   submit: function () {
     var thiz = this;
     setTimeout(function () {
-      if (thiz.data.receivers.trim().length == 0) {
+      if (thiz.data.receivers.length == 0) {
         meafe.Toast("请选择联系人");
         return;
       }
@@ -138,7 +139,7 @@ Page({
       wx.request({
         url: "https://www.meafe.cn/sxf/fa_grsw/",
         data: {
-          receivers: thiz.data.receivers.split(" "),
+          receivers: thiz.data.receivers,
           sender: app.globalData.ggwUserInfo.work_id,
           title: thiz.data.title,
           content: thiz.data.content
@@ -148,9 +149,9 @@ Page({
         responseType: "text",
         success: function (res) {
           console.log(res.data);
-          if (res.data==true) {
+          if (res.data == true) {
             meafe.Toast("发送成功");
-            app.receivers = [];
+            wx.removeStorageSync("selected");
             wx.navigateBack({
               delta: 1
             })
@@ -176,6 +177,7 @@ Page({
     }, 300);
   },
   selectContact: function () {
+    if (this.data.id != null) return;
     wx.navigateTo({
       url: '../grsw_select_person/grsw_select_person',
     })
