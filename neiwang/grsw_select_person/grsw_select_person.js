@@ -48,6 +48,7 @@ Page({
 
   changeName: function (e) {
     this.name = e.detail.value;
+    this.search();
   },
 
   search: function () {
