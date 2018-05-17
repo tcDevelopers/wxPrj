@@ -71,6 +71,7 @@ Page({
   },
   getWxUserInfo: function () {
     var _this = this;
+    _this.refreshLogo();
     wx.getUserInfo({
       withCredentials: true,
       success: function (res) {
