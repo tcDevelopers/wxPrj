@@ -9,39 +9,36 @@ Page({
   data: {
     applyList: [],
     hidden: true,
-    page: 1,
-    size: 5,
     applyUser: [{ person_name: '全选' }],
     applyState: ['全选', '待领导审核', '领导退回', '待管理员审核', '管理员退回', '管理员通过'],
     pick1: 0,
     pick2: 0,
     pick3: '全选',
-    where: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var _this = this;
-    _this.setData({ hidden: false });
-    var sqlstr = "select person_name from 广告位登记人员表 where channel_role = '申请员'";
+    let that = this;
+    that.page = 1;
+    that.size = 5;
+    that.setData({ hidden: false });
+    let sqlstr = "select person_name from 广告位登记人员表 where channel_role = '申请员'";
     meafe.SQLQuery(sqlstr,
       function (obj) {
-        _this.setData({
-          applyUser: _this.data.applyUser.concat(obj),
+        that.setData({
+          applyUser: that.data.applyUser.concat(obj),
           hidden: true
         });
-        _this.setWhere();
-        _this.reload();
+        that.setWhere();
+        that.reload();
       }, function (res) {
         wx.showModal({
           title: "数据请求失败",
           content: "请重新进入本页面",
           showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 1 });
-          }
+          success: res => wx.navigateBack({ delta: 1 })
         })
       });
   },
@@ -72,60 +69,57 @@ Page({
   },
 
   setWhere: function () {
-    var _this = this;
-    var apply_user = _this.data.pick1 == 0 ? '%' : _this.data.applyUser[_this.data.pick1].person_name;
-    var state = _this.data.pick2 == 0 ? '%' : _this.data.pick2;
-    var dt = _this.data.pick3 == '全选' ? '%' : _this.data.pick3;
-    _this.setData({ where: "where apply_user like '" + apply_user + "' and state like '" + state + "' and convert(varchar(10),apply_dt,20) like '" + dt + "'" });
+    let that = this;
+    let apply_user = that.data.pick1 == 0 ? '%' : that.data.applyUser[that.data.pick1].person_name;
+    let state = that.data.pick2 == 0 ? '%' : that.data.pick2;
+    let dt = that.data.pick3 == '全选' ? '%' : that.data.pick3;
+    that.where = "where apply_user like '" + apply_user + "' and state like '" + state + "' and convert(varchar(10),apply_dt,20) like '" + dt + "'";
   },
 
   reload: function (e) {
-    var _this = this;
-    if (!_this.data.hidden)
+    let that = this;
+    that.page = 1;
+    if (!that.data.hidden)
       return
     else
-      _this.setData({ hidden: false, page: 1 });
-    var sqlstr = "select top " + _this.data.size + " id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id " + _this.data.where + " order by id desc";
+      that.setData({ hidden: false});
+    let sqlstr = "select top " + that.size + " id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id " + that.where + " order by id desc";
     meafe.SQLQuery(sqlstr,
       function (obj) {
-        _this.setData({ applyList: obj, hidden: true, });
+        that.setData({ applyList: obj, hidden: true, });
       }, function (res) {
         wx.showModal({
           title: "数据请求失败",
           content: "请重新进入本页面",
           showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 1 });
-          }
+          success: res => wx.navigateBack({ delta: 1 })
         });
       }
     );
   },
 
   loadMore: function (e) {
-    var _this = this;
-    if (!_this.data.hidden)
+    let that = this;
+    if (!that.data.hidden)
       return
     else
-      _this.setData({ hidden: false });
-    var sqlstr = "select top " + _this.data.size + " id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id " + _this.data.where + " and id not in (select top " + _this.data.page * _this.data.size + " id from channel_list " + _this.data.where + " order by id desc) order by id desc";
+      that.setData({ hidden: false });
+    let sqlstr = "select top " + that.size + " id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id " + that.where + " and id not in (select top " + that.page * that.size + " id from channel_list " + that.where + " order by id desc) order by id desc";
     meafe.SQLQuery(sqlstr,
       function (obj) {
         if (obj.length > 0) {
-          _this.setData({
-            applyList: _this.data.applyList.concat(obj),
-            page: _this.data.page + 1,
+          that.page += 1;
+          that.setData({
+            applyList: that.data.applyList.concat(obj)
           })
         }
-        _this.setData({ hidden: true, });
+        that.setData({ hidden: true });
       }, function (res) {
         wx.showModal({
           title: "数据请求失败",
           content: "请重新进入本页面",
           showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 1 });
-          }
+          success: res => wx.navigateBack({ delta: 1 })
         });
       }
     );

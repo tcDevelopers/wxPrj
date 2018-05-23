@@ -17,7 +17,6 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-    var that = this;
     let { pageSize, sender, title } = _this.data;
     _this.getList(app.globalData.ggwUserInfo.work_id, pageSize, sender, title);
 
@@ -29,7 +28,7 @@ Page({
         query.select('#search_bar').boundingClientRect()//这段代码的意思是选择Id=the-id的节点，获取节点位置信息的查询请求
         query.exec(function (res) {
           console.log(res);
-          that.setData({
+          _this.setData({
             scrollViewHeight: height - res[0].height
           });
         })
@@ -141,6 +140,7 @@ Page({
       url: 'https://www.meafe.cn/sxf/chakan_grsw/?shouid=' + id,
     })
     app.webview_url = 'https://www.meafe.cn/sxf/get_grsw_shou_html/?id=' + id + "&type=grsw";
+    wx.hideLoading();
     wx.navigateTo({
       url: '../../pages/webview/webview',
     })

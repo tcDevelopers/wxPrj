@@ -1,7 +1,7 @@
 <view class="container">
     <view class="userinfo">
         <view> 
-          <image class="userinfo-avatar" src="{{motto}}" mode="aspectFill"></image>  
+          <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
         </view>
         <view hidden="{{!userInfo.work_id}}" class="userinfo-txt-view">
           <text class="userinfo-txt1">{{userInfo.person_name}}</text>

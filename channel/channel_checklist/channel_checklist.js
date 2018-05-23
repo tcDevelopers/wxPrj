@@ -14,22 +14,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var _this = this;
-    var sqlstr = "select id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id where state = " + options.state + " order by id desc";
+    let that = this;
+    let sqlstr = "select id,case apply_tp when 1 then '工号' when 2 then '渠道' end apply_tp,case apply_act when 1 then '新增' when 2 then '修改' when 3 then '删除' end apply_act,apply_user, convert(varchar(12),apply_dt,111) dt, a.state, b.state_name from channel_list a left join channel_state b on a.state = b.state_id where state = " + options.state + " order by id desc";
     meafe.SQLQuery(sqlstr,
       function (obj) {
         if (obj.length > 0) {
-          _this.setData({ applyList: obj, });
+          that.setData({
+            applyList: obj,
+            hidden: true,
+          });
         }
-        _this.setData({ hidden: true, });
       }, function (res) {
         wx.showModal({
           title: "数据请求失败",
           content: "请重新进入本页面",
           showCancel: false,
-          success: function (res) {
-            wx.navigateBack({ delta: 1 });
-          }
+          success: res => wx.navigateBack({ delta: 1 })
         });
       }
     );

@@ -86,6 +86,8 @@ textarea {
   height: 128rpx;
   margin-top: 50rpx;
   border-radius: 50%;
+  overflow: hidden;
+  display: block;
 }
 
 .userinfo-nickname {

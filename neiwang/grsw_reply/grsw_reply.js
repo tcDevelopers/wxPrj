@@ -10,6 +10,7 @@ Page({
     sender: ''
   },
   onLoad: function (option) {
+    console.log(option);
     var thiz = this;
     if (option.id)
       thiz.setData({

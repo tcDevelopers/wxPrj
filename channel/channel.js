@@ -1,4 +1,3 @@
-var meafe = require('../utils/util_meafe.js');
 var app = getApp();
 Page({
 
@@ -7,7 +6,6 @@ Page({
    */
   data: {
     person_name: '',
-    avatarUrl: '',
     check_state: 0,
   },
 
@@ -15,41 +13,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var _this = this;
-    if (!app.globalData.ggwUserInfo) {
-      wx.showModal({
-        title: "提醒",
-        content: "你无权访问此页",
-        showCancel: false,
-        success: function (res) {
-          wx.navigateBack({ delta: 1 });
-        }
-      });
-      return
+    let that = this, check_state = 0, userinfo = app.globalData.ggwUserInfo;
+    if (userinfo && userinfo.channel_role == '管理员') {
+      check_state = 3;
     }
-
-    if (app.globalData.ggwUserInfo.channel_role == '管理员') {
-      _this.setData({ check_state: 3 });
+    else if (userinfo && userinfo.channel_role == '审核员') {
+      check_state = 1;
     }
-    else if (app.globalData.ggwUserInfo.channel_role == '审核员') {
-      _this.setData({ check_state: 1 });
-    }
-    else if (app.globalData.ggwUserInfo.channel_role == '申请员') {
-      _this.setData({ check_state: 0 });
+    else if (userinfo && userinfo.channel_role == '申请员') {
+      check_state = 0;
     }
     else {
       wx.showModal({
         title: "提醒",
         content: "你无权访问此页",
         showCancel: false,
-        success: function (res) {
-          wx.navigateBack({ delta: 1 });
-        }
+        success: res => wx.navigateBack({ delta: 1 })
       });
     }
-    _this.setData({
-      person_name: app.globalData.ggwUserInfo.person_name,
-      avatarUrl: app.globalData.userInfo.avatarUrl
+    that.setData({
+      person_name: userinfo.person_name,
+      check_state: check_state,
     });
   },
 

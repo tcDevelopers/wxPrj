@@ -14,10 +14,8 @@ Page({
     if (option.id)
       thiz.setData({
         id: option.id,
-        reply: option.reply,
       });
     thiz.getData();
-    var work_id = app.globalData.ggwUserInfo.work_id;
   },
   onReady: function () {
     // 页面渲染完成
@@ -140,7 +138,6 @@ Page({
         dataType: "json",
         responseType: "text",
         success: function (res) {
-          console.log(res.data);
           wx.hideLoading();
           if (res.data == true) {
             meafe.Toast("发送成功");
@@ -166,7 +163,6 @@ Page({
             }
           })
         },
-        complete: function (res) { wx.hideLoading(); },
       })
     }, 300);
   },

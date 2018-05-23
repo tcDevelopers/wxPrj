@@ -1,6 +1,6 @@
 <view class="page-section">
   <view class="userinfo">
-    <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
+    <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
     <text class="userinfo-nickname">{{person_name}}</text>
   </view>
 </view>

@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.9.94",
+	"libVersion": "2.0.7",
 	"appid": "wxe2fab7d8fade2cff",
-	"projectname": "wx",
+	"projectname": "dx",
 	"condition": {
 		"search": {
 			"current": -1,
