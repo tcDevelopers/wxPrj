@@ -1,30 +1,30 @@
 <!--neiwang/grsw_list/grsw_list.wxml-->
 <view class="section" id="search_bar">
-    <view class="section-left1">
-      <text type="primary" bindtap="open_send" class="btn1">发送</text>
-    </view>
-    <view class="section-left">
+  <view class="section-left1">
+    <text type="primary" bindtap="open_send" class="btn1">发送</text>
+  </view>
+  <view class="section-left">
 
-      <input placeholder="发件人" bindinput='changeSender' />
-    </view>
-    <view class="section-mid">
-      <input placeholder="标题" bindinput='changeTitle' />
-    </view>
-    <view class="section-right">
-      <text type="primary" bindtap="search" class="btn">搜索</text>
-    </view>
+    <input placeholder="发件人" bindinput='changeSender' />
+  </view>
+  <view class="section-mid">
+    <input placeholder="标题" bindinput='changeTitle' />
+  </view>
+  <view class="section-right">
+    <text type="primary" bindtap="search" class="btn">搜索</text>
+  </view>
 </view>
 
 <scroll-view style="height:{{scrollViewHeight}}px;" scroll-y="true" bindscrolltolower="loadMore" bindscrolltoupper="reLoad">
-      <block wx:for="{{pageData}}" wx:key="index">
-        <view class="news-list" bindtap="grswDetail" data-id="{{item[0]}}">
-          <label class="news-content">{{item[1]}}</label>
-          <view class="news-info">
-            <label class="news-auth">{{item[4]}}</label>
-            <label class="news-state" wx:if="{{item[2]}}">已读</label>
-            <label class="news-state1" wx:else>未读</label>
-            <label class="news-dt">{{item[3]}}</label>
-          </view>
-        </view>
-      </block>  
+  <block wx:for="{{pageData}}" wx:key="index">
+    <view class="news-list" hover-class='hover' bindtap="grswDetail" data-id="{{item[0]}}">
+      <label class="news-content">{{item[1]}}</label>
+      <view class="news-info">
+        <label class="news-auth">{{item[4]}}</label>
+        <label class="news-state" wx:if="{{item[2]}}">已读</label>
+        <label class="news-state1" wx:else>未读</label>
+        <label class="news-dt">{{item[3]}}</label>
+      </view>
+    </view>
+  </block>
 </scroll-view>

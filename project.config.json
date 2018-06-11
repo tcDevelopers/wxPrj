@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.7",
+	"libVersion": "2.0.8",
 	"appid": "wxe2fab7d8fade2cff",
 	"projectname": "dx",
 	"condition": {

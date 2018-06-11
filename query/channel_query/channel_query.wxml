@@ -1,0 +1,27 @@
+<!--query/channel_query/channel_query.wxml-->
+<view class="section">
+  <view class="section-left">
+    <input placeholder="工号" bindinput='changeGh' />
+  </view>
+  <view class="section-mid">
+    <input placeholder="姓名" bindinput='changeXm' />
+  </view>
+  <view class="section-right">
+    <input placeholder="手机" bindinput='changeSj' />
+  </view>
+</view>
+<view class="section">
+  <view class="section-all">
+    <input placeholder="渠道名称" bindinput='changeQd' />
+  </view>
+</view>
+<button type='primary' class='btn' bindtap='search'>查询</button>
+<block wx:for='{{staffList}}' wx:key='inde'>
+  <view class='info-list' hover-class='hover'>
+    <label class='info-one' style='color: #d2b72b'>{{item[0]}}</label>
+    <label class='info-one' style='color: #0d3556'>{{item[1]}}</label>
+    <label class='info-one' style='color: #9400D3'>{{item[2]}}</label>
+    <label class='info-id'>{{item[3]}}</label>
+    <label class='info-qd'>{{item[4]}}</label>
+  </view>
+</block>

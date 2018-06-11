@@ -1,14 +1,13 @@
 /**index.wxss**/
 
-
 .userinfo {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: #4B89F2;
-  color:white;
-  width:100%;
-  padding-bottom:20rpx;
+  background: #4b89f2;
+  color: white;
+  width: 100%;
+  padding-bottom: 20rpx;
 }
 
 .userinfo-avatar {
@@ -26,30 +25,33 @@
 .userinfo-nickname {
   margin-top: 0rpx;
   color: #666;
-  font-size:36rpx;
-  font-weight:bold;
+  font-size: 36rpx;
+  font-weight: bold;
 }
-.userinfo-txt-view{
+
+.userinfo-txt-view {
   display: flex;
   flex-direction: column;
   align-items: left;
   justify-content: flex-start;
-  padding-left:30rpx;
-}
-.userinfo-txt1{
-  color: white;
-  font-size:54rpx;
+  padding-left: 30rpx;
 }
 
-.userinfo-txt2{
+.userinfo-txt1 {
   color: white;
-  font-size:28rpx;
+  font-size: 54rpx;
 }
 
-.userinfo-txt3{
+.userinfo-txt2 {
+  color: white;
+  font-size: 28rpx;
+}
+
+.userinfo-txt3 {
   color: #666;
-  font-size:36rpx;
+  font-size: 36rpx;
 }
+
 .usermotto {
   margin-top: 20rpx;
 }
@@ -58,56 +60,73 @@
   margin-top: 10rpx;
 }
 
-.nw{
+.nw {
   display: flex;
   flex-wrap: wrap;
   flex: 1;
   width: 100%;
 }
 
-.nw_btn{
+.nw_btn {
   flex-direction: column;
   width: 33%;
   height: 240rpx;
   background: white;
-  border-right:1px solid #ddd;
-  border-bottom:1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   display: flex;
   align-items: center;
-  justify-content:center;
-  font-size:32rpx;
+  justify-content: center;
+  font-size: 32rpx;
 }
 
-.bc_gwsw{
-  flex:1;
-  height: 120rpx;
-  background: #F7EA89;
+.nw_btn_last {
+  flex-direction: column;
+  width: 33%;
+  height: 240rpx;
+  background: white;
+  border-bottom: 1px solid #ddd;
   display: flex;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
+  font-size: 32rpx;
 }
 
-.bc_nwxx{
-  flex:1;
+.bc_gwsw {
+  flex: 1;
   height: 120rpx;
-  background: #BEC7F0;
+  background: #f7ea89;
   display: flex;
   align-items: center;
-  justify-content:center;
-}
-.bc_txl{
-  flex:1;
-  height: 120rpx;
-  background: #A7F0FE;
-  display: flex;
-  align-items: center;
-  justify-content:center;
+  justify-content: center;
 }
 
-.btn_icon{
+.bc_nwxx {
+  flex: 1;
+  height: 120rpx;
+  background: #bec7f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bc_txl {
+  flex: 1;
+  height: 120rpx;
+  background: #a7f0fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn_icon {
   width: 120rpx;
   height: 120rpx;
   margin-bottom: 30rpx;
   margin-top: 20rpx;
   border-radius: 5%;
+}
+
+.hover {
+  background-color: #d3d3d3;
 }

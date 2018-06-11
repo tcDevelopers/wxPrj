@@ -12,27 +12,27 @@
         </view>
     </view>
       <view class="nw">
-        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangGsxxClick">
+        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangGsxxClick" hover-class='hover'>
           <image class="btn_icon" src="../../img/laba.png" mode="aspectFill"></image>  
           公司内网信息
         </view>
-        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangGrswClick">
+        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangGrswClick" hover-class='hover'>
           <image class="btn_icon" src="../../img/man.png" mode="aspectFill"></image>  
           个人事务({{grswUnReadNum}})
         </view>
-        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangTxlClick">
+        <view hidden="{{!userInfo.work_id}}" class="nw_btn_last" bindtap="bindNeiwangTxlClick" hover-class='hover'>
           <image class="btn_icon" src="../../img/contact.png" mode="aspectFill"></image>  
           通讯录
         </view>
-        <view hidden="{{userInfo.person_type && userInfo.person_type.length>0}}" class="nw_btn" bindtap="bindKehuPhoto">
+        <view hidden="{{userInfo.person_type && userInfo.person_type.length>0}}" class="nw_btn" bindtap="bindKehuPhoto" hover-class='hover'>
           <image class="btn_icon" src="../../img/note.png" mode="aspectFill"></image>  
           实名制登记
         </view>
-        <view hidden="{{!(userInfo.channel_role&&userInfo.channel_role.length>0)}}" class="nw_btn" bindtap="bindChannel">
+        <view hidden="{{!userInfo.channel_role}}" class="nw_btn" bindtap="bindChannel" hover-class='hover'>
           <image class="btn_icon" src="../../img/qizhi.png" mode="aspectFill"></image>  
           渠道支撑
         </view>
-        <view hidden="{{!(userInfo.data_dec&&userInfo.data_dec.length>0)}}" class="nw_btn" bindtap="bindQuery">
+        <view hidden="{{!userInfo.channel_role}}" class="nw_btn" bindtap="bindQuery" hover-class='hover'>
           <image class="btn_icon" src="../../img/charts.png" mode="aspectFill"></image>  
           数据决策
         </view>

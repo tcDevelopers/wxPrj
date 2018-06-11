@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "neiwang/grsw_select_person/grsw_select_person",
     "pages/page_user_bind/page_user_bind",
     "pages/map/map",
     "pages/logs/logs",
@@ -22,14 +21,17 @@
     "page_rec_photo/page_add/page_add",
     "page_rec_photo/page_main/page_main",
     "pages/page_bind/page_bind",
-    "query/query",
     "neiwang/news_list/news_list",
     "neiwang/grsw_list/grsw_list",
     "neiwang/page_detail/page_detail",
+    "neiwang/grsw_select_person/grsw_select_person",
     "pages/webview/webview",
     "neiwang/tongxunlu/tongxunlu",
     "neiwang/grsw_reply/grsw_reply",
-    "neiwang/grsw_forward/grsw_forward"
+    "neiwang/grsw_forward/grsw_forward",
+    "query/query",
+    "query/channel_query/channel_query",
+    "query/qxty_day/qxty_day"
   ],
   "window": {
     "backgroundTextStyle": "light",

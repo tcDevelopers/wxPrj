@@ -29,7 +29,7 @@
 <view class="page-section" wx:else>
   <scroll-view scroll-y="true" bindscrolltolower="loadMore" upper-threshold="20">
     <block wx:for="{{applyList}}" wx:key="id">
-      <view class="list-item" bindtap="channelView" data-id="{{item.id}}">
+      <view class="list-item" bindtap="channelView" hover-class='hover' data-id="{{item.id}}">
         <view class="item-section">
           <label class="item-user">{{item.apply_user}}</label>
           <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>

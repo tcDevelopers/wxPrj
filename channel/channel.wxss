@@ -105,8 +105,10 @@ textarea {
 
 navigator {
   text-align: center;
-  width: 100%;
   font-size: 54rpx;
+  margin: 20rpx;
+  background-color: #fff;
+  padding: 10rpx 20rpx;
 }
 
 scroll-view {
@@ -168,4 +170,8 @@ scroll-view {
   font-size: 20px;
   text-align: center;
   padding-top: 10px;
+}
+
+.hover {
+  background-color: #d3d3d3;
 }

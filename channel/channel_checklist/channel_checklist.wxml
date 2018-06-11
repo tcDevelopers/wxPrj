@@ -8,7 +8,7 @@
 </view>
 <view class="page-section" wx:else>
   <block wx:for="{{applyList}}" wx:key="id">
-    <view class="list-item" bindtap="checkit" data-id="{{item.id}}">
+    <view class="list-item" bindtap="checkit" data-id="{{item.id}}" hover-class='hover'>
       <view class="item-section">
         <label class="item-user">{{item.apply_user}}</label>
         <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>

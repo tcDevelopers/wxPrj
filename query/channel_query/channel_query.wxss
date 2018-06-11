@@ -1,0 +1,84 @@
+/* query/channel_query/channel_query.wxss */
+
+page {
+  background-color: #f8f8f8;
+  line-height: 1.6;
+}
+
+.section {
+  margin: 30rpx 0 0 0;
+  padding: 20rpx 30rpx;
+  line-height: 1.8;
+  font-size: 35rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+  display: flex;
+  flex-direction: row;
+  background: white;
+}
+
+.section-left {
+  width: 30%;
+  text-align: center;
+}
+
+.section-mid {
+  width: 40%;
+  text-align: center;
+}
+
+.section-right {
+  width: 30%;
+  text-align: center;
+}
+
+.section-all {
+  width: 100%;
+  text-align: center;
+}
+
+input {
+  color: #369;
+}
+
+.btn {
+  max-width: 500rpx;
+  margin-top: 30rpx;
+}
+
+.info-list {
+  margin: 30rpx 0 0 0;
+  padding: 10rpx 0;
+  background-color: #fff;
+  border-top: 1rpx solid #d9d9d9;
+  border-bottom: 1rpx solid #d9d9d9;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+
+.info-one {
+  font-size: 32rpx;
+  text-align: center;
+  width: 33%;
+}
+
+.info-id {
+  font-size: 32rpx;
+  text-align: center;
+  width: 30%;
+  margin-top: 10rpx;
+  color: #8b4513;
+}
+
+.info-qd {
+  font-size: 32rpx;
+  text-align: center;
+  width: 70%;
+  margin-top: 10rpx;
+}
+
+.hover {
+  background-color: #d3d3d3;
+}
