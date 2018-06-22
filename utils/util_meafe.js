@@ -2,22 +2,27 @@ function SQLQuery(sql, callback1, callback2) {
   console.log("开始网络请求..");
   //获取距离较近的小区清单
   wx.request({
-    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     url: 'https://www.meafe.cn/wx/SQLQuery',
-    data: { sql: sql, randnum: Math.random() + '' },
+    data: {
+      sql: sql,
+      randnum: Math.random() + ''
+    },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    success: function (res) {
+    success: function(res) {
       console.log("http success");
       var obj = res.data;
       if (callback1)
         callback1(obj);
     },
-    fail: function (res) {
+    fail: function(res) {
       console.log("http fail");
       if (callback2)
         callback2(res);
     },
-    complete: function () {
+    complete: function() {
 
     }
   })
@@ -27,22 +32,27 @@ function SCB3Query(sql, callback1, callback2) {
   console.log("开始网络请求..");
   //获取距离较近的小区清单
   wx.request({
-    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     url: 'https://www.meafe.cn/wx/ajax/sql_get_tcscb3.jsp',
-    data: { sql: sql, randnum: Math.random() + '' },
+    data: {
+      sql: sql,
+      randnum: Math.random() + ''
+    },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    success: function (res) {
+    success: function(res) {
       console.log("http success");
       var obj = res.data;
       if (callback1)
         callback1(obj);
     },
-    fail: function (res) {
+    fail: function(res) {
       console.log("http fail");
       if (callback2)
         callback2(res);
     },
-    complete: function () {
+    complete: function() {
 
     }
   })
@@ -51,44 +61,54 @@ function SCB3Query(sql, callback1, callback2) {
 function SQLEdit(sql, callback1, callback2) {
   //获取距离较近的小区清单
   wx.request({
-    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     url: 'https://www.meafe.cn/wx/ajax/sql_edit.jsp',
-    data: { sql: sql, randnum: Math.random() + '' },
+    data: {
+      sql: sql,
+      randnum: Math.random() + ''
+    },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    success: function (res) {
+    success: function(res) {
       console.log("http success");
       var obj = res.data;
       if (callback1)
         callback1(obj);
     },
-    fail: function (res) {
+    fail: function(res) {
       console.log("http fail");
       if (callback2)
         callback2(res);
     },
-    complete: function () { }
+    complete: function() {}
   })
 }
 
 function SCB3Edit(sql, callback1, callback2) {
   //获取距离较近的小区清单
   wx.request({
-    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     url: 'https://www.meafe.cn/wx/ajax/sql_edit_tcscb3.jsp',
-    data: { sql: sql, randnum: Math.random() + '' },
+    data: {
+      sql: sql,
+      randnum: Math.random() + ''
+    },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    success: function (res) {
+    success: function(res) {
       console.log("http success");
       var obj = res.data;
       if (callback1)
         callback1(obj);
     },
-    fail: function (res) {
+    fail: function(res) {
       console.log("http fail");
       if (callback2)
         callback2(res);
     },
-    complete: function () { }
+    complete: function() {}
   })
 }
 
@@ -99,39 +119,46 @@ function SQLUpdate(URL, dataMap, tableName, whereCause, callback, fail_cb) {
     dataMap["whereCause"] = whereCause;
   //获取距离较近的小区清单
   wx.request({
-    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     url: 'https://www.meafe.cn/wx/ajax/' + URL,
     data: dataMap,
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    success: function (res) {
+    success: function(res) {
       var obj = res.data;
       callback(obj);
     },
-    fail: function () {
+    fail: function() {
       if (fail_cb) {
         fail_cb();
       }
     },
-    complete: function () { }
+    complete: function() {}
   })
 }
 
 function FileDelete(file_loc) {
   wx.request({
-    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
     url: 'https://www.meafe.cn/wx/RemoveFile',
-    data: { file_loc: file_loc, randnum: Math.random() + '' },
+    data: {
+      file_loc: file_loc,
+      randnum: Math.random() + ''
+    },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-    success: function (res) { },
-    fail: function () { },
-    complete: function () { }
+    success: function(res) {},
+    fail: function() {},
+    complete: function() {}
   })
 }
 
 function FileChooseAndUpload(upload_folder, selectedCallback, uploadedcallback) {
   wx.chooseImage({
     count: 1,
-    success: function (res) {
+    success: function(res) {
       var tempFilePaths = res.tempFilePaths
       selectedCallback(tempFilePaths[0]);
       FileUpload(upload_folder, tempFilePaths[0], uploadedcallback);
@@ -144,14 +171,16 @@ function FileUpload(upload_folder, file_loc, callback, fail_cb) {
     url: 'https://www.meafe.cn/wx/UploadFileNew', //仅为示例，非真实的接口地址
     filePath: file_loc,
     name: 'file',
-    formData: { 'upload_folder': upload_folder },
-    success: function (res) {
+    formData: {
+      'upload_folder': upload_folder
+    },
+    success: function(res) {
       //do something
       console.log('上传结果:' + res.data);
       var obj = JSON.parse(res.data);
       callback(obj);
     },
-    fail: function (res) {
+    fail: function(res) {
       if (fail_cb) {
         fail_cb(res);
       }
@@ -186,29 +215,6 @@ function ArrayIndex(findStr, array, columnIndex) {
   }
   return -1;
 }
-function nwMsg(p1, p2, cb, cbf, cbc) {
-  wx.request({
-    url: 'https://www.meafe.cn/sxf/oa_news/',
-    data: {
-      top: p1,
-      fl: p2
-    },
-    method: 'POST',
-    success: function (res) {
-      //console.log(res);
-      if (cb)
-        cb(res);
-    },
-    fail: function (res) {
-      if (cbf)
-        cbf(res);
-    },
-    complete: function (res) {
-      if (cbc)
-        cbc(res);
-    }
-  })
-}
 
 module.exports = {
   SQLQuery: SQLQuery,
@@ -222,5 +228,4 @@ module.exports = {
   SCB3Edit: SCB3Edit,
   ArrayIndex: ArrayIndex,
   ArrayIndex1: ArrayIndex1,
-  nwMsg: nwMsg
 }

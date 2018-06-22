@@ -23,7 +23,7 @@ Page({
         success: (res) => _this.nmList = res.data,
         fail: function () {
           wx.request({
-            url: 'https://www.meafe.cn/sxf/nmlist_grsw/',
+            url: 'https://www.meafe.cn/lite/nmlist_grsw/',
             success: function (res) {
               _this.nmList = res.data;
               wx.setStorageSync('nmList', res.data);

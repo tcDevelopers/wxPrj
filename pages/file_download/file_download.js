@@ -1,5 +1,4 @@
 var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
 Page({
   data: {
     id: -1,
@@ -57,12 +56,20 @@ Page({
             });
           }
           else {
-            meafe.Toast("文件下载失败");
+            wx.showToast({
+              title: '文件下载失败',
+              icon: 'success',
+              duration: 1500
+            })
           }
         },
         fail: function () {
           wx.hideLoading();
-          meafe.Toast("文件下载失败");
+          wx.showToast({
+            title: '文件下载失败',
+            icon: 'success',
+            duration: 1500
+          })
         }
       });
       app.downloadTask.onProgressUpdate((res) => {

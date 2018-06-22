@@ -1,5 +1,4 @@
 var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
 Page({
   data: {
     userInfo: {},
@@ -55,7 +54,7 @@ Page({
     else if (app.globalData.openid && !app.globalData.ggwUserInfo)
       that.loginRemoteServer();
     else if (!app.globalData.openid)
-      that.tryLogin();
+      that.tryLogin(app.globalData.openid);
   },
   //获取openid和userinfo
   tryLogin: function() {
@@ -72,37 +71,39 @@ Page({
   getOpenid: function(code) {
     let that = this;
     wx.request({
-      url: 'https://www.meafe.cn/wx/GetXcxOpenid?&code=' + code,
+      url: 'https://www.meafe.cn/code?code=' + code,
       success: res => {
-        app.globalData.openid = res.data;
-        that.loginRemoteServer();
+        if (res.statusCode == 200) {
+          app.globalData.openid = res.data.openid;
+          that.loginRemoteServer(app.globalData.openid);
+        }
       },
-      //complete:res=>console.log(res),
     });
   },
   //根据openid从服务器获取userinfo
-  loginRemoteServer: function() {
+  loginRemoteServer: function(openid) {
     let that = this;
-    meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "'",
-      function(obj) {
-        console.log(obj);
-        if (obj.length > 0) {
-          app.globalData.ggwUserInfo = obj[0];
+    wx.request({
+      url: 'https://www.meafe.cn/lite/get_info/?openid=' + openid,
+      success: res => {
+        if (res.statusCode == 200 && res.data.length > 0) {
+          app.globalData.ggwUserInfo = res.data[0];
           that.setData({
-            userInfo: obj[0]
+            userInfo: res.data[0]
           });
-          if (obj[0].work_id)
+          if (res.data[0].work_id)
             that.getGrswCount();
         }
-      });
+      },
+    });
   },
   //根据work_id获取个人事务未读数
   getGrswCount: function() {
     let that = this;
     wx.request({
-      url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id,
+      url: 'https://www.meafe.cn/lite/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id,
       success: res => that.setData({
-        grswUnReadNum: res.data[0][0]
+        grswUnReadNum: res.data
       })
     })
   },

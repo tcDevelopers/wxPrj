@@ -8,23 +8,23 @@
     <view class="node">
       <view class="node-person">{{applyData.apply_user}}</view>
       <view class="node-line"></view>
-      <view class="node-desc">{{node1}}</view>
+      <view class="node-desc">发起申请</view>
     </view>
     <view class="node">
       >>>
     </view>
     <view class="node">
-      <view class="node-person">{{applyData.check_user}}</view>
+      <view class="node-person">{{applyData.check_user?applyData.check_user:'领导'}}</view>
       <view class="node-line"></view>
-      <view class="node-desc">{{node2}}</view>
+      <view class="node-desc">{{applyData.state==1?'待审核':applyData.state==2?'退回':'审核通过'}}</view>
     </view>
     <view class="node" wx:if="{{applyData.state >= 3}}">
       >>>
     </view>
     <view class="node" wx:if="{{applyData.state >= 3}}">
-      <view class="node-person">{{applyData.opt_user}}</view>
+      <view class="node-person">{{applyData.opt_user?applyData.opt_user:'管理员'}}</view>
       <view class="node-line"></view>
-      <view class="node-desc">{{node3}}</view>
+      <view class="node-desc">{{applyData.state==3?'待审核':applyData.state==4?'退回':'审核通过'}}</view>
     </view>
   </view>
 </view>

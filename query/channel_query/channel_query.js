@@ -61,7 +61,7 @@ Page({
         title: '数据查询中...',
       })
       wx.request({
-        url: 'https://www.meafe.cn/sxf/search_qd/',
+        url: 'https://www.meafe.cn/lite/search_qd/',
         data: {
           gh: that.gh,
           nm: that.nm,

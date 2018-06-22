@@ -1,5 +1,4 @@
 var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
 var WxParse = require('../../wxParse/wxParse.js');
 Page({
   data: {
@@ -37,22 +36,22 @@ Page({
     var neirong_url = "";
     var thiz = this;
     if (this.data.detail_type == "grsw_shou") {
-      url = "https://www.meafe.cn/sxf/get_grsw_shou_detail/?id=" + thiz.data.id;
-      neirong_url = 'https://www.meafe.cn/sxf/get_grsw_shou_html/?id=' + thiz.data.id
+      url = "https://www.meafe.cn/lite/get_grsw_shou_detail/?id=" + thiz.data.id;
+      neirong_url = 'https://www.meafe.cn/lite/get_grsw_shou_html/?id=' + thiz.data.id
       wx.setNavigationBarTitle({
         title: "个人事务（收件箱）"
       })
     }
     else if (this.data.detail_type == "grsw_fa") {
-      url = "https://www.meafe.cn/sxf/get_grsw_fa_detail/?id=" + thiz.data.id;
-      neirong_url = 'https://www.meafe.cn/sxf/get_grsw_fa_html/?id=' + thiz.data.id
+      url = "https://www.meafe.cn/lite/get_grsw_fa_detail/?id=" + thiz.data.id;
+      neirong_url = 'https://www.meafe.cn/lite/get_grsw_fa_html/?id=' + thiz.data.id
       wx.setNavigationBarTitle({
         title: "个人事务（发件箱）"
       })
     }
     else {
-      url = "https://www.meafe.cn/sxf/oa_gsxx_detail/?id=" + thiz.data.id;
-      neirong_url = 'https://www.meafe.cn/sxf/get_gsxx_html/?id=' + thiz.data.id
+      url = "https://www.meafe.cn/lite/oa_gsxx_detail/?id=" + thiz.data.id;
+      neirong_url = 'https://www.meafe.cn/lite/get_gsxx_html/?id=' + thiz.data.id
       wx.setNavigationBarTitle({
         title: "公司信息"
       })
@@ -124,10 +123,6 @@ Page({
   },
   tapListItem: function (e) {
 
-  },
-  tapListItem: function (e) {
-    
-    
   },
   bindSrcHtml: function () {
     app.webview_url = this.data.neirong_url1;

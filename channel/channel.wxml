@@ -6,6 +6,6 @@
 </view>
 <view class="page-section">
   <navigator url="channel_apply/channel_apply">发起申请</navigator>
-  <navigator url="channel_checklist/channel_checklist?state={{check_state}}">审核申请</navigator>
+  <navigator wx:if="{{check_state}}" url="channel_checklist/channel_checklist?state={{check_state}}">审核申请</navigator>
   <navigator url="channel_alllist/channel_alllist">查看申请</navigator>
 </view>
