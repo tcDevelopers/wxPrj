@@ -102,6 +102,7 @@ Page({
               delta: 1,
               success: function () {
                 beforePage.getFuncList(); // 执行前一个页面的onLoad方法  
+                beforePage.onLoad(); // 执行前一个页面的onLoad方法
               }  
             })
         }

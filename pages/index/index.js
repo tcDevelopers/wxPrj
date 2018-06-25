@@ -27,8 +27,14 @@ Page({
     })
   },
   onLoad: function () {
-    var _this = this;
-    _this.tryLogin();
+    this.tryLogin();
+  },
+  //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
+  onShow: function () {
+    let that = this;
+    if (app.userInfo.STAFF_NO) {
+      that.getGrswCount();
+    }
   },
   //个人事务
   bindNeiwangGrswClick: function() {
@@ -47,14 +53,6 @@ Page({
     wx.navigateTo({
       url: '../../neiwang/tongxunlu/tongxunlu'
     })
-  },
-  //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
-  onShow: function() {
-    let that = this;
-    that.getGrswCount();
-    if(app.userInfo.STAFF_NM==""){
-      that.tryLogin();
-    }
   },
   //获取openid和userinfo
   tryLogin: function() {
