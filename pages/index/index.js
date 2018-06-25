@@ -162,9 +162,9 @@ Page({
   },
   getFuncList: function () {
     var _this =this;
-    meafe.ListData({service: "selectFuncList", staff_no: app.userInfo.SFATT_NO}
-      , function (res) {
-        _this.setData({ funcList: res })
+    meafe.ListData({ service: "selectFuncList", staff_no: app.userInfo.STAFF_NO ? app.userInfo.STAFF_NO:""}
+      , function (re) {
+        _this.setData({ funcList: re })
       }
     )
   }
