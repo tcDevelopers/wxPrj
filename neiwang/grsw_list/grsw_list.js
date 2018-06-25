@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pageSize: 50,
+    pageSize: 20,
     sender: '',
     title: '',
     pageData: [],
@@ -18,7 +18,7 @@ Page({
   onLoad: function (options) {
     var _this = this;
     let { pageSize, sender, title } = _this.data;
-    _this.getList(app.globalData.ggwUserInfo.work_id, pageSize, sender, title);
+    _this.getList(app.userInfo.STAFF_NO, pageSize, sender, title);
 
     wx.getSystemInfo({
       success: function (res) {
@@ -87,8 +87,8 @@ Page({
    */
   reLoad: function (e) {
     let { sender, title } = this.data;
-    this.setData({ pageSize: 50 });
-    this.getList(app.globalData.ggwUserInfo.work_id, 50, sender, title);
+    this.setData({ pageSize: 20 });
+    this.getList(app.userInfo.STAFF_NO, 20, sender, title);
   },
 
   /**
@@ -98,8 +98,8 @@ Page({
     var _this = this;
     var { pageSize, sender, title } = _this.data;
     var url = 'https://www.meafe.cn/lite/get_grsw_shou_list/';
-    url += '?staff_no=' + app.globalData.ggwUserInfo.work_id + '&top_n=' +
-      (pageSize + 50) + '&search_user=' + sender + '&search_title=' + title;
+    url += '?staff_no=' + app.userInfo.STAFF_NO + '&top_n=' +
+      (pageSize + 20) + '&search_user=' + sender + '&search_title=' + title;
     wx.showLoading({
       title: '正在加载..',
       mask: true
@@ -108,7 +108,7 @@ Page({
       url: url,
       success: function (res) {
         if (res.data.length > pageSize)
-          pageSize += 50;
+          pageSize += 20;
         _this.setData({
           pageData: res.data,
           pageSize: pageSize

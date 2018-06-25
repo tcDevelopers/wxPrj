@@ -1,7 +1,7 @@
 <view class="page-section">
   <view class="userinfo">
     <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
-    <text class="userinfo-nickname">{{person_name}}</text>
+    <text class="userinfo-nickname">{{staff_nm}}</text>
   </view>
 </view>
 <view class="page-section">

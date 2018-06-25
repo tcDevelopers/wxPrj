@@ -6,8 +6,8 @@
 <view class="page-section">
   <view class="pick">
     <view class="pick-left">申请人选择</view>
-    <picker value="{{pick1}}" range="{{applyUser}}" range-key="person_name" class="pick-right" bindchange="bindPick1">
-      {{applyUser[pick1].person_name}}
+    <picker value="{{pick1}}" range="{{applyUser}}" range-key="staff_nm" class="pick-right" bindchange="bindPick1">
+      {{applyUser[pick1].staff_nm}}
     </picker>
   </view>
   <view class="pick">

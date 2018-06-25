@@ -134,7 +134,7 @@ Page({
         url: "https://www.meafe.cn/lite/zhuanfa_grsw/",
         data: {
           receivers: thiz.data.receivers,
-          sender: app.globalData.ggwUserInfo.work_id,
+          sender: app.userInfo.STAFF_NO,
           title: thiz.data.title,
           content: thiz.data.content,
           fj_ids: thiz.data.fj_ids,

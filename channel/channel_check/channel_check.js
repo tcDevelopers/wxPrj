@@ -50,8 +50,8 @@ Page({
 
   agree: function() {
     let that = this;
-    if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.channel_role)
-      var userInfo = app.globalData.ggwUserInfo;
+    if (app.userInfo && app.userInfo.channel_role)
+      var userInfo = app.userInfo;
     else
       return
     let data = {
@@ -64,7 +64,7 @@ Page({
       data.val = {
         'state': 3,
         'state_nm': '待管理员审核',
-        'check_user': userInfo.person_name,
+        'check_user': userInfo.staff_nm,
         'check_dt': '',
       }
     else if (userInfo.channel_role == '管理员')

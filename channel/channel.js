@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    person_name: '',
+    staff_nm: '',
     check_state: 0,
   },
 
@@ -13,14 +13,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this, check_state = 0, userinfo = app.globalData.ggwUserInfo;
-    if (userinfo && userinfo.channel_role == '管理员') {
+    let that = this, check_state = 0, userinfo = app.userInfo;
+    if (userinfo && userinfo.CHANNEL_ROLE == '管理员') {
       check_state = 3;
     }
-    else if (userinfo && userinfo.channel_role == '审核员') {
+    else if (userinfo && userinfo.CHANNEL_ROLE == '审核员') {
       check_state = 1;
     }
-    else if (userinfo && userinfo.channel_role == '申请员') {
+    else if (userinfo && userinfo.CHANNEL_ROLE == '申请员') {
       check_state = 0;
     }
     else {
@@ -32,7 +32,7 @@ Page({
       });
     }
     that.setData({
-      person_name: userinfo.person_name,
+      staff_nm: userinfo.STAFF_NM,
       check_state: check_state,
     });
   },

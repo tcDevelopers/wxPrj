@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    person_name: '',
+    staff_nm: '',
     apply_tp: 1,
     apply_act: 1,
     apply_text: '',
@@ -19,7 +19,7 @@ Page({
   onLoad: function(options) {
     this.checkCache();
     this.setData({
-      person_name: app.globalData.ggwUserInfo.person_name
+      staff_nm: app.userInfo.staff_nm
     });
   },
 
@@ -46,8 +46,8 @@ Page({
       url: 'https://www.meafe.cn/lite/get_data/',
       method: 'POST',
       data: {
-        'tab': 'wx_user',
-        'col': ['person_name', 'mobile_phone'],
+        'tab': 'ly_sys_user_table',
+        'col': ['staff_nm', 'phone'],
         'whe': {
           'channel_role': '审核员'
         }
@@ -75,13 +75,13 @@ Page({
       let arr = [],
         nbr = [];
       checkPerson.forEach(item => {
-        arr.push(item.person_name);
-        nbr.push(item.mobile_phone);
+        arr.push(item.staff_nm);
+        nbr.push(item.phone);
       })
       wx.showActionSheet({
         itemList: arr,
         success: function(e) {
-          if (e.cancel || !that.data.person_name)
+          if (e.cancel || !that.data.staf_nm)
             return
           let {
             apply_tp,
@@ -101,7 +101,7 @@ Page({
                 'apply_act': apply_act,
                 'apply_act_nm': apply_act_nm,
                 'apply_text': apply_text,
-                'apply_user': that.data.person_name,
+                'apply_user': that.data.staff_nm,
                 'apply_dt': '',
                 'state': 1,
                 'state_nm': '待领导审核',

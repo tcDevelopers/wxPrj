@@ -1,7 +1,7 @@
 <view class="page-section">
     <view class="route">
         <view class="node">
-            <view class="node-person">{{person_name}}</view>
+            <view class="node-person">{{staff_nm}}</view>
             <view class="node-line"></view>
             <view class="node-desc">发起申请</view>
         </view>

@@ -153,7 +153,7 @@ Page({
     if (app.userInfo.STAFF_NO && app.userInfo.STAFF_NO.length > 0) {
       //console.log('get grsw count');
       wx.request({
-        url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.userInfo.STAFF_NO
+        url: 'https://www.meafe.cn/lite/get_grsw_cnt/?staff_no=' + app.userInfo.STAFF_NO
         , success: function (res) {
           _this.setData({ grswUnReadNum: res.data })
         }

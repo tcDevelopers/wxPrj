@@ -5,7 +5,7 @@
         </view>
         <view hidden="{{!userInfo.STAFF_NO}}" class="userinfo-txt-view">
           <text class="userinfo-txt1">{{userInfo.STAFF_NM}}</text>
-          <text class="userinfo-txt2">{{userInfo.DEPT_NM}}</text>
+          <text class="userinfo-txt2">{{userInfo.BM}}</text>
         </view>
         <view hidden="{{userInfo.STAFF_NO}}" class="userinfo-txt-view">
          <button style="background-color:#4B89F2;margin-top:0px;height:72rpx;width:360rpx;font-size:28rpx;border:2rpx solid white;color:white;"bindtap="bindGGWUser">员工绑定</button>
@@ -24,16 +24,16 @@
           <image class="btn_icon" src="../../img/contact.png" mode="aspectFill"></image>  
           通讯录
         </view>
-        <view hidden="{{userInfo.CHANNEL_ROLE&&userInfo.CHANNEL_ROLE!='无'}}" class="nw_btn" bindtap="bindChannel">
+        <view hidden="{{!userInfo.CHANNEL_ROLE || userInfo.CHANNEL_ROLE=='无'}}" class="nw_btn" bindtap="bindChannel" hover-class='hover'>
           <image class="btn_icon" src="../../img/qizhi.png" mode="aspectFill"></image>  
           渠道支撑
         </view>
-        <view hidden="{{userInfo.channel_role!='管理员'}}" class="nw_btn" bindtap="bindQuery" hover-class='hover'>
+        <view hidden="{{!userInfo.CHANNEL_ROLE ||userInfo.CHANNEL_ROLE!='管理员'}}" class="nw_btn" bindtap="bindQuery" hover-class='hover'>
           <image class="btn_icon" src="../../img/charts.png" mode="aspectFill"></image>  
           数据决策
         </view>
         <block wx:for="{{funcList}}" style="width:100%;" wx:for-item="item"  wx:key="*this">
-              <view class="nw_btn" bindtap="bindOpenWeb" id="{{item.URL}}">
+              <view class="nw_btn" bindtap="bindOpenWeb" id="{{item.URL}}" hover-class='hover'>
                 <image class="btn_icon" src="{{item.IMG?item.IMG:'../../img/note.png'}}" mode="aspectFill"></image> 
                {{item.NAME}}
               </view>

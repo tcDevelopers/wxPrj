@@ -7,7 +7,7 @@ Page({
   data: {
     staffList: [],
     staffBm: '',
-    staffBz: '',
+    staffSf: '',
     staffNm: '',
     staffGh: '',
     staffSj: '',
@@ -29,9 +29,9 @@ Page({
       staffBm: e.detail.value
     });
   },
-  changeBz: function(e) {
+  changeSf: function(e) {
     this.setData({
-      staffBz: e.detail.value
+      staffSf: e.detail.value
     });
   },
   changeSj: function(e) {
@@ -65,16 +65,16 @@ Page({
       url: 'https://www.meafe.cn/lite/like_data/',
       method: 'POST',
       data: {
-        'tab': 'wx_user',
-        'col': ['person_name', 'belong_department', 'fenju', 'mobile_phone', 'short_phone', 'gd_phone'],
+        'tab': 'ly_sys_user_table',
+        'col': ['staff_nm', 'bm', 'staff_no', 'phone', 'short_phone', 'gd_phone'],
         'whe': {
-          'belong_department': that.data.staffBm,
-          'fenju': that.data.staffBz,
-          'person_name': that.data.staffNm,
-          'mobile_phone': that.data.staffSj,
+          'bm': that.data.staffBm,
+          'staff_no': that.data.staffSf,
+          'staff_nm': that.data.staffNm,
+          'phone': that.data.staffSj,
           'short_phone': that.data.staffDh,
           'gd_phone': that.data.staffGh,
-          'person_type': '主业',
+          'nw_role': '1',
         }
       },
       success: res => that.setData({

@@ -9,7 +9,7 @@ Page({
     applyList: [],
     hidden: true,
     applyUser: [{
-      person_name: '全选'
+      staff_nm: '全选'
     }],
     applyState: ['全选', '待领导审核', '领导退回', '待管理员审核', '管理员退回', '管理员通过'],
     pick1: 0,
@@ -32,8 +32,8 @@ Page({
       url: 'https://www.meafe.cn/lite/get_data/',
       method: 'POST',
       data: {
-        'tab': 'wx_user',
-        'col': ['person_name'],
+        'tab': 'ly_sys_user_table',
+        'col': ['staff_nm'],
         'whe': {
           'channel_role': '申请员'
         },
@@ -60,7 +60,7 @@ Page({
     if (e.detail.value == 0)
       delete this.where['apply_user'];
     else
-      this.where['apply_user'] = this.data.applyUser[e.detail.value].person_name;
+      this.where['apply_user'] = this.data.applyUser[e.detail.value].staff_nm;
     this.setData({
       pick1: e.detail.value
     });

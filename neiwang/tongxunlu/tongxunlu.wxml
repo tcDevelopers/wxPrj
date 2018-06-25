@@ -4,7 +4,7 @@
       <input placeholder="部门" bindinput='changeBm' />
     </view>
     <view class="section-mid">
-      <input placeholder="班组" bindinput='changeBz' />
+      <input placeholder="工号" bindinput='changeSf' />
     </view>
     <view class="section-right">
       <input placeholder="姓名" bindinput='changeNm' />
@@ -26,13 +26,14 @@
 <view data-id="{{item}}"  bindtap="openMakeCallOption">
   <view class="staff-list">
     <view class="staff-info">
-      <label class="staff-nm">{{item.person_name}}</label>
-      <label class="staff-dep">{{item.belong_department}}/{{item.fenju}}</label>
+      <label class="staff-l" style='color: #d2b72b'>{{item.staff_nm}}</label>
+      <label class="staff-c">{{item.staff_no}}</label>
+      <label class="staff-r" style='color: #0d3556'>{{item.bm}}</label>
     </view>
     <view class="staff-info">
-      <label class="staff-mobile">{{item.mobile_phone}}</label>
-      <label class="staff-short">{{item.short_phone}}</label>
-      <label class="staff-guhua">{{item.gd_phone}}</label>
+      <label class="staff-l" style='color:#7B68EE'>{{item.phone}}</label>
+      <label class="staff-c">{{item.short_phone}}</label>
+      <label class="staff-r">{{item.gd_phone}}</label>
     </view>
   </view>
   </view>
