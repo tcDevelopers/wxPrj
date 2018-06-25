@@ -64,10 +64,10 @@ Page({
       success: res => {
         app.code = res.code;
         wx.request({
-          url: 'https://www.meafe.cn/code?code=' + app.code,
+          url: 'https://www.meafe.cn/wx/GetXcxOpenid?code=' + app.code,
           success: res => {
             if (res.statusCode == 200) {
-              app.userInfo.openid = res.data.openid;
+              app.userInfo.openid = res.data;
               _this.loginRemoteServer();
             }
           },
