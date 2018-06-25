@@ -3,7 +3,7 @@ function SQLQuery(sql, callback1, callback2) {
   //获取距离较近的小区清单
   wx.request({
     header: { "Content-Type": "application/x-www-form-urlencoded" },
-    url: 'https://www.meafe.cn/wx/SQLQuery',
+    url: 'https://www.meafe.cn/wx/select',
     data: { sql: sql, randnum: Math.random() + '' },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
@@ -19,6 +19,86 @@ function SQLQuery(sql, callback1, callback2) {
     },
     complete: function () {
 
+    }
+  })
+}
+
+function ListData(map, success, failed, complete) {
+  console.log("开始网络请求..");
+  //获取距离较近的小区清单
+  wx.request({
+    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    url: 'https://www.meafe.cn/wx/ListData',
+    data: {t:JSON.stringify(map)},
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    success: function (res) {
+      console.log("http success");
+      var obj = res.data;
+      if (success)
+        success(obj);
+    },
+    fail: function (res) {
+      console.log("http fail");
+      if (failed)
+        failed(res);
+    },
+    complete: function () {
+      if (complete)
+        complete();
+    }
+  })
+}
+
+
+function Update(map, success, failed, complete) {
+  console.log("开始网络请求..");
+  //获取距离较近的小区清单
+  wx.request({
+    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    url: 'https://www.meafe.cn/wx/Update',
+    data: { t: JSON.stringify(map) },
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    success: function (res) {
+      console.log("http success");
+      var obj = res.data;
+      if (success)
+        success(obj);
+    },
+    fail: function (res) {
+      console.log("http fail");
+      if (failed)
+        failed(res);
+    },
+    complete: function () {
+      if (complete)
+        complete();
+    }
+  })
+}
+
+
+function UpdateById(map, success, failed, complete) {
+  console.log("开始网络请求..");
+  //获取距离较近的小区清单
+  wx.request({
+    header: { "Content-Type": "application/x-www-form-urlencoded" },
+    url: 'https://www.meafe.cn/wx/UpdateById',
+    data: { t: JSON.stringify(map) },
+    method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    success: function (res) {
+      console.log("http success");
+      var obj = res.data;
+      if (success)
+        success(obj);
+    },
+    fail: function (res) {
+      console.log("http fail");
+      if (failed)
+        failed(res);
+    },
+    complete: function () {
+      if (complete)
+        complete();
     }
   })
 }
@@ -222,5 +302,6 @@ module.exports = {
   SCB3Edit: SCB3Edit,
   ArrayIndex: ArrayIndex,
   ArrayIndex1: ArrayIndex1,
-  nwMsg: nwMsg
+  nwMsg: nwMsg,
+  ListData:ListData
 }

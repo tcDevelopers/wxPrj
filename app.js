@@ -7,10 +7,9 @@ App({
   },
   globalData:{ 
     code:'',
-    userInfo: {},
-    openid:"",
-    ggwUserInfo: {}
+    userInfo: { avatarUrl:"", openid:""},
   },
+  userInfo:{},
   receivers:[],
   webview_url:"",
   downloadTask: null

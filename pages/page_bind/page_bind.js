@@ -5,6 +5,7 @@ Page({
   data:{ 
     verify_code:'',
     mobile_phone:'',
+    staff_no:'',
     sendWait: 0
   },
   onLoad:function(options){
@@ -31,12 +32,19 @@ Page({
       mobile_phone: e.detail.value
     })
   },
+  bindInput3: function (e) {
+    this.setData({
+      staff_no: e.detail.value
+    })
+  },
   tapSendSms:function(){
     var _this = this;
     wx.request({
-      url: 'https://www.meafe.cn/wx/get_xcx_verify_code.jsp?mobile_phone=' + _this.data.mobile_phone,
+      url: 'https://www.meafe.cn/wx/get_xcx_verify_code.jsp',
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
       data: {
         mobile_phone: _this.data.mobile_phone,
+        staff_no: _this.data.staff_no
       },
       method: 'POST',
       success: function (res) {
@@ -72,48 +80,34 @@ Page({
       return;
     } var _this = this;
     wx.request({
-      url: 'https://www.meafe.cn/wx/check_xcx_verify_code.jsp?mobile_phone=' + _this.data.mobile_phone + "&verify_code=" + _this.data.verify_code,
+      url: 'https://www.meafe.cn/wx/check_xcx_verify_code.jsp?mobile_phone=' + _this.data.mobile_phone + "&verify_code=" + _this.data.verify_code+"&open_id="+app.userInfo.openid,
       data: {
         mobile_phone: _this.data.mobile_phone,
       },
       method: 'POST',
       success: function (res) {
-        if (res.data.indexOf("ok") > -1) {
-          meafe.SQLQuery("select * from 广告位登记人员表 where mobile_phone='" + _this.data.mobile_phone + "' ", function (obj) {
-            if (obj.length > 0) {
-              meafe.SQLEdit("update 广告位登记人员表 set openid='" + app.globalData.openid + "',mobile_phone='" + _this.data.mobile_phone + "' where mobile_phone='" + _this.data.mobile_phone + "' ", function (obj) {
-                meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "'", function (obj) {
-                  wx.hideLoading();
-                  if (obj.length > 0) {
-                    app.globalData.ggwUserInfo = obj[0];
-                    meafe.Toast(obj[0].pserson_name + '，绑定成功')
-                    wx.navigateBack({
-                      delta: 1
-                    })
-                  }
-                  else {
-                    meafe.Toast('请重试')
-                  }
-                }, function () {
-                  wx.hideLoading();
-                  meafe.Toast('请重试')
-                });
-              }, function () {
-                wx.hideLoading();
-                meafe.Toast('保存失败')
-              });
+        wx.hideLoading();
+        console.log(res.data);
+        var re = res.data;
+        if (re.msg=="ok") {
+          for (var f in re.data){
+            if (re.data[f]){
+              app.userInfo[f] = re.data[f];
             }
-            else {
-              wx.hideLoading();
-              meafe.Toast('没有找到您的号码，请联系管理员添加')
-            }
-          }, function () {
-            wx.hideLoading();
-            meafe.Toast('请重试')
-          });
+          }
+            meafe.Toast(re.data.STAFF_NM + '，绑定成功');
+            var pages = getCurrentPages(); // 当前页面  
+            var beforePage = pages[pages.length - 2]; // 前一个页面  
+            wx.navigateBack({
+              delta: 1,
+              success: function () {
+                beforePage.getFuncList(); // 执行前一个页面的onLoad方法  
+              }  
+            })
         }
       },
-      fail(){
+      fail() {
+        wx.hideLoading();
         meafe.Toast("网络失败，请重试")
       }
     })   

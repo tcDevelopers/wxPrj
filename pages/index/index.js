@@ -6,6 +6,7 @@ Page({
     hidden: true,
     btn_hidden: true,
     userInfo: {},
+    funcList: {},
     grswUnReadNum: 0
   },
   bindQuery: function () {
@@ -30,7 +31,6 @@ Page({
   },
   onLoad: function () {
     var _this = this;
-    _this.getWxUserInfo();
     _this.tryLogin();
   },
   //设置下方代码主要是从其他界面返回的时候，显示最新的用户信息，有可能在用户绑定界面就改变了用户信息
@@ -41,17 +41,10 @@ Page({
   },
   refreshLogo: function () {
     var _this = this;
-    if (app.globalData.userInfo && app.globalData.userInfo.avatarUrl) {
+    console.log(app.userInfo);
       _this.setData({
-        motto: app.globalData.userInfo.avatarUrl
+        userInfo: app.userInfo
       });
-    }
-    if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
-      _this.setData({
-        userInfo: app.globalData.ggwUserInfo,
-        btn_hidden: app.globalData.ggwUserInfo.openid == ''
-      });
-    }
   },
   wxLogin: function (success, fail) {
     var _this = this;
@@ -70,12 +63,12 @@ Page({
     });
   },
   getWxUserInfo: function () {
+    console.log("get wx logo");
     var _this = this;
-    _this.refreshLogo();
     wx.getUserInfo({
       withCredentials: true,
       success: function (res) {
-        app.globalData.userInfo = res.userInfo;
+        app.userInfo["avatarUrl"] = res.userInfo.avatarUrl;
         _this.refreshLogo();
       }
     })
@@ -88,8 +81,6 @@ Page({
     _this.wxLogin(function (res) {
       app.globalData.code = res.code;
       _this.getOpenid(function (res) {
-        console.log("openid is :")
-        console.log(res);
         _this.loginRemoteServer();
       });
     })
@@ -102,7 +93,7 @@ Page({
       url: 'https://www.meafe.cn/wx/GetXcxOpenid?&code=' + app.globalData.code ,
       success: function (res) {
         //根据openid获取用户信息
-        app.globalData.openid = res.data;
+        app.userInfo.openid = res.data;
         if (suc) suc(res)
       },
       fail: function () {
@@ -113,26 +104,23 @@ Page({
   },
   loginRemoteServer: function () {
     var _this = this;
-    meafe.SQLQuery("select * from 广告位登记人员表 where openid='" + app.globalData.openid + "'",
+    meafe.ListData({service:"selectUserList", open_id: app.userInfo.openid},
       function (obj) {
         wx.hideLoading();
         if (obj.length > 0) {
-          app.globalData.ggwUserInfo = obj[0];
+          for (var f in obj[0]){
+            app.userInfo[f]=obj[0][f];
+          }
           _this.getGrswCount();
-          if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.openid) {
+          if (app.userInfo && app.userInfo.openid) {
             _this.setData({
-              userInfo: app.globalData.ggwUserInfo, btn_hidden: app.globalData.ggwUserInfo.openid == ''
+              userInfo: app.userInfo
             });
           }
-          //调用应用实例的方法获取全局数据
-          _this.setData({ userInfo: app.globalData.ggwUserInfo });
+          //加载web按钮清单
+          _this.getFuncList();
         }
         else {
-          if (app.globalData.ggwUserInfo == null) {
-            //wx.navigateTo({
-            //  url: '../page_bind/page_bind'
-            //})
-          }
         }
       }, function () {
         _this.setLoginFailed();
@@ -175,23 +163,37 @@ Page({
       url: '../../neiwang/news_list/news_list'
     })
   },
-
   bindNeiwangTxlClick: function () {
     wx.navigateTo({
       url: '../../neiwang/tongxunlu/tongxunlu'
     })
   },
+  bindOpenWeb: function (opt) {
+    console.log(opt);
+    app.webview_url = opt.currentTarget.id+"?staff_no="+app.userInfo.STAFF_NO;
+    wx.navigateTo({
+      url: '../../pages/webview/webview'
+    })
+  },
   getGrswCount:function(){
     var _this = this;
-    if (app.globalData.ggwUserInfo.work_id && app.globalData.ggwUserInfo.work_id.length > 0) {
+    if (app.userInfo.STAFF_NO && app.userInfo.STAFF_NO.length > 0) {
       //console.log('get grsw count');
       wx.request({
-        url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.globalData.ggwUserInfo.work_id
+        url: 'https://www.meafe.cn/sxf/get_grsw_cnt/?staff_no=' + app.userInfo.STAFF_NO
         , success: function (res) {
-          _this.setData({ grswUnReadNum: res.data[0][0] })
+          _this.setData({ grswUnReadNum: res.data })
         }
       })
     }
+  },
+  getFuncList: function () {
+    var _this =this;
+    meafe.ListData({service: "selectFuncList", staff_no: app.userInfo.SFATT_NO}
+      , function (res) {
+        _this.setData({ funcList: res })
+      }
+    )
   }
 })
 

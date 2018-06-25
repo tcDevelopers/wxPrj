@@ -1,34 +1,34 @@
 <view class="container">
     <view class="userinfo">
         <view> 
-          <image class="userinfo-avatar" src="{{motto}}" mode="aspectFill"></image>  
+          <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>  
         </view>
-        <view hidden="{{!userInfo.work_id}}" class="userinfo-txt-view">
-          <text class="userinfo-txt1">{{userInfo.person_name}}</text>
-          <text class="userinfo-txt2">{{userInfo.belong_department}}</text>
+        <view hidden="{{!userInfo.STAFF_NO}}" class="userinfo-txt-view">
+          <text class="userinfo-txt1">{{userInfo.STAFF_NM}}</text>
+          <text class="userinfo-txt2">{{userInfo.DEPT_NM}}</text>
         </view>
-        <view hidden="{{userInfo.work_id}}" class="userinfo-txt-view">
+        <view hidden="{{userInfo.STAFF_NO}}" class="userinfo-txt-view">
          <button style="background-color:#4B89F2;margin-top:0px;height:72rpx;width:360rpx;font-size:28rpx;border:2rpx solid white;color:white;"bindtap="bindGGWUser">员工绑定</button>
         </view>
     </view>
       <view class="nw">
-        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangGsxxClick">
+        <view hidden="{{!userInfo.NW_ROLE}}" class="nw_btn" bindtap="bindNeiwangGsxxClick">
           <image class="btn_icon" src="../../img/laba.png" mode="aspectFill"></image>  
           公司内网信息
         </view>
-        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangGrswClick">
+        <view hidden="{{!userInfo.NW_ROLE}}" class="nw_btn" bindtap="bindNeiwangGrswClick">
           <image class="btn_icon" src="../../img/man.png" mode="aspectFill"></image>  
           个人事务({{grswUnReadNum}})
         </view>
-        <view hidden="{{!userInfo.work_id}}" class="nw_btn" bindtap="bindNeiwangTxlClick">
+        <view hidden="{{!userInfo.NW_ROLE}}" class="nw_btn" bindtap="bindNeiwangTxlClick">
           <image class="btn_icon" src="../../img/contact.png" mode="aspectFill"></image>  
           通讯录
         </view>
-        <view hidden="{{userInfo.person_type && userInfo.person_type.length>0}}" class="nw_btn" bindtap="bindKehuPhoto">
+        <view hidden="{{userInfo.NW_ROLE && userInfo.NW_ROLE.length>0}}" class="nw_btn" bindtap="bindKehuPhoto">
           <image class="btn_icon" src="../../img/note.png" mode="aspectFill"></image>  
           实名制登记
         </view>
-        <view hidden="{{!(userInfo.channel_role&&userInfo.channel_role.length>0)}}" class="nw_btn" bindtap="bindChannel">
+        <view hidden="{{!(userInfo.CHANNEL_ROLE&&userInfo.CHANNEL_ROLE.length>0)}}" class="nw_btn" bindtap="bindChannel">
           <image class="btn_icon" src="../../img/qizhi.png" mode="aspectFill"></image>  
           渠道支撑
         </view>
@@ -36,5 +36,12 @@
           <image class="btn_icon" src="../../img/charts.png" mode="aspectFill"></image>  
           数据决策
         </view>
+        <block wx:for="{{funcList}}" style="width:100%;" wx:for-item="item"  wx:key="*this">
+              <view class="nw_btn" bindtap="bindOpenWeb" id="{{item.URL}}">
+                <image class="btn_icon" src="{{item.IMG?item.IMG:'../../img/note.png'}}" mode="aspectFill"></image>  
+               {{item.NAME}}
+              </view>
+        </block>
       </view>
+    
 </view>
