@@ -24,12 +24,7 @@
           <image class="btn_icon" src="../../img/contact.png" mode="aspectFill"></image>  
           通讯录
         </view>
-        <view hidden="{{userInfo.NW_ROLE && userInfo.NW_ROLE.length>0}}" hover-class='hover' class="nw_btn" bindtap="bindKehuPhoto">
-          <image class="btn_icon" src="../../img/note.png" mode="aspectFill"></image>  
-          实名制登记
-        </view>
-        <view hidden="{{!(userInfo.CHANNEL_ROLE&&userInfo.CHANNEL_ROLE.length>0)}}" class="nw_btn" bindtap="bindChannel">
-
+        <view hidden="{{userInfo.CHANNEL_ROLE&&userInfo.CHANNEL_ROLE!='无'}}" class="nw_btn" bindtap="bindChannel">
           <image class="btn_icon" src="../../img/qizhi.png" mode="aspectFill"></image>  
           渠道支撑
         </view>
@@ -44,5 +39,4 @@
               </view>
         </block>
       </view>
-    
 </view>

@@ -121,6 +121,8 @@ Page({
           _this.getFuncList();
         }
         else {
+          //加载web按钮清单
+          _this.getFuncList();
         }
       }, function () {
         _this.setLoginFailed();
