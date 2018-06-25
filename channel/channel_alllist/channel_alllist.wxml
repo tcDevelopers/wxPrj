@@ -27,16 +27,16 @@
   <text>无申请数据</text>
 </view>
 <view class="page-section" wx:else>
-  <scroll-view scroll-y="true" bindscrolltolower="loadMore" upper-threshold="20">
+  <scroll-view scroll-y="true" bindscrolltolower="loadData" upper-threshold="20">
     <block wx:for="{{applyList}}" wx:key="id">
-      <view class="list-item" bindtap="channelView" data-id="{{item.id}}">
+      <view class="list-item" bindtap="channelView" hover-class='hover' data-id="{{item.id}}">
         <view class="item-section">
           <label class="item-user">{{item.apply_user}}</label>
-          <label class="item-act">{{item.apply_tp}}{{item.apply_act}}</label>
+          <label class="item-act">{{item.apply_tp_nm}}{{item.apply_act_nm}}</label>
         </view>
         <view class="item-section">
-          <label class="item-state">{{item.state_name}}</label>
-          <label class="item-dt">{{item.dt}}</label>
+          <label class="item-state">{{item.state_nm}}</label>
+          <label class="item-dt">{{item.apply_dt}}</label>
         </view>
       </view>
     </block>

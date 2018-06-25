@@ -1,24 +1,45 @@
 {
   "pages": [
     "pages/index/index",
-    "neiwang/grsw_select_person/grsw_select_person",
     "pages/file_download/file_download",
     "pages/page_preview_image/page_preview_image",
-    "channel/channel",
-    "channel/channel_apply/channel_apply",
-    "channel/channel_check/channel_check",
-    "channel/channel_view/channel_view",
-    "channel/channel_alllist/channel_alllist",
-    "channel/channel_checklist/channel_checklist",
     "pages/page_bind/page_bind",
-    "query/query",
-    "neiwang/news_list/news_list",
-    "neiwang/grsw_list/grsw_list",
-    "neiwang/page_detail/page_detail",
-    "pages/webview/webview",
-    "neiwang/tongxunlu/tongxunlu",
-    "neiwang/grsw_reply/grsw_reply",
-    "neiwang/grsw_forward/grsw_forward"
+    "pages/webview/webview", 
+    "page_rec_photo/page_add/page_add",
+    "page_rec_photo/page_main/page_main"
+  ],
+  "subPackages": [
+    {
+      "root": "channel",
+      "pages": [
+        "channel",
+        "channel_apply/channel_apply",
+        "channel_check/channel_check",
+        "channel_view/channel_view",
+        "channel_alllist/channel_alllist",
+        "channel_checklist/channel_checklist"
+      ]
+    },
+    {
+      "root": "neiwang",
+      "pages": [
+        "news_list/news_list",
+        "grsw_list/grsw_list",
+        "page_detail/page_detail",
+        "grsw_select_person/grsw_select_person",
+        "grsw_reply/grsw_reply",
+        "grsw_forward/grsw_forward",
+        "tongxunlu/tongxunlu"
+      ]
+    },
+    {
+      "root": "query",
+      "pages": [
+        "query",
+        "channel_query/channel_query",
+        "qxty_day/qxty_day"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",

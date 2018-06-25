@@ -1,17 +1,11 @@
 <view class="page-section">
   <view class="userinfo">
-    <image class="userinfo-avatar" src="{{avatarUrl}}" background-size="cover"></image>
+    <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
     <text class="userinfo-nickname">{{person_name}}</text>
   </view>
 </view>
 <view class="page-section">
-  <view class="list-item">
-    <navigator url="channel_apply/channel_apply">发起申请</navigator>
-  </view>
-  <view class="list-item" wx:if="{{check_state}}">
-    <navigator url="channel_checklist/channel_checklist?state={{check_state}}">审核申请</navigator>
-  </view>
-  <view class="list-item">
-    <navigator url="channel_alllist/channel_alllist">查看申请</navigator>
-  </view>
+  <navigator url="channel_apply/channel_apply">发起申请</navigator>
+  <navigator wx:if="{{check_state}}" url="channel_checklist/channel_checklist?state={{check_state}}">审核申请</navigator>
+  <navigator url="channel_alllist/channel_alllist">查看申请</navigator>
 </view>

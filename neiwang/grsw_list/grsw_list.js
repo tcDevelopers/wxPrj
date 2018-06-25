@@ -17,7 +17,6 @@ Page({
    */
   onLoad: function (options) {
     var _this = this;
-    var that = this;
     let { pageSize, sender, title } = _this.data;
     _this.getList(app.globalData.ggwUserInfo.work_id, pageSize, sender, title);
 
@@ -29,7 +28,7 @@ Page({
         query.select('#search_bar').boundingClientRect()//这段代码的意思是选择Id=the-id的节点，获取节点位置信息的查询请求
         query.exec(function (res) {
           console.log(res);
-          that.setData({
+          _this.setData({
             scrollViewHeight: height - res[0].height
           });
         })
@@ -65,7 +64,7 @@ Page({
    */
   getList: function (p1, p2, p3, p4, cb) {
     var _this = this;
-    var url = 'https://www.meafe.cn/sxf/get_grsw_shou_list/';
+    var url = 'https://www.meafe.cn/lite/get_grsw_shou_list/';
     url += '?staff_no=' + p1 + '&top_n=' + p2
       + '&search_user=' + p3 + '&search_title=' + p4;
     wx.showLoading({
@@ -98,7 +97,7 @@ Page({
   loadMore: function (e) {
     var _this = this;
     var { pageSize, sender, title } = _this.data;
-    var url = 'https://www.meafe.cn/sxf/get_grsw_shou_list/';
+    var url = 'https://www.meafe.cn/lite/get_grsw_shou_list/';
     url += '?staff_no=' + app.globalData.ggwUserInfo.work_id + '&top_n=' +
       (pageSize + 50) + '&search_user=' + sender + '&search_title=' + title;
     wx.showLoading({
@@ -138,9 +137,10 @@ Page({
       mask: true,
     })
     wx.request({
-      url: 'https://www.meafe.cn/sxf/chakan_grsw/?shouid=' + id,
+      url: 'https://www.meafe.cn/lite/chakan_grsw/?shouid=' + id,
     })
-    app.webview_url = 'https://www.meafe.cn/sxf/get_grsw_shou_html/?id=' + id + "&type=grsw";
+    app.webview_url = 'https://www.meafe.cn/lite/get_grsw_shou_html/?id=' + id + "&type=grsw";
+    wx.hideLoading();
     wx.navigateTo({
       url: '../../pages/webview/webview',
     })

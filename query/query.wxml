@@ -1,2 +1,21 @@
 <!--query/query.wxml-->
-<text>query/query.wxml</text>
+<view class='cont'>
+  <view class='grid' bindtap='channelQuery' hover-class='hover'>
+    工号查询
+  </view>
+  <view class='grid' bindtap='qxtyDay' hover-class='hover'>
+    天翼当月发展
+  </view>
+  <view class='grid-last' hover-class='hover'>
+    敬请期待
+  </view>
+  <view class='grid' hover-class='hover'>
+    敬请期待
+  </view>
+  <view class='grid' hover-class='hover'>
+    敬请期待
+  </view>
+  <view class='grid-last' hover-class='hover'>
+    敬请期待
+  </view>
+</view>

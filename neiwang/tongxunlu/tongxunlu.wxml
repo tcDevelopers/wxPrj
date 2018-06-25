@@ -40,7 +40,7 @@
 
 <!--默认action-sheet为隐藏，由button触发-->
 <action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" >
-    <block wx:for-items="{{actionSheetItems}}"> 
+    <block wx:for-items="{{actionSheetItems}}" wx:key="index"> 
         <action-sheet-item data-id="{{item}}" bindtap="makeCall">{{item}}</action-sheet-item>
     </block>
     <!--自动隐藏action-sheet-->

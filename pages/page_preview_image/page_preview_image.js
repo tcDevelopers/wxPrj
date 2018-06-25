@@ -1,5 +1,3 @@
-var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
 Page({
   data:{ imageSrc:'' },
   onLoad:function(option){

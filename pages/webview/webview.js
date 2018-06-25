@@ -1,17 +1,12 @@
 var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
 Page({
   data: {
     id: -1,
-    url: "",
+    url: '',
   },
   onLoad: function () {
-    wx.hideLoading();
-    var thiz = this;
-    console.log("url->" + app.webview_url)
-    thiz.setData({
+    this.setData({
       url: app.webview_url,
     });
-    console.log("url->"+thiz.data.url)
   }
 })

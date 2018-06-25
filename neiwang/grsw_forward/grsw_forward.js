@@ -1,6 +1,4 @@
 var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
-var util = require('../../utils/util.js');
 Page({
   data: {
     id: -1,
@@ -14,10 +12,8 @@ Page({
     if (option.id)
       thiz.setData({
         id: option.id,
-        reply: option.reply,
       });
     thiz.getData();
-    var work_id = app.globalData.ggwUserInfo.work_id;
   },
   onReady: function () {
     // 页面渲染完成
@@ -55,7 +51,7 @@ Page({
     var thiz = this;
     //获取数据内容
     wx.request({
-      url: "https://www.meafe.cn/sxf/get_grsw_shou_detail/?id=" + thiz.data.id,
+      url: "https://www.meafe.cn/lite/get_grsw_shou_detail/?id=" + thiz.data.id,
       data: {},
       header: {},
       method: "GET",
@@ -116,18 +112,26 @@ Page({
     var thiz = this;
     setTimeout(function () {
       if (thiz.data.receivers.length == 0) {
-        meafe.Toast("请选择联系人");
+        wx.showToast({
+          title: '请选择联系人',
+          icon: 'success',
+          duration: 1500
+        });
         return;
       }
       if (thiz.data.title.trim().length == 0) {
-        meafe.Toast("请输入标题");
+        wx.showToast({
+          title: '请输入标题',
+          icon: 'success',
+          duration: 1500
+        });
         return;
       }
       wx.showLoading({
         title: '正在发送...',
       })
       wx.request({
-        url: "https://www.meafe.cn/sxf/zhuanfa_grsw/",
+        url: "https://www.meafe.cn/lite/zhuanfa_grsw/",
         data: {
           receivers: thiz.data.receivers,
           sender: app.globalData.ggwUserInfo.work_id,
@@ -140,17 +144,24 @@ Page({
         dataType: "json",
         responseType: "text",
         success: function (res) {
-          console.log(res.data);
           wx.hideLoading();
           if (res.data == true) {
-            meafe.Toast("发送成功");
+            wx.showToast({
+              title: '发送成功',
+              icon: 'success',
+              duration: 1500
+            });
             wx.removeStorageSync("selected");
             wx.navigateBack({
               delta: 1
             })
           }
           else {
-            meafe.Toast("发送失败");
+            wx.showToast({
+              title: '发送失败',
+              icon: 'success',
+              duration: 1500
+            });
           }
         },
         fail: function (res) {
@@ -166,7 +177,6 @@ Page({
             }
           })
         },
-        complete: function (res) { wx.hideLoading(); },
       })
     }, 300);
   },

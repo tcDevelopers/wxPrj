@@ -5,11 +5,8 @@ App({
     //调用API从本地缓存中获取数据
     var _this = this;
   },
-  globalData:{ 
-    code:'',
-    userInfo: { avatarUrl:"", openid:""},
-  },
-  userInfo:{},
+  code:'',
+  userInfo:{STAFF_NO:""},
   receivers:[],
   webview_url:"",
   downloadTask: null
