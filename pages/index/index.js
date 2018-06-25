@@ -30,19 +30,6 @@ Page({
     var _this = this;
     _this.tryLogin();
   },
-  //设置下方代码主要是从其他界面返回的时候，显示最新的用户信息，有可能在用户绑定界面就改变了用户信息
-  onShow: function () {
-    var _this = this;
-    _this.getWxUserInfo();
-    _this.getGrswCount();
-  },
-  refreshLogo: function () {
-    var _this = this;
-    console.log(app.userInfo);
-      _this.setData({
-        userInfo: app.userInfo
-      });
-  },
   //个人事务
   bindNeiwangGrswClick: function() {
     wx.navigateTo({
@@ -65,9 +52,8 @@ Page({
   onShow: function() {
     let that = this;
     that.getGrswCount();
-    if(!app.userInfo.STAFF_NM){
-      that.loginRemoteServer();
-      that.tryLogin(app.userInfo.openid);
+    if(app.userInfo.STAFF_NM==""){
+      that.tryLogin();
     }
   },
   //获取openid和userinfo
@@ -77,30 +63,20 @@ Page({
       title: '登陆中...',
     });
     wx.login({
-      success: res => _this.getOpenid(res.code),
+      success: res => {
+        app.code = res.code;
+        wx.request({
+          url: 'https://www.meafe.cn/code?code=' + app.code,
+          success: res => {
+            if (res.statusCode == 200) {
+              app.userInfo.openid = res.data.openid;
+              _this.loginRemoteServer();
+            }
+          },
+        });
+      },
       complete: () => wx.hideLoading(),
     })
-  },
-  //根据code获取openid,再获取userinfo
-  getOpenid: function(code) {
-    app.code = code;
-    let that = this;
-    wx.request({
-      /*
-      url: 'https://www.meafe.cn/wx/GetXcxOpenid?&code=' + app.code ,
-      success: function (res) {
-        //根据openid获取用户信息
-        app.userInfo.openid = res.data;
-        if (suc) suc(res)
-      }*/
-      url: 'https://www.meafe.cn/code?code=' + code,
-      success: res => {
-        if (res.statusCode == 200) {
-          app.userInfo.openid = res.data.openid;
-          that.loginRemoteServer();
-        }
-      },
-    });
   },
   loginRemoteServer: function () {
     var _this = this;
