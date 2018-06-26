@@ -1,12 +1,11 @@
 var app = getApp();
-var sms = require('../../utils/sms.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    staff_nm: '',
+    apply_user: '',
     apply_tp: 1,
     apply_act: 1,
     apply_text: '',
@@ -17,10 +16,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.checkCache();
-    this.setData({
-      staff_nm: app.userInfo.staff_nm
+    let that = this;
+    that.setData({
+      apply_user: app.userInfo.STAFF_NM
     });
+    wx.getStorage({
+      key: 'checkPerson',
+      success: res => that.checkPerson = res.data,
+      fail: res => that.checkCache(),
+    })
   },
 
   tpChange: function(e) {
@@ -42,23 +46,26 @@ Page({
   },
   //加载审核人
   checkCache: function() {
+    let that = this;
     wx.request({
       url: 'https://www.meafe.cn/lite/get_data/',
       method: 'POST',
       data: {
         'tab': 'ly_sys_user_table',
-        'col': ['staff_nm', 'phone'],
+        'col': ['staff_nm'],
         'whe': {
           'channel_role': '审核员'
         }
       },
-      success: res => wx.setStorageSync('checkPerson', res.data),
+      success: res => {
+        wx.setStorageSync('checkPerson', res.data);
+        that.checkPerson = res.data;
+      },
     })
   },
 
   submit: function(e) {
     let that = this;
-    let checkPerson = wx.getStorageSync('checkPerson');
     if (!that.data.apply_text) {
       wx.showModal({
         title: "提醒",
@@ -68,54 +75,39 @@ Page({
           text_focus: true
         }),
       });
-    } else if (!checkPerson) {
+    } else if (!that.checkPerson) {
       that.checkCache();
       return
     } else {
-      let arr = [],
-        nbr = [];
-      checkPerson.forEach(item => {
-        arr.push(item.staff_nm);
-        nbr.push(item.phone);
+      let arr = [];
+      that.checkPerson.forEach(item => {
+        arr.push(item.staff_nm)
       })
       wx.showActionSheet({
         itemList: arr,
         success: function(e) {
-          if (e.cancel || !that.data.staf_nm)
+          if (e.cancel || !that.data.apply_user)
             return
           let {
             apply_tp,
             apply_act,
-            apply_text
+            apply_text,
+            apply_user
           } = that.data;
-          let apply_tp_nm = apply_tp == 1 ? '工号' : '渠道';
-          let apply_act_nm = apply_act == 1 ? '新增' : apply_act == 2 ? '修改' : '删除';
           wx.request({
             url: 'https://www.meafe.cn/lite/apply_add/',
             method: 'POST',
             data: {
-              'tab': 'wx_channel_apply',
               'val': {
                 'apply_tp': apply_tp,
-                'apply_tp_nm': apply_tp_nm,
                 'apply_act': apply_act,
-                'apply_act_nm': apply_act_nm,
                 'apply_text': apply_text,
-                'apply_user': that.data.staff_nm,
-                'apply_dt': '',
-                'state': 1,
-                'state_nm': '待领导审核',
+                'apply_user': apply_user
               },
+              'check': arr[e.tapIndex]
             },
             success: res => {
               if (res.statusCode == 200) {
-                sms.sendSMS({
-                  nbr: nbr[e.tapIndex],
-                  cnt: "有一个" + that.data.person_name + "发起的新申请待审批",
-                  pri: "1",
-                  from_sys: "小程序",
-                  create_person: that.data.person_name,
-                });
                 wx.showModal({
                   title: "申请成功",
                   content: "请耐心等待" + arr[e.tapIndex] + "审阅",

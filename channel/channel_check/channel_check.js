@@ -1,5 +1,4 @@
 // channel/channel_check/channel_check.js
-var sms = require('../../utils/sms.js');
 var app = getApp();
 Page({
 
@@ -20,18 +19,17 @@ Page({
   onLoad: function(options) {
     let that = this;
     wx.request({
-      url: 'https://www.meafe.cn/lite/user_and_apply/',
+      url: 'https://www.meafe.cn/lite/get_data/',
       method: 'POST',
       data: {
-        'lcol': ['mobile_phone'],
-        'rcol': ['id', 'apply_tp', 'apply_act', 'apply_user', 'state', 'apply_text', 'check_user', 'opt_user'],
-        'lwhe': '',
-        'rwhe': {
+        'tab': 'wx_channel_apply',
+        'col': ['id', 'apply_tp', 'apply_act', 'apply_user', 'state', 'apply_text', 'check_user', 'opt_user'],
+        'whe': {
           'id': options.id
         },
       },
       success: res => that.setData({
-        applyData: res.data
+        applyData: res.data[0]
       }),
       fail: res =>
         wx.showModal({
@@ -50,51 +48,21 @@ Page({
 
   agree: function() {
     let that = this;
-    if (app.userInfo && app.userInfo.channel_role)
+    if (app.userInfo)
       var userInfo = app.userInfo;
-    else
-      return
-    let data = {
-      'tab': 'wx_channel_apply',
-      'whe': {
-        'id': that.data.applyData.id
-      },
-    }
-    if (userInfo.channel_role == '审核员')
-      data.val = {
-        'state': 3,
-        'state_nm': '待管理员审核',
-        'check_user': userInfo.staff_nm,
-        'check_dt': '',
-      }
-    else if (userInfo.channel_role == '管理员')
-      data.val = {
-        'state': 5,
-        'state_nm': '管理员通过',
-        'opt_user': userInfo.person_name,
-        'opt_dt': '',
-      }
     else
       return
     wx.request({
       url: 'https://www.meafe.cn/lite/apply_upt/',
       method: 'POST',
-      data: data,
+      data: {
+        'id': that.data.applyData.id,
+        'apply_user': that.data.applyData.apply_user,
+        'agree': true,
+        'role': userInfo.CHANNEL_ROLE,
+        'check_user': userInfo.STAFF_NM
+      },
       success: res => {
-        sms.sendSMS({
-          nbr: that.data.applyData.mobile_phone,
-          cnt: "你的申请已通过" + userInfo.person_name + "审批",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: userInfo.person_name,
-        });
-        sms.sendSMS({
-          nbr: "18006226337",
-          cnt: "有一个" + that.data.applyData.apply_user + "发起的新申请待审批",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: userInfo.person_name,
-        });
         wx.showModal({
           title: "操作完成",
           content: "审核通过",
@@ -109,44 +77,21 @@ Page({
 
   disagree: function() {
     let that = this;
-    if (app.globalData.ggwUserInfo && app.globalData.ggwUserInfo.channel_role)
-      var userInfo = app.globalData.ggwUserInfo;
-    else
-      return
-    let data = {
-      'tab': 'wx_channel_apply',
-      'whe': {
-        'id': that.data.applyData.id
-      },
-    }
-    if (userInfo.channel_role == '审核员')
-      data.val = {
-        'state': 2,
-        'state_nm': '领导退回',
-        'check_user': userInfo.person_name,
-        'check_dt': '',
-      }
-    else if (userInfo.channel_role == '管理员')
-      data.val = {
-        'state': 4,
-        'state_nm': '管理员退回',
-        'opt_user': userInfo.person_name,
-        'opt_dt': '',
-      }
+    if (app.userInfo)
+      var userInfo = app.userInfo;
     else
       return
     wx.request({
       url: 'https://www.meafe.cn/lite/apply_upt/',
       method: 'POST',
-      data: data,
+      data: {
+        'id': that.data.applyData.id,
+        'apply_user': that.data.applyData.apply_user,
+        'agree': false,
+        'role': userInfo.CHANNEL_ROLE,
+        'check_user': userInfo.STAFF_NM
+      },
       success: res => {
-        sms.sendSMS({
-          nbr: that.data.applyData.mobile_phone,
-          cnt: "你的申请被" + userInfo.person_name + "退回",
-          pri: "1",
-          from_sys: "小程序",
-          create_person: userInfo.person_name,
-        });
         wx.showModal({
           title: "操作完成",
           content: "审核通过",
