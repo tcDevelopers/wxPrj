@@ -140,8 +140,8 @@ Page({
   openMakeCallOption: function(e) {
     var item = e.currentTarget.dataset.id;
     var nbrs = [];
-    if (item.mobile_phone.length > 0) {
-      nbrs.push(item.mobile_phone);
+    if (item.phone.length > 0) {
+      nbrs.push(item.phone);
     }
     if (item.short_phone.length > 0) {
       nbrs.push(item.short_phone);

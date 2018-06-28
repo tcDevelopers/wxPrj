@@ -26,11 +26,11 @@ Page({
       url: '../../channel/channel'
     })
   },
-  onLoad: function () {
+  onLoad: function() {
     this.tryLogin();
   },
   //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
-  onShow: function () {
+  onShow: function() {
     let that = this;
     if (app.userInfo.STAFF_NO) {
       that.getGrswCount();
@@ -73,17 +73,24 @@ Page({
           },
         });
       },
+      fail: () => _this.setLoginFailed(),
       complete: () => wx.hideLoading(),
     })
   },
-  loginRemoteServer: function () {
+  loginRemoteServer: function() {
     var _this = this;
-    meafe.ListData({service:"selectUserList", open_id: app.userInfo.openid},
-      function (obj) {
+    wx.showLoading({
+      title: '登陆中...',
+    })
+    meafe.ListData({
+        service: "selectUserList",
+        open_id: app.userInfo.openid
+      },
+      function(obj) {
         wx.hideLoading();
         if (obj.length > 0) {
-          for (var f in obj[0]){
-            app.userInfo[f]=obj[0][f];
+          for (var f in obj[0]) {
+            app.userInfo[f] = obj[0][f];
           }
           if (app.userInfo && app.userInfo.openid) {
             _this.setData({
@@ -93,26 +100,28 @@ Page({
           _this.getGrswCount();
           //加载web按钮清单
           _this.getFuncList();
-        }
-        else {
+        } else {
           //加载web按钮清单
           _this.getFuncList();
         }
-      }, function () {
+      },
+      function() {
         _this.setLoginFailed();
       });
   },
-  setLoginFailed: function () {
+  setLoginFailed: function() {
     wx.hideLoading();
     var _this = this;
     wx.showModal({
       title: '登陆出错，是否重试',
       content: '',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           _this.tryLogin();
         } else if (res.cancel) {
-          _this.setData({ hidden: true });
+          _this.setData({
+            hidden: true
+          });
         }
       }
     })
@@ -136,36 +145,49 @@ Page({
     });
   },
   */
-  bindNeiwangTxlClick: function () {
+  bindNeiwangTxlClick: function() {
     wx.navigateTo({
       url: '../../neiwang/tongxunlu/tongxunlu'
     })
   },
-  bindOpenWeb: function (opt) {
+  bindOpenWeb: function(opt) {
     console.log(opt);
-    app.webview_url = opt.currentTarget.id+"?staff_no="+app.userInfo.STAFF_NO;
+    app.webview_url = opt.currentTarget.id + "?staff_no=" + app.userInfo.STAFF_NO;
     wx.navigateTo({
       url: '../../pages/webview/webview'
     })
   },
-  getGrswCount:function(){
+  getGrswCount: function() {
     var _this = this;
     if (app.userInfo.STAFF_NO && app.userInfo.STAFF_NO.length > 0) {
       //console.log('get grsw count');
       wx.request({
-        url: 'https://www.meafe.cn/lite/get_grsw_cnt/?staff_no=' + app.userInfo.STAFF_NO
-        , success: function (res) {
-          _this.setData({ grswUnReadNum: res.data })
+        url: 'https://www.meafe.cn/lite/get_grsw_cnt/?staff_no=' + app.userInfo.STAFF_NO,
+        success: function(res) {
+          _this.setData({
+            grswUnReadNum: res.data
+          })
         }
       })
     }
   },
-  getFuncList: function () {
-    var _this =this;
-    meafe.ListData({ service: "selectFuncList", staff_no: app.userInfo.STAFF_NO ? app.userInfo.STAFF_NO:""}
-      , function (re) {
-        _this.setData({ funcList: re })
-      }
-    )
+  getFuncList: function() {
+    var _this = this;
+    meafe.ListData({
+      service: "selectFuncList",
+      staff_no: app.userInfo.STAFF_NO ? app.userInfo.STAFF_NO : ""
+    }, function(re) {
+      _this.setData({
+        funcList: re
+      })
+    },function(){
+      wx.showModal({
+        title: '菜单加载失败，是否重新加载',
+        content: '',
+        success: function (res) {
+            _this.getFuncList();
+        }
+      })
+    })
   }
 })

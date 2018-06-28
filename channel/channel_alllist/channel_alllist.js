@@ -65,6 +65,7 @@ Page({
       pick1: e.detail.value
     });
     this.page = 1;
+    this.size = 5;
     this.loadData();
   },
 
@@ -77,6 +78,7 @@ Page({
       pick2: e.detail.value
     });
     this.page = 1;
+    this.size = 5;
     this.loadData();
   },
 
@@ -86,6 +88,7 @@ Page({
       pick3: e.detail.value
     });
     this.page = 1;
+    this.size = 5;
     this.loadData();
   },
 
@@ -98,7 +101,7 @@ Page({
 
   loadData: function(e) {
     let that = this;
-    if (!that.data.hidden)
+    if (!that.data.hidden || !that.size)
       return
     else
       that.setData({
@@ -122,7 +125,10 @@ Page({
             that.setData({
               applyList: that.data.applyList.concat(res.data),
             });
-          that.page += 1;
+          if (res.data.length == that.size)
+            that.page += 1;
+          else
+            that.size = 0;
         }
       },
       fale: res => wx.showModal({

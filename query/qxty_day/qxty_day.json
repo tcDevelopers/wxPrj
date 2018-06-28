@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "天翼发展",
   "usingComponents": {
     "ec-canvas": "../../ec-canvas/ec-canvas"
   }
