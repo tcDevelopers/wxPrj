@@ -6,8 +6,8 @@ Page({
    */
   data: {
     apply_user: '',
-    apply_tp: 1,
-    apply_act: 1,
+    apply_tp: '1',
+    apply_act: '1',
     apply_text: '',
     text_focus: false,
   },
