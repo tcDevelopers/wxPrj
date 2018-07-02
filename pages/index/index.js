@@ -152,7 +152,7 @@ Page({
   },
   bindOpenWeb: function(opt) {
     console.log(opt);
-    app.webview_url = opt.currentTarget.id + "?staff_no=" + app.userInfo.STAFF_NO;
+    app.webview_url = opt.currentTarget.id + "?staff_no=" + app.userInfo.STAFF_NO+"&openid="+app.userInfo.openid;
     wx.navigateTo({
       url: '../../pages/webview/webview'
     })
