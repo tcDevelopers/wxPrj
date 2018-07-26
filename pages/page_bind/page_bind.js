@@ -40,7 +40,7 @@ Page({
   tapSendSms:function(){
     var _this = this;
     wx.request({
-      url: 'https://www.meafe.cn/wx/get_xcx_verify_code.jsp',
+      url: 'https://www.meafe.cn/paidan/page_wx_xcx/get_xcx_verify_code.jsp',
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       data: {
         mobile_phone: _this.data.mobile_phone,
@@ -80,7 +80,7 @@ Page({
       return;
     } var _this = this;
     wx.request({
-      url: 'https://www.meafe.cn/wx/check_xcx_verify_code.jsp?mobile_phone=' + _this.data.mobile_phone + "&verify_code=" + _this.data.verify_code+"&open_id="+app.userInfo.openid,
+      url: 'https://www.meafe.cn/paidan/page_wx_xcx/check_xcx_verify_code.jsp?mobile_phone=' + _this.data.mobile_phone + "&verify_code=" + _this.data.verify_code+"&open_id="+app.userInfo.openid,
       data: {
         mobile_phone: _this.data.mobile_phone,
       },

@@ -3,7 +3,7 @@ function ListData(map, success, failed, complete) {
   //获取距离较近的小区清单
   wx.request({
     header: { "Content-Type": "application/x-www-form-urlencoded" },
-    url: 'https://www.meafe.cn/wx/ListData',
+    url: 'https://www.meafe.cn/paidan/ListData',
     data: {t:JSON.stringify(map)},
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
@@ -30,7 +30,7 @@ function Update(map, success, failed, complete) {
   //获取距离较近的小区清单
   wx.request({
     header: { "Content-Type": "application/x-www-form-urlencoded" },
-    url: 'https://www.meafe.cn/wx/Update',
+    url: 'https://www.meafe.cn/paidan/Update',
     data: { t: JSON.stringify(map) },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
@@ -57,7 +57,7 @@ function UpdateById(map, success, failed, complete) {
   //获取距离较近的小区清单
   wx.request({
     header: { "Content-Type": "application/x-www-form-urlencoded" },
-    url: 'https://www.meafe.cn/wx/UpdateById',
+    url: 'https://www.meafe.cn/paidan/UpdateById',
     data: { t: JSON.stringify(map) },
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {

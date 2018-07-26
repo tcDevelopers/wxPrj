@@ -8,7 +8,8 @@
           <text class="userinfo-txt2">{{userInfo.BM}}</text>
         </view>
         <view hidden="{{userInfo.STAFF_NO}}" class="userinfo-txt-view">
-         <button style="background-color:#4B89F2;margin-top:0px;height:72rpx;width:360rpx;font-size:28rpx;border:2rpx solid white;color:white;"bindtap="bindGGWUser">员工绑定</button>
+         <button style="background-color:white;margin-top:0px;height:64rpx;width:500rpx;font-size:28rpx;border:0rpx solid white;color:#4B89F2;"bindtap="bindGGWUser">员工绑定</button>
+         <button style="background-color:white;margin-top:0px;height:64rpx;margin-top:6rpx;width:500rpx;font-size:28rpx;border:0rpx solid white;color:#4B89F2;"bindtap="tryLogin">已绑定-直接登陆</button>
         </view>
     </view>
       <view class="nw">

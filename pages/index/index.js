@@ -27,7 +27,7 @@ Page({
     })
   },
   onLoad: function() {
-    this.tryLogin();
+      this.tryLogin();
   },
   //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
   onShow: function() {
@@ -64,7 +64,7 @@ Page({
       success: res => {
         app.code = res.code;
         wx.request({
-          url: 'https://www.meafe.cn/wx/GetXcxOpenid?code=' + app.code,
+          url: 'https://www.meafe.cn/paidan/page_wx_xcx/get_xcx_openid.jsp?code=' + app.code,
           success: res => {
             if (res.statusCode == 200) {
               app.userInfo.openid = res.data;
@@ -83,7 +83,7 @@ Page({
       title: '登陆中...',
     })
     meafe.ListData({
-        service: "selectUserList",
+      service: "selectXcxUserList",
         open_id: app.userInfo.openid
       },
       function(obj) {
@@ -126,25 +126,6 @@ Page({
       }
     })
   },
-  /*
-  //根据openid从服务器获取userinfo
-  loginRemoteServer: function(openid) {
-    let that = this;
-    wx.request({
-      url: 'https://www.meafe.cn/lite/get_info/?openid=' + openid,
-      success: res => {
-        if (res.statusCode == 200 && res.data.length > 0) {
-          app.globalData.ggwUserInfo = res.data[0];
-          that.setData({
-            userInfo: res.data[0]
-          });
-          if (res.data[0].work_id)
-            that.getGrswCount();
-        }
-      },
-    });
-  },
-  */
   bindNeiwangTxlClick: function() {
     wx.navigateTo({
       url: '../../neiwang/tongxunlu/tongxunlu'
@@ -174,7 +155,7 @@ Page({
   getFuncList: function() {
     var _this = this;
     meafe.ListData({
-      service: "selectFuncList",
+      service: "selectXcxFuncList",
       staff_no: app.userInfo.STAFF_NO ? app.userInfo.STAFF_NO : ""
     }, function(re) {
       _this.setData({
