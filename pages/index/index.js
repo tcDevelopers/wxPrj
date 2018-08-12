@@ -26,7 +26,7 @@ Page({
       url: '../../channel/channel'
     })
   },
-  onLoad: function() {
+  onLoad: function () {
       this.tryLogin();
   },
   //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
@@ -70,10 +70,14 @@ Page({
               app.userInfo.openid = res.data;
               _this.loginRemoteServer();
             }
+            else{
+              _this.setLoginFailed("获取openid失败");
+            }
           },
+          fail: () => _this.setLoginFailed("获取openid失败")
         });
       },
-      fail: () => _this.setLoginFailed(),
+      fail: () => _this.setLoginFailed("微信登陆失败"),
       complete: () => wx.hideLoading(),
     })
   },
@@ -106,15 +110,15 @@ Page({
         }
       },
       function() {
-        _this.setLoginFailed();
+        _this.setLoginFailed("获取用户信息失败");
       });
   },
-  setLoginFailed: function() {
+  setLoginFailed: function(msg) {
     wx.hideLoading();
     var _this = this;
     wx.showModal({
       title: '登陆出错，是否重试',
-      content: '',
+      content: msg?msg:"",
       success: function(res) {
         if (res.confirm) {
           _this.tryLogin();

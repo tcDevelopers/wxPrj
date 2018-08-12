@@ -8,9 +8,15 @@ function ListData(map, success, failed, complete) {
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
       console.log("http success");
-      var obj = res.data;
-      if (success)
-        success(obj);
+      if(res.statusCode==200){
+        var obj = res.data;
+        if (success)
+          success(obj);
+      }
+      else {
+        if (failed)
+          failed(obj);
+      }
     },
     fail: function (res) {
       console.log("http fail");
