@@ -11,6 +11,10 @@ Page({
     node2: '',
     node3: '',
     hidden: false,
+    ckHidden: true,
+    ckType: true,
+    ckTitle: '',
+    ckText: '',
   },
 
   /**
@@ -47,35 +51,28 @@ Page({
   },
 
   agree: function() {
-    let that = this;
-    if (app.userInfo)
-      var userInfo = app.userInfo;
-    else
-      return
-    wx.request({
-      url: 'https://www.meafe.cn/lite/apply_upt/',
-      method: 'POST',
-      data: {
-        'id': that.data.applyData.id,
-        'apply_user': that.data.applyData.apply_user,
-        'agree': true,
-        'role': userInfo.CHANNEL_ROLE,
-        'check_user': userInfo.STAFF_NM
-      },
-      success: res => {
-        wx.showModal({
-          title: "操作完成",
-          content: "审核通过",
-          showCancel: false,
-          success: res => wx.navigateBack({
-            delta: 2
-          }),
-        });
-      }
-    })
+    this.setData({
+      ckHidden: false,
+      ckTitle: '审核通过',
+      ckType: true,
+    });
   },
 
   disagree: function() {
+    this.setData({
+      ckHidden: false,
+      ckTitle: '退回',
+      ckType: false,
+    });
+  },
+
+  ckCancel: function() {
+    this.setData({
+      ckHidden: true
+    });
+  },
+
+  ckConfirm: function() {
     let that = this;
     if (app.userInfo)
       var userInfo = app.userInfo;
@@ -87,22 +84,23 @@ Page({
       data: {
         'id': that.data.applyData.id,
         'apply_user': that.data.applyData.apply_user,
-        'agree': false,
+        'agree': that.data.ckType,
         'role': userInfo.CHANNEL_ROLE,
-        'check_user': userInfo.STAFF_NM
+        'check_user': userInfo.STAFF_NM,
+        'text': that.data.ckText,
       },
-      success: res => {
-        wx.showModal({
-          title: "操作完成",
-          content: "审核通过",
-          showCancel: false,
-          success: res => wx.navigateBack({
-            delta: 2
-          }),
-        });
-      }
+      success: res => wx.navigateBack({
+        delta: 2
+      }),
     })
   },
+
+  ckInput: function(e) {
+    this.setData({
+      ckText: e.detail.value,
+    });
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

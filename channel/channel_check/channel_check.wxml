@@ -3,3 +3,6 @@
   <button type="primary" bindtap="agree" class="btn">审核通过</button>
   <button type="warn" bindtap="disagree" class="btn">退回</button>
 </view>
+<modal title='{{ckTitle}}' hidden="{{ckHidden}}" bindcancel="ckCancel" bindconfirm="ckConfirm">
+  <input placeholder='备注' bindinput='ckInput'/>
+</modal>

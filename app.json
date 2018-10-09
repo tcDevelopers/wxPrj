@@ -31,14 +31,6 @@
         "grsw_forward/grsw_forward",
         "tongxunlu/tongxunlu"
       ]
-    },
-    {
-      "root": "query",
-      "pages": [
-        "query",
-        "channel_query/channel_query",
-        "qxty_day/qxty_day"
-      ]
     }
   ],
   "window": {
