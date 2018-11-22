@@ -24,7 +24,7 @@ Page({
   },
   download:function(){
     var thiz = this;
-    var down_url = "https://www.meafe.cn/nw/" + thiz.data.url;
+    var down_url = "https://www.meafe.cn/nw/" + encodeURI(thiz.data.url);
     console.log(down_url);
     if (down_url.toLowerCase().endsWith('.jpg') || down_url.toLowerCase().endsWith('.png')
       || down_url.toLowerCase().endsWith('.bmp') | down_url.toLowerCase().endsWith('.jpeg')) {
