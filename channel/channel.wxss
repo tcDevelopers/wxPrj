@@ -60,14 +60,9 @@ label {
 }
 
 .textarea-wrp {
-  padding: 0 25rpx;
+  padding: 25rpx;
   background-color: #fff;
   min-height: 200rpx;
-}
-
-textarea {
-  width: 700rpx;
-  padding: 25rpx 0;
 }
 
 .btn {

@@ -10,6 +10,7 @@ Page({
     node2: '',
     node3: '',
     hidden: false,
+    ckHidden: true,
   },
 
   /**

@@ -51,6 +51,6 @@
 <view class="page-section">
   <view class="page-section-title">申请内容</view>
   <view class="textarea-wrp">
-    <textarea disabled="true" value="{{applyData.apply_text}}" maxlength="200" auto-height />
+    <text>{{applyData.apply_text}}</text>
   </view>
 </view>

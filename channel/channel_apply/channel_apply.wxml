@@ -30,7 +30,7 @@
 <view class="page-section">
   <view class="page-section-title">申请内容</view>
   <view class="textarea-wrp">
-    <textarea bindblur="textBlur" placeholder="简述申请内容" maxlength="200" focus="{{text_focus}}" auto-height />
+    <textarea bindblur="textBlur" placeholder="简述申请内容" maxlength="200" focus="{{text_focus}}" style="width:100%" auto-height />
   </view>
 </view>
 <view class="page-section">
