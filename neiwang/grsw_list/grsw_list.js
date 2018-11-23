@@ -65,8 +65,8 @@ Page({
   getList: function (p1, p2, p3, p4, cb) {
     var _this = this;
     var url = 'https://www.meafe.cn/lite/get_grsw_shou_list/';
-    url += '?staff_no=' + p1 + '&top_n=' + p2
-      + '&search_user=' + p3 + '&search_title=' + p4;
+    url += '?staff_no=' + p1 + '&top_n=' + p2 + '&search_user=' + p3 + '&search_title=' + p4;
+    //url += '?staff_no=600033&top_n=' + p2 + '&search_user=' + p3 + '&search_title=' + p4;
     wx.showLoading({
       title: '正在加载...',
       mask: true
@@ -98,8 +98,8 @@ Page({
     var _this = this;
     var { pageSize, sender, title } = _this.data;
     var url = 'https://www.meafe.cn/lite/get_grsw_shou_list/';
-    url += '?staff_no=' + app.userInfo.STAFF_NO + '&top_n=' +
-      (pageSize + 20) + '&search_user=' + sender + '&search_title=' + title;
+    url += '?staff_no=' + app.userInfo.STAFF_NO + '&top_n=' + (pageSize + 20) + '&search_user=' + sender + '&search_title=' + title;
+    //url += '?staff_no=600033&top_n=' + (pageSize + 20) + '&search_user=' + sender + '&search_title=' + title;
     wx.showLoading({
       title: '正在加载..',
       mask: true
