@@ -186,9 +186,9 @@ Page({
   },
   reLoad: function(tab) {
     var _this = this;
-    wx.showLoading({
-      title: '数据加载中...',
-    });
+    // wx.showLoading({
+    //   title: '数据加载中...',
+    // });
     wx.request({
       url: 'https://www.meafe.cn/lite/oa_news/',
       method: 'POST',
@@ -211,10 +211,10 @@ Page({
   },
   newsDetail: function(e) {
     var id = e.currentTarget.dataset.id;
-    wx.showLoading({
-      title: '数据加载中...',
-      mask: true,
-    });
+    // wx.showLoading({
+    //   title: '数据加载中...',
+    //   mask: true,
+    // });
     app.webview_url = 'https://www.meafe.cn/lite/get_gsxx_html/?id=' + id + "&type=gsxx";
     wx.navigateTo({
       url: '../../pages/webview/webview',

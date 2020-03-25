@@ -71,13 +71,13 @@ Page({
               _this.loginRemoteServer();
             }
             else{
-              _this.setLoginFailed("获取openid失败");
+              _this.setLoginFailed("系统正在维护...(openid未获取)");
             }
           },
-          fail: () => _this.setLoginFailed("获取openid失败")
+          fail: () => _this.setLoginFailed("系统正在维护...(openid未获取)")
         });
       },
-      fail: () => _this.setLoginFailed("微信登陆失败"),
+      fail: () => _this.setLoginFailed("系统正在维护...微信登陆失败"),
       complete: () => wx.hideLoading(),
     })
   },
@@ -110,7 +110,7 @@ Page({
         }
       },
       function() {
-        _this.setLoginFailed("获取用户信息失败");
+        _this.setLoginFailed("系统正在维护...获取用户信息失败");
       });
   },
   setLoginFailed: function(msg) {
@@ -138,7 +138,13 @@ Page({
   bindOpenWeb: function(opt) {
     console.log(opt);
     //app.webview_url = opt.currentTarget.id + "?staff_no=" + app.userInfo.STAFF_NO+"&openid="+app.userInfo.openid;
-    app.webview_url = opt.currentTarget.id + "?staff_no=" + app.userInfo.STAFF_NO+"&openid="+app.userInfo.openid;
+    app.webview_url = opt.currentTarget.id;
+    if (app.webview_url.indexOf("?")>-1){
+      app.webview_url += "&staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid
+    }
+    else{
+      app.webview_url += "?staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid;
+    } 
 
     wx.navigateTo({
       url: '../../pages/webview/webview'

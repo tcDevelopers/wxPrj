@@ -1,0 +1,14 @@
+<view class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 100%;">
+
+  <map id="map" longitude="{{longitude}}" latitude=" {{latitude}}" markers="{{markers}}" scale="13" show-location style="width: 100%; height: 90%;"
+  bindtap='mapMove'
+  enable-satellite='true'
+  >
+  </map>
+
+<view style="display:flex;flex-direction:row">
+<button style="background-color:white;flex:1;"  bindtap="tapMyposition">我的位置</button>
+<button style="background-color:white;flex:1;"  bindtap="onGuideTap">导航</button>
+<button style="background-color:white;flex:1;" hidden="{{hiddenSave}}" bindtap="tapSave">保存</button>
+</view>
+</view>
