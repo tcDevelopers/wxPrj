@@ -5,7 +5,8 @@ Page({
     receivers: [],
     title: '',
     content: '',
-    fj_ids: []
+    fj_ids: [],
+    dx: false,
   },
   onLoad: function (option) {
     var thiz = this;
@@ -184,5 +185,10 @@ Page({
     wx.navigateTo({
       url: '../grsw_select_person/grsw_select_person',
     })
-  }
+  },
+  switchdx: function (e) {
+    this.setData({
+      dx: e.detail.value
+    });
+  },
 })

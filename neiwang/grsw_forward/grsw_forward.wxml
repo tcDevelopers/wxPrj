@@ -12,6 +12,11 @@
 </view>
 
 
-<view class="page-section">
-  <button type="primary" bindtap="submit" class="btn">发送</button>
+<view class="page-section1">
+  <view>
+    <button type="primary" bindtap="submit" class="btn">发送</button>
+  </view>
+  <view>
+    <switch type="switch" class="swt" bindchange="switchdx">短信通知</switch>
+  </view>
 </view>

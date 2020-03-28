@@ -4,7 +4,6 @@
     <text type="primary" bindtap="open_send" class="btn1">发送</text>
   </view>
   <view class="section-left">
-
     <input placeholder="发件人" bindinput='changeSender' />
   </view>
   <view class="section-mid">

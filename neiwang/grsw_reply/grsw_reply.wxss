@@ -70,9 +70,20 @@ textarea {
   padding: 25rpx 0;
 }
 
+.page-section1{
+  align-items:center;
+  width: 100%;
+  display: flex;
+  padding-left: 20%;
+}
+
 .btn {
-  max-width: 500rpx;
-  margin-bottom: 30rpx;
+  width: 300rpx;
+}
+
+.swt{
+  color: #838080;
+  margin-left:20rpx;
 }
 
 .userinfo {

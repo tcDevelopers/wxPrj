@@ -5,7 +5,8 @@ Page({
     receivers: [],
     title: '',
     content: '',
-    sender: ''
+    sender: '',
+    dx: false,
   },
   onLoad: function (option) {
     console.log(option);
@@ -81,11 +82,11 @@ Page({
           sender: res.data.sender
         });
       },
-      fail: function (res) {
+      fail: ()=> {
         wx.showModal({
           title: '服务器开小差了，是否重新获取数据？',
           content: '',
-          success: function (res) {
+          success: (res) =>{
             if (res.confirm) {
               thiz.getData();
             } else if (res.cancel) {
@@ -93,7 +94,7 @@ Page({
           }
         })
       },
-      complete: function (res) { wx.hideLoading(); },
+      complete: (res) => { wx.hideLoading(); },
     })
   },
   bindPickerChange: function (e) {
@@ -124,7 +125,7 @@ Page({
       if (thiz.data.receivers.length == 0) {
         wx.showToast({
           title: '请选择联系人',
-          icon: 'success',
+          icon: 'loading',
           duration: 1500
         });
         return;
@@ -132,7 +133,7 @@ Page({
       if (thiz.data.title.trim().length == 0) {
         wx.showToast({
           title: '请输入标题',
-          icon: 'success',
+          icon: 'loading',
           duration: 1500
         });
         return;
@@ -140,7 +141,7 @@ Page({
       if (thiz.data.content.trim().length == 0) {
         wx.showToast({
           title: '请输入内容',
-          icon: 'success',
+          icon: 'loading',
           duration: 1500
         });
         return;
@@ -154,6 +155,8 @@ Page({
         data: {
           receivers: thiz.data.receivers,
           sender: app.userInfo.STAFF_NO,
+          nm: app.userInfo.STAFF_NM,
+          dx: thiz.data.dx,
           title: thiz.data.title,
           content: thiz.data.content
         },
@@ -195,6 +198,11 @@ Page({
         complete: function (res) { wx.hideLoading(); },
       })
     }, 300);
+  },
+  switchdx: function(e){
+    this.setData({
+      dx: e.detail.value
+    });
   },
   selectContact: function () {
     if (this.data.id != null) return;
