@@ -1,6 +1,5 @@
 var app = getApp();
 var meafe = require('../../utils/util_meafe.js');
-var sms = require('../../utils/sms.js');
 Page({
   data:{ 
     verify_code:'',
