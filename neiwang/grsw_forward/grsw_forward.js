@@ -136,6 +136,8 @@ Page({
         data: {
           receivers: thiz.data.receivers,
           sender: app.userInfo.STAFF_NO,
+          nm: app.userInfo.STAFF_NM,
+          dx: thiz.data.dx,
           title: thiz.data.title,
           content: thiz.data.content,
           fj_ids: thiz.data.fj_ids,
