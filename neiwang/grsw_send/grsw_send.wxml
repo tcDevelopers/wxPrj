@@ -1,7 +1,7 @@
 <view class="page-section">
   <view class="page-section-title">收件人</view>
-  <view bindtap="selectContact" style="margin-left:2%;border:1px solid black;width:92%;padding:10rpx;border-radius:10rpx;background:#FCCB43;">
-    {{!receivers.length?"点击选择联系人":receivers}}
+  <view bindtap="bindSelect" style="margin-left:2%;border:1px solid black;width:92%;padding:10rpx;border-radius:10rpx;background:#FCCB43;">
+    {{!nms.length?"点击选择联系人":nms}}
   </view>
 </view>
 <view class="page-section">
@@ -22,6 +22,6 @@
     <button type="primary" bindtap="submit" class="btn">发送</button>
   </view>
   <view>
-    <switch type="switch" class="swt" bindchange="switchdx">短信通知</switch>
+    <switch type="switch" class="swt" bindchange="ifdx">短信通知</switch>
   </view>
 </view>

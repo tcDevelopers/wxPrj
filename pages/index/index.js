@@ -4,12 +4,11 @@ Page({
   data: {
     userInfo: {},
     funcList: {},
-    grswUnReadNum: 0
-  },
-  bindQuery: function() {
-    wx.navigateTo({
-      url: '../../query/query'
-    })
+    nwUnread: 0,
+    dlsUnread: 0,
+    notice: 0,
+    noticeTitle: '',
+    noticeContent: '',
   },
   bindGGWUser: function() {
     wx.navigateTo({
@@ -18,40 +17,75 @@ Page({
   },
   bindKehuPhoto: function() {
     wx.navigateTo({
-      url: '../../page_rec_photo/page_main/page_main'
+      url: '/page_rec_photo/page_main/page_main'
     })
   },
-  bindChannel: function() {
-    wx.navigateTo({
-      url: '../../channel/channel'
+  mdConfirm: function() {
+    this.setData({
+      notice: 0
     })
   },
-  onLoad: function () {
-      this.tryLogin();
+  mdCancel: function() {
+    app.notice = 0;
+    this.setData({
+      notice: 0
+    })
+  },
+  onLoad: function() {
+    let that = this;
+    if (!that.data.notice)
+      wx.request({
+        url: 'https://www.meafe.cn/litest/notice',
+        success: (res) => {
+          if (res.data)
+            that.setData({
+              notice: 1,
+              noticeTitle: res.data.title,
+              noticeContent: res.data.cnt
+            })
+        }
+      })
+    that.tryLogin();
   },
   //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
   onShow: function() {
-    let that = this;
-    if (app.userInfo.STAFF_NO) {
-      that.getGrswCount();
-    }
-  },
-  //个人事务
-  bindNeiwangGrswClick: function() {
-    wx.navigateTo({
-      url: '../../neiwang/grsw_list/grsw_list'
-    })
+    this.getNwUnread();
+    this.getDlsUnread();
   },
   //公司信息
-  bindNeiwangGsxxClick: function() {
+  bindNwXx: function() {
     wx.navigateTo({
-      url: '../../neiwang/news_list/news_list'
+      url: '/neiwang/news_list/news_list'
     })
   },
-  //通讯录
-  bindNeiwangTxlClick: function() {
+  //内网个人事务
+  bingNwGrsw: function() {
     wx.navigateTo({
-      url: '../../neiwang/tongxunlu/tongxunlu'
+      url: '/neiwang/grsw_list/grsw_list?dls=0'
+    })
+  },
+  //代理商个人事务
+  bindDlsGrsw: function() {
+    wx.navigateTo({
+      url: '/neiwang/grsw_list/grsw_list?dls=1'
+    })
+  },
+  //内网通讯录
+  bindNwTxl: function() {
+    wx.navigateTo({
+      url: '/neiwang/txl/txl'
+    })
+  },
+  bindOpenWeb: function(opt) {
+    app.webview_url = opt.currentTarget.id;
+    if (app.webview_url.indexOf("?") > -1) {
+      app.webview_url += "&staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid
+    } else {
+      app.webview_url += "?staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid;
+    }
+
+    wx.navigateTo({
+      url: '/pages/webview/webview'
     })
   },
   //获取openid和userinfo
@@ -69,8 +103,7 @@ Page({
             if (res.statusCode == 200) {
               app.userInfo.openid = res.data;
               _this.loginRemoteServer();
-            }
-            else{
+            } else {
               _this.setLoginFailed("系统正在维护...(openid未获取)");
             }
           },
@@ -82,83 +115,62 @@ Page({
     })
   },
   loginRemoteServer: function() {
-    var _this = this;
+    var that = this;
     wx.showLoading({
       title: '登陆中...',
     })
-    meafe.ListData({
-      service: "selectXcxUserList",
-        open_id: app.userInfo.openid
+    wx.request({
+      url: 'https://www.meafe.cn/litest/user_info',
+      method: 'POST',
+      data: {
+        'openid': app.userInfo.openid
       },
-      function(obj) {
-        wx.hideLoading();
-        if (obj.length > 0) {
-          for (var f in obj[0]) {
-            app.userInfo[f] = obj[0][f];
-          }
-          if (app.userInfo && app.userInfo.openid) {
-            _this.setData({
-              userInfo: app.userInfo
-            });
-          }
-          _this.getGrswCount();
-          //加载web按钮清单
-          _this.getFuncList();
-        } else {
-          //加载web按钮清单
-          _this.getFuncList();
-        }
+      success: res => {
+        app.userInfo = res.data;
+        that.setData({
+          userInfo: res.data
+        });
+        that.getNwUnread();
+        that.getDlsUnread();
+        that.getFuncList();
       },
-      function() {
-        _this.setLoginFailed("系统正在维护...获取用户信息失败");
-      });
+      fail: () => that.setLoginFailed("系统正在维护...获取用户信息失败"),
+      complete: () => wx.hideLoading(),
+    })
   },
   setLoginFailed: function(msg) {
-    wx.hideLoading();
-    var _this = this;
+    var that = this;
     wx.showModal({
       title: '登陆出错，是否重试',
-      content: msg?msg:"",
+      content: msg ? msg : "",
       success: function(res) {
         if (res.confirm) {
-          _this.tryLogin();
-        } else if (res.cancel) {
-          _this.setData({
-            hidden: true
-          });
+          that.tryLogin();
         }
       }
     })
   },
-  bindNeiwangTxlClick: function() {
-    wx.navigateTo({
-      url: '../../neiwang/tongxunlu/tongxunlu'
-    })
-  },
-  bindOpenWeb: function(opt) {
-    console.log(opt);
-    //app.webview_url = opt.currentTarget.id + "?staff_no=" + app.userInfo.STAFF_NO+"&openid="+app.userInfo.openid;
-    app.webview_url = opt.currentTarget.id;
-    if (app.webview_url.indexOf("?")>-1){
-      app.webview_url += "&staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid
-    }
-    else{
-      app.webview_url += "?staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid;
-    } 
-
-    wx.navigateTo({
-      url: '../../pages/webview/webview'
-    })
-  },
-  getGrswCount: function() {
-    var _this = this;
-    if (app.userInfo.STAFF_NO && app.userInfo.STAFF_NO.length > 0) {
-      //console.log('get grsw count');
+  getNwUnread: function() {
+    var that = this;
+    if (app.userInfo.STAFF_NO) {
       wx.request({
-        url: 'https://www.meafe.cn/lite/get_grsw_cnt/?staff_no=' + app.userInfo.STAFF_NO,
+        url: 'https://www.meafe.cn/litest/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=0',
         success: function(res) {
-          _this.setData({
-            grswUnReadNum: res.data
+          that.setData({
+            nwUnread: res.data
+          })
+        }
+      })
+    }
+  },
+  getDlsUnread: function() {
+    var that = this;
+    if (app.userInfo.STAFF_NO) {
+      wx.request({
+        url: 'https://www.meafe.cn/litest/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=1',
+        success: function(res) {
+          that.setData({
+            dlsUnread: res.data
           })
         }
       })
@@ -173,12 +185,12 @@ Page({
       _this.setData({
         funcList: re
       })
-    },function(){
+    }, function() {
       wx.showModal({
         title: '菜单加载失败，是否重新加载',
         content: '',
-        success: function (res) {
-            _this.getFuncList();
+        success: function(res) {
+          _this.getFuncList();
         }
       })
     })

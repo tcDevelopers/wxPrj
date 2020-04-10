@@ -9,7 +9,7 @@
 		"checkSiteMap": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.3",
+	"libVersion": "2.10.4",
 	"appid": "wxe2fab7d8fade2cff",
 	"projectname": "taicangzhicheng",
 	"simulatorType": "wechat",

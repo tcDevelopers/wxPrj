@@ -1,17 +1,15 @@
-// neiwang/tongxunlu/tongxunlu.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     staffList: [],
-    staffBm: '',
-    staffSf: '',
-    staffNm: '',
-    staffGh: '',
-    staffSj: '',
-    staffDh: '',
+    staff_no: '',
+    staff_nm: '',
+    bm: '',
+    phone: '',
+    short_phone: '',
+    dls: 0,
     actionSheetHidden: true,
     actionSheetItems: []
   },
@@ -24,35 +22,23 @@ Page({
   },
 
   /*输入框更改函数*/
-  changeBm: function(e) {
-    this.setData({
-      staffBm: e.detail.value
-    });
-  },
-  changeSf: function(e) {
-    this.setData({
-      staffSf: e.detail.value
-    });
-  },
-  changeSj: function(e) {
-    this.setData({
-      staffSj: e.detail.value
-    });
-  },
   changeNm: function(e) {
-    this.setData({
-      staffNm: e.detail.value
-    });
+    this.data.staff_nm = e.detail.value;
   },
-  changeDh: function(e) {
-    this.setData({
-      staffDh: e.detail.value
-    });
+  changeStaff: function(e) {
+    this.data.staff_no = e.detail.value;
+  },
+  changeBm: function(e) {
+    this.data.bm = e.detail.value;
+  },
+  changePhone: function(e) {
+    this.data.phone = e.detail.value;
+  },
+  changeShort: function(e) {
+    this.data.short_phone = e.detail.value;
   },
   changeGh: function(e) {
-    this.setData({
-      staffGh: e.detail.value
-    });
+    this.data.gd_phone = e.detail.value;
   },
   /*查询函数 */
   search: function() {
@@ -62,25 +48,23 @@ Page({
       mask: true
     });
     wx.request({
-      url: 'https://www.meafe.cn/lite/like_data/',
+      url: 'https://www.meafe.cn/litest/staff_list',
       method: 'POST',
       data: {
-        'tab': 'ly_sys_user_table',
-        'col': ['staff_nm', 'bm', 'staff_no', 'phone', 'short_phone', 'gd_phone'],
-        'whe': {
-          'bm': that.data.staffBm,
-          'staff_no': that.data.staffSf,
-          'staff_nm': that.data.staffNm,
-          'phone': that.data.staffSj,
-          'short_phone': that.data.staffDh,
-          'gd_phone': that.data.staffGh,
-          'nw_role': '1',
-        }
+        'staff_no': that.data.staff_no,
+        'staff_nm': that.data.staff_nm,
+        'bm': that.data.bm,
+        'phone': that.data.phone,
+        'short_phone': that.data.short_phone,
+        'gd_phone': that.data.gd_phone,
+        'dls': that.data.dls,
       },
-      success: res => that.setData({
-        staffList: res.data
-      }),
-      complete: wx.hideLoading(),
+      success: res => {
+        that.setData({
+          staffList: res.data
+        })
+      },
+      complete: ()=>wx.hideLoading(),
     })
   },
   /**
@@ -140,14 +124,14 @@ Page({
   openMakeCallOption: function(e) {
     var item = e.currentTarget.dataset.id;
     var nbrs = [];
-    if (item.phone.length > 0) {
-      nbrs.push(item.phone);
+    if (item[3] && item[3].length == 11) {
+      nbrs.push(item[3]);
     }
-    if (item.short_phone.length > 0) {
-      nbrs.push(item.short_phone);
+    if (item[4] && item[4].length == 4) {
+      nbrs.push(item[4]);
     }
-    if (item.gd_phone.length > 0) {
-      nbrs.push(item.gd_phone);
+    if (item[5] && item[5].length == 8) {
+      nbrs.push(item[5]);
     }
     this.setData({
       actionSheetItems: nbrs,

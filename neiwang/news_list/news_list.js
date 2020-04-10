@@ -14,9 +14,6 @@ Page({
     loadingHidden: true,
   },
   onLoad: function(options) {
-    //var _this = this;
-    //_this.setData({ loadingHidden: false});
-    //console.log(_this.data.tabData);
     try {
       let {
         tabs
@@ -156,7 +153,7 @@ Page({
       loadingHidden: false
     });
     wx.request({
-      url: 'https://www.meafe.cn/lite/oa_news/',
+      url: 'https://www.meafe.cn/litest/news_list',
       method: 'POST',
       data: {
         'top': pagesize[tab] + 20,
@@ -179,7 +176,7 @@ Page({
         icon: 'loading',
         mask: true
       }),
-      complete: _this.setData({
+      complete: () => _this.setData({
         loadingHidden: true,
       }),
     })
@@ -190,7 +187,7 @@ Page({
     //   title: '数据加载中...',
     // });
     wx.request({
-      url: 'https://www.meafe.cn/lite/oa_news/',
+      url: 'https://www.meafe.cn/litest/news_list',
       method: 'POST',
       data: {
         'top': _this.data.pageSize[tab],
@@ -211,13 +208,9 @@ Page({
   },
   newsDetail: function(e) {
     var id = e.currentTarget.dataset.id;
-    // wx.showLoading({
-    //   title: '数据加载中...',
-    //   mask: true,
-    // });
-    app.webview_url = 'https://www.meafe.cn/lite/get_gsxx_html/?id=' + id + "&type=gsxx";
+    app.webview_url = 'https://www.meafe.cn/litest/nw_detail?id=' + id + '&grsw=0&dls=0';
     wx.navigateTo({
-      url: '../../pages/webview/webview',
+      url: '/pages/webview/webview',
     })
   }
 })

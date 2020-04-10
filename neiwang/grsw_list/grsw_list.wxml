@@ -20,7 +20,7 @@
       <label class="news-content">{{item[1]}}</label>
       <view class="news-info">
         <label class="news-auth">{{item[4]}}</label>
-        <label class="news-state" wx:if="{{item[2]}}">已读</label>
+        <label class="news-state" wx:if="{{item[2]>0}}">已读</label>
         <label class="news-state1" wx:else>未读</label>
         <label class="news-dt">{{item[3]}}</label>
       </view>

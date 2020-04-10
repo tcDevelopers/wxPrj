@@ -11,26 +11,13 @@
   ],
   "subPackages": [
     {
-      "root": "channel",
-      "pages": [
-        "channel",
-        "channel_apply/channel_apply",
-        "channel_check/channel_check",
-        "channel_view/channel_view",
-        "channel_alllist/channel_alllist",
-        "channel_checklist/channel_checklist"
-      ]
-    },
-    {
       "root": "neiwang",
       "pages": [
         "news_list/news_list",
         "grsw_list/grsw_list",
-        "page_detail/page_detail",
-        "grsw_select_person/grsw_select_person",
-        "grsw_reply/grsw_reply",
-        "grsw_forward/grsw_forward",
-        "tongxunlu/tongxunlu"
+        "grsw_select/grsw_select",
+        "grsw_send/grsw_send",
+        "txl/txl"
       ]
     }
   ],

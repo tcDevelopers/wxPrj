@@ -1,5 +1,4 @@
 function ListData(map, success, failed, complete) {
-  console.log("开始网络请求..");
   //获取距离较近的小区清单
   wx.request({
     header: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7,7 +6,6 @@ function ListData(map, success, failed, complete) {
     data: {t:JSON.stringify(map)},
     method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
     success: function (res) {
-      console.log("http success");
       if(res.statusCode==200){
         var obj = res.data;
         if (success)
