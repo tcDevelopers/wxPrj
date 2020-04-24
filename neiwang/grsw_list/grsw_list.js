@@ -18,36 +18,38 @@ Page({
    */
   onLoad: function(options) {
     // 通过页面参数dls来区分内网还是代理商;
-    var _this = this;
+    var that = this;
     if (options.dls == '1') {
-      _this.setData({
-        dls: 1
-      });
+      that.data.dls = 1;
       wx.setNavigationBarTitle({
         title: '代理商个人事务'
       });
     }
-    let {
-      pageSize,
-      sender,
-      title,
-      dls
-    } = _this.data;
-    _this.getList(app.userInfo.STAFF_NO, pageSize, sender, title, dls);
-
     wx.getSystemInfo({
       success: function(res) {
         let height = res.windowHeight;
         var query = wx.createSelectorQuery() //创建节点查询器 query
         query.select('#search_bar').boundingClientRect() //这段代码的意思是选择Id=the-id的节点，获取节点位置信息的查询请求
         query.exec(function(res) {
-          _this.setData({
+          that.setData({
             scrollViewHeight: height - res[0].height
           });
         })
       },
-      fail: function() {}
     });
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    let {
+      pageSize,
+      sender,
+      title,
+      dls
+    } = this.data;
+    this.getList(app.userInfo.STAFF_NO, pageSize, sender, title, dls);
   },
 
   /**
@@ -80,7 +82,7 @@ Page({
    */
   getList: function(p1, p2, p3, p4, p5) {
     var _this = this;
-    var url = 'https://www.meafe.cn/litest/grsw_list';
+    var url = 'https://www.meafe.cn/lite/grsw_list';
     wx.showLoading({
       title: '正在加载...'
     })
@@ -132,7 +134,7 @@ Page({
       title,
       dls
     } = _this.data;
-    let url = 'https://www.meafe.cn/litest/grsw_list';
+    let url = 'https://www.meafe.cn/lite/grsw_list';
     wx.showLoading({
       title: '正在加载..',
       mask: true
@@ -174,7 +176,7 @@ Page({
   grswDetail: function(e) {
     let shouid = e.currentTarget.dataset.id;
     let dls = this.data.dls;
-    let url = 'https://www.meafe.cn/litest/grsw_read?';
+    let url = 'https://www.meafe.cn/lite/grsw_read?';
     url += 'staff_no=' + app.userInfo.STAFF_NO;
     url += '&shouid=' + shouid;
     url += '&dls=' + dls;
@@ -185,7 +187,7 @@ Page({
     wx.request({
       url: url
     });
-    app.webview_url = 'https://www.meafe.cn/litest/nw_detail?id=' + shouid + '&grsw=1&dls=' + dls;
+    app.webview_url = 'https://www.meafe.cn/lite/nw_detail?id=' + shouid + '&grsw=1&dls=' + dls;
     wx.hideLoading();
     wx.navigateTo({
       url: '/pages/webview/webview',
@@ -196,13 +198,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
 
   },
 

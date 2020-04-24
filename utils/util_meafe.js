@@ -242,30 +242,6 @@ function FileUpload(upload_folder, file_loc, callback, fail_cb) {
   })
 }
 
-function nwMsg(p1, p2, cb, cbf, cbc) {
-  wx.request({
-    url: 'https://www.meafe.cn/sxf/oa_news/',
-    data: {
-      top: p1,
-      fl: p2
-    },
-    method: 'POST',
-    success: function (res) {
-      //console.log(res);
-      if (cb)
-        cb(res);
-    },
-    fail: function (res) {
-      if (cbf)
-        cbf(res);
-    },
-    complete: function (res) {
-      if (cbc)
-        cbc(res);
-    }
-  })
-}
-
 function Toast(msg) {
   wx.showToast({
     title: msg,
@@ -305,7 +281,6 @@ module.exports = {
   SCB3Edit: SCB3Edit,
   ArrayIndex: ArrayIndex,
   ArrayIndex1: ArrayIndex1,
-  nwMsg: nwMsg,
   ListData:ListData
 }
 

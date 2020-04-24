@@ -111,11 +111,11 @@ Page({
       dx: that.data.dx,
       staff_nm: app.userInfo.STAFF_NM,
     };
-    let url = 'https://www.meafe.cn/litest/grsw_send';
+    let url = 'https://www.meafe.cn/lite/grsw_send';
     if (that.data.tp == '3') {
       data.shouid = that.shouid;
       data.fjid = that.fjid;
-      url = 'https://www.meafe.cn/litest/grsw_forward';
+      url = 'https://www.meafe.cn/lite/grsw_forward';
     }
     wx.request({
       url: url,

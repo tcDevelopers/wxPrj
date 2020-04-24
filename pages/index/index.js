@@ -20,6 +20,11 @@ Page({
       url: '/page_rec_photo/page_main/page_main'
     })
   },
+  bindOrder: function() {
+    wx.navigateTo({
+      url: '/order/order'
+    })
+  },
   mdConfirm: function() {
     this.setData({
       notice: 0
@@ -33,9 +38,9 @@ Page({
   },
   onLoad: function() {
     let that = this;
-    if (!that.data.notice)
+    if (app.notice && app.userInfo.STAFF_NO)
       wx.request({
-        url: 'https://www.meafe.cn/litest/notice',
+        url: 'https://www.meafe.cn/lite/notice',
         success: (res) => {
           if (res.data)
             that.setData({
@@ -120,19 +125,21 @@ Page({
       title: '登陆中...',
     })
     wx.request({
-      url: 'https://www.meafe.cn/litest/user_info',
+      url: 'https://www.meafe.cn/lite/user_info',
       method: 'POST',
       data: {
         'openid': app.userInfo.openid
       },
       success: res => {
-        app.userInfo = res.data;
-        that.setData({
-          userInfo: res.data
-        });
-        that.getNwUnread();
-        that.getDlsUnread();
-        that.getFuncList();
+        if (res.data) {
+          app.userInfo = res.data;
+          that.setData({
+            userInfo: res.data
+          });
+          that.getNwUnread();
+          that.getDlsUnread();
+          that.getFuncList();
+        }
       },
       fail: () => that.setLoginFailed("系统正在维护...获取用户信息失败"),
       complete: () => wx.hideLoading(),
@@ -152,26 +159,28 @@ Page({
   },
   getNwUnread: function() {
     var that = this;
-    if (app.userInfo.STAFF_NO) {
+    if (app.userInfo.NWID) {
       wx.request({
-        url: 'https://www.meafe.cn/litest/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=0',
+        url: 'https://www.meafe.cn/lite/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=0',
         success: function(res) {
-          that.setData({
-            nwUnread: res.data
-          })
+          if (res.statusCode == 200)
+            that.setData({
+              nwUnread: res.data
+            })
         }
       })
     }
   },
   getDlsUnread: function() {
     var that = this;
-    if (app.userInfo.STAFF_NO) {
+    if (app.userInfo.DLSID) {
       wx.request({
-        url: 'https://www.meafe.cn/litest/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=1',
+        url: 'https://www.meafe.cn/lite/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=1',
         success: function(res) {
-          that.setData({
-            dlsUnread: res.data
-          })
+          if (res.statusCode == 200)
+            that.setData({
+              dlsUnread: res.data
+            })
         }
       })
     }

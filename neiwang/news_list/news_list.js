@@ -153,7 +153,7 @@ Page({
       loadingHidden: false
     });
     wx.request({
-      url: 'https://www.meafe.cn/litest/news_list',
+      url: 'https://www.meafe.cn/lite/news_list',
       method: 'POST',
       data: {
         'top': pagesize[tab] + 20,
@@ -187,7 +187,7 @@ Page({
     //   title: '数据加载中...',
     // });
     wx.request({
-      url: 'https://www.meafe.cn/litest/news_list',
+      url: 'https://www.meafe.cn/lite/news_list',
       method: 'POST',
       data: {
         'top': _this.data.pageSize[tab],
@@ -208,7 +208,7 @@ Page({
   },
   newsDetail: function(e) {
     var id = e.currentTarget.dataset.id;
-    app.webview_url = 'https://www.meafe.cn/litest/nw_detail?id=' + id + '&grsw=0&dls=0';
+    app.webview_url = 'https://www.meafe.cn/lite/nw_detail?id=' + id + '&grsw=0&dls=0';
     wx.navigateTo({
       url: '/pages/webview/webview',
     })

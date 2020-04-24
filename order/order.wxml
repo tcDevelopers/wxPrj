@@ -1,0 +1,116 @@
+<view class='store-container'>
+  <view class='head' bindtap='showStoreDetail'>
+    <view class="head-img">
+      <image src='{{storeInfo.storeImg}}'></image>
+    </view>
+    <view class="head-detail">
+      <view class="info">
+        <text>{{storeInfo.storeName}}</text>
+      </view>
+      <view class="publicMsg">{{storeInfo.publicMsg}}</view>
+      <swiper class="actives" vertical autoplay circular>
+        <swiper-item wx:for="{{storeInfo.actives}}" wx:key="activeId" class="item" catchtouchmove='preventScrollSwiper'>
+          <view class='active-icon {{activesInfo[item.activeId].class}}'>{{activesInfo[item.activeId].text}}</view>
+          <view class='active-text'>{{item.activeText}}</view>
+        </swiper-item>
+      </swiper>
+    </view>
+  </view>
+  <view class="modal" wx:if="{{showModal}}">
+    <view class="top" bindtap="closeModal"></view>
+    <view class="bottom">
+      <view wx:for="{{storeInfo.actives}}" wx:key="activeId" class="modal-active">
+        <view class='modal-icon {{activesInfo[item.activeId].class}}'>{{activesInfo[item.activeId].text}}</view>
+        <view class='modal-text'>{{item.activeText}}</view>
+      </view>
+      <!--<view class="info">
+        <view class="title">配送</view>
+        <view class="del-info">
+          <text>起送￥{{storeInfo.minDelPrice}}</text>
+          <text>{{storeInfo.delTime}}分钟</text>
+          <text>{{storeInfo.distance}}km</text>
+        </view>
+        <view class="time-info">配送时间:5:00-6:00</view>
+      </view>-->
+      <view class="public info">
+        <view class="title info">公告</view>
+        <view class="publicMsg">{{storeInfo.publicMsg}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="tab" bindtap="selectTabItem">
+    <view class="tab-item" data-index="0">菜单</view>
+    <!--<view class="tab-item" data-index="1">评价</view>
+    <view class="tab-item" data-index="2">商家</view>-->
+    <view class="border" style="left:{{30+tabIndex*160}}rpx"></view>
+  </view>
+  <view class='food'>
+    <view class='food-class' style='height:{{listHeight}}px'>
+      <scroll-view scroll-y scroll-with-animation scroll-into-view="{{viewToLeft}}" style='height:{{listHeight}}px'>
+        <view class="food-class-item {{activeIndex==index?'active':''}}" wx:for="{{food}}" wx:key="title" bindtap='selectFood'
+          data-index="{{index}}" data-titleId="{{item.titleId}}" id="{{item.titleId+'left'}}">
+          <view class='text' data-index="{{index}}" data-titleId="{{item.titleId}}">{{item.title}}</view>
+          <view class="dot" wx:if="{{item.foodCount>0}}">{{item.foodCount}}</view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class='food-detail'>
+      <scroll-view scroll-y scroll-with-animation style='height:{{listHeight}}px' scroll-into-view="{{viewTo}}"
+        bindscroll="scroll">
+        <view wx:for="{{food}}" wx:key="title" class="title-group" wx:for-index="groupindex">
+          <view class='title' id='{{item.titleId}}'>{{item.title}}</view>
+          <view wx:for="{{item.items}}" wx:key="foodId" class='food-info' wx:for-index="index">
+            <view class='img'>
+              <image src='{{item.img}}'></image>
+            </view>
+            <view class='info'>
+              <view class='name'>{{item.name}}</view>
+              <view class='note'>{{item.note}}</view>
+              <view class='month'>
+                <text decode="{{true}}">销量{{item.sales}}&nbsp;&nbsp;</text>
+                <text decode="{{true}}">赞{{item.zan}}&nbsp;&nbsp;</text>
+                <text>踩{{item.cai}}</text>
+              </view>
+              <view class='price-count'>
+                <view class='price'>￥{{item.price}}</view>
+                <view class='count'>
+                  <view class='add btn' bindtap="add" data-item="{{item}}" data-groupindex="{{groupindex}}" data-index="{{index}}">+</view>
+                  <view class='num'>{{item.count}}</view>
+                  <view class='ruduce btn' bindtap="reduce" data-item="{{item}}" wx:if="{{item.count>0?true:false}}"
+                    data-groupindex="{{groupindex}}" data-index="{{index}}">-</view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view style="height:{{fillHeight}}px"></view>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="cart">
+    <view class="cart-container">
+      <view class="cart-img {{cart.length>0?'has-food':''}}" bindtap="listCart">
+        <image src="{{cart.length>0?'/img/gouwuche-black.png':'/img/gouwuche.png'}}"></image>
+      </view>
+      <view class="del-price-money">
+        <view class="money">￥{{totalMoney}}</view>
+        <!--<view class="del-price">{{storeInfo.delPrice>0?'另需配送费'+storeInfo.delPrice+'元':'免配送费'}}</view>-->
+      </view>
+      <view class="start-del {{(totalMoney>=storeInfo.minDelPrice&&cart.length>0)?'has-food':''}}" bindtap='submit'>{{(totalMoney>=storeInfo.minDelPrice&&cart.length>0)?'预订':'请点餐'}}</view>
+    </view>
+    <view class="cart-list" wx:if="{{showCart}}">
+      <view class="cart-list-header" bindtap="clear">清空购物车</view>
+      <view class="cart-list-item">
+        <view wx:for="{{cart}}" wx:key="unique" class="item">
+          <view class="cart-detail">{{item.name}}</view>
+          <view class="cart-detail" style="color:red">￥{{item.price}}</view>
+          <view class="cart-detail cart-count">
+            <view class='add btn' bindtap="reduce"  data-item="{{item}}" data-groupindex="{{item.groupindex}}" data-index="{{item.index}}">-</view>{{item.count}}
+            <view
+              class='add btn' bindtap="add" data-item="{{item}}" data-groupindex="{{item.groupindex}}" data-index="{{item.index}}">+</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

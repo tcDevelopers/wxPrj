@@ -1,0 +1,454 @@
+page {
+  background-color: #fff;
+}
+
+.head {
+  height: 240rpx;
+  background: #ffd161;
+  color: #333;
+  font-weight: 550;
+  display: flex;
+}
+
+.head .head-img {
+  width: 200rpx;
+}
+
+.head .head-img image {
+  margin: 18rpx;
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 20rpx;
+}
+
+.head .head-detail {
+  flex-grow: 1;
+  font-size: 26rpx;
+}
+
+.head .head-detail .info {
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.head .head-detail .info text {
+  border-right: 1rpx solid #eee;
+  padding: 0 10rpx;
+}
+
+.head .head-detail .info text:last-child {
+  border: none;
+}
+
+.head .head-detail .publicMsg {
+  width: 500rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 20rpx;
+}
+
+.head .actives {
+  height: 60rpx;
+}
+
+.head .item {
+  width: 500rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.head .active-icon {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-top: 10rpx;
+  color: #fff;
+  text-align: center;
+  margin-right: 10rpx;
+}
+
+.head .active-text {
+  width: 450rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.manjian {
+  background-color: #ff8dc1;
+}
+
+.xindian {
+  background-color: #75fb6d;
+}
+
+.zhekou {
+  background-color: #ff111a;
+}
+
+.daijinquan {
+  background-color: #fbd305;
+}
+
+.xinyonghu {
+  background-color: #f93fe9;
+}
+
+.peisong {
+  background-color: #67e1ef;
+}
+
+.lingdaijin {
+  background-color: #56fb43;
+}
+
+.zengsong {
+  background-color: #fd86ed;
+}
+
+.tab {
+  height: 78rpx;
+  border-bottom: 2rpx solid #eee;
+  display: flex;
+  position: relative;
+}
+
+.tab .tab-item {
+  width: 160rpx;
+  line-height: 78rpx;
+  text-align: center;
+}
+
+.tab .border {
+  position: absolute;
+  width: 100rpx;
+  height: 4rpx;
+  background-color: #ffd161;
+  top: 76rpx;
+  left: 30rpx;
+  transition: all 0.5s;
+}
+
+.food {
+  display: flex;
+  height: 100%;
+}
+
+.food-class {
+  background-color: #eee;
+  width: 180rpx;
+}
+
+.food-class .active {
+  background-color: #fff;
+}
+
+.food-class .food-class-item {
+  position: relative;
+  height: 100rpx;
+  box-sizing: border-box;
+  padding: 10rpx 20rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.food-class .food-class-item:last-child {
+  margin-bottom: 120rpx;
+}
+
+.food-class .food-class-item .text {
+  text-align: center;
+  max-height: 80rpx;
+  overflow: hidden;
+}
+
+.food-class .food-class-item .dot {
+  position: absolute;
+  width: 30rpx;
+  height: 30rpx;
+  text-align: center;
+  line-height: 30rpx;
+  background-color: red;
+  right: 4rpx;
+  top: 4rpx;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20rpx;
+}
+
+.food-detail {
+  flex-grow: 1;
+  padding: 0 14rpx;
+  font-size: 26rpx;
+}
+
+.food-detail .title {
+  font-weight: 700;
+  padding: 0 20rpx;
+  margin-bottom: 20rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  background-color: #eee;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.food-detail .title-group {
+  padding-bottom: 30rpx;
+}
+
+.food-detail .title-group:last-child {
+  margin-bottom: 120rpx;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+.food-info {
+  margin-bottom: 30rpx;
+  display: flex;
+}
+
+.food-info:last-child {
+  margin-bottom: 0;
+}
+
+.food-info .img {
+  width: 120rpx;
+  text-align: center;
+}
+
+.food-info .img image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.food-info .info {
+  flex-grow: 1;
+}
+
+.info .name {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+
+.info .note {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.price-count {
+  display: flex;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+
+.price-count .price {
+  font-size: 36rpx;
+  flex-grow: 1;
+  color: red;
+}
+
+.price-count .count {
+  display: flex;
+  line-height: 60rpx;
+  flex-grow: 1;
+  flex-direction: row-reverse;
+}
+
+.price-count .count .num {
+  line-height: 50rpx;
+  font-size: 30rpx;
+}
+
+.btn {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  font-size: 40rpx;
+  font-weight: 700;
+  color: black;
+  text-align: center;
+  line-height: 50rpx;
+  background-color: #ffd161;
+  margin: 0 16rpx;
+}
+
+.cart {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 110rpx;
+  line-height: 110rpx;
+  background-color: #333;
+}
+
+.cart .cart-container {
+  display: flex;
+  position: relative;
+  color: #eee;
+}
+
+.cart .del-price-money {
+  flex-grow: 1;
+  font-size: 28rpx;
+  padding-left: 140rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart .del-price-money .money {
+  font-size: 36rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.cart .del-price-money .del-price {
+  font-size: 24rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+}
+
+.cart .start-del {
+  width: 200rpx;
+  font-weight: 700;
+  font-size: 30rpx;
+  text-align: center;
+  background-color: #2f2f2f;
+}
+
+.cart .cart-img {
+  position: absolute;
+  top: -24rpx;
+  left: 20rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background-color: #666;
+  text-align: center;
+  z-index: 9;
+}
+
+.cart .cart-img image {
+  width: 60rpx;
+  height: 60rpx;
+  vertical-align: middle;
+  margin-bottom: 20rpx;
+}
+
+.cart .has-food {
+  color: #333;
+  background-color: #ffd161;
+}
+
+.cart .cart-list {
+  position: absolute;
+  bottom: 110rpx;
+  background-color: #fff;
+  width: 100%;
+}
+
+.cart .cart-list-header {
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: #ffd161;
+  text-align: right;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+  color: #333;
+}
+
+.cart-list-item {
+  max-height: 300rpx;
+  overflow: scroll;
+}
+
+.cart-list-item .item {
+  display: flex;
+}
+
+.cart-list-item .item .cart-detail {
+  flex: 1;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+}
+
+.cart-count {
+  display: flex;
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal .top {
+  flex-grow: 1;
+}
+
+.modal .bottom {
+  font-size: 28rpx;
+  background-color: #fff;
+  padding: 30rpx;
+}
+
+.modal .modal-active {
+  display: flex;
+  margin-bottom: 10rpx;
+}
+
+.modal .modal-icon {
+  height: 40rpx;
+  width: 40rpx;
+  line-height: 40rpx;
+  color: #fff;
+  text-align: center;
+}
+
+.modal .modal-text {
+  margin-left: 10rpx;
+}
+
+.modal .info {
+  margin-top: 40rpx;
+}
+
+.modal .info .title {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.modal .info text {
+  border-right: 1rpx solid #eee;
+  padding: 0 10rpx;
+}
+
+.modal .info text:first-child {
+  padding-left: 0;
+}
+
+.modal .info text:last-child {
+  border: none;
+}

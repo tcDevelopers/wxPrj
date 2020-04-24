@@ -48,7 +48,7 @@ Page({
       mask: true
     });
     wx.request({
-      url: 'https://www.meafe.cn/litest/staff_list',
+      url: 'https://www.meafe.cn/lite/staff_list',
       method: 'POST',
       data: {
         'staff_no': that.data.staff_no,

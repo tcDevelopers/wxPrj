@@ -1,14 +1,15 @@
-/* pages/page_ggw/page_ggw_add.wxss */
 .section{
   display: flex;
   flex:1;
   flex-direction:column;
   background:#fff;
 }
+
 .form-row{
   display: flex;
   flex-direction:row;
 }
+
 .form-row-item{
   display: flex;
   justify-content:flex-start;
@@ -16,6 +17,7 @@
   padding: 20rpx;
   flex:2;
 }
+
 .form-row-item-left{
   display: flex;
   justify-content:flex-start;
@@ -23,6 +25,7 @@
   padding: 20rpx;
   flex:2;
 }
+
 .form-row-label-view{
   display: flex;
   justify-content:center;
@@ -38,6 +41,7 @@
   align-items:center;
   padding: 20rpx;
 }
+
 .form-row-picker{
   display:flex;
   flex:1;
@@ -45,14 +49,6 @@
   border:1px solid #ddd;
 }
 
-.picker-text{
-  background:#fefefe;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  width:430rpx;
-  height:75rpx;
-}
 .form-row-input{
   display:flex;
   flex:1;
@@ -66,22 +62,9 @@
   flex-grow:1;
   width:100rpx;height:160rpx;
 }
-.flex1{
-  flex:1;
-}
-.flex2{
-  flex:2;
-}
-.section_title{
-  display: flex;
-  justify-content:center;
-  align-content:center;
-  font-size: 14px;
-  padding:10px;
-  background:#ddd;
-}
 
 .form_style{
   display: flex;
   flex-direction:column;
+  margin-top: 50rpx;
 }

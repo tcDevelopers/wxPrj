@@ -1,44 +1,34 @@
 <view class="section">
   <view class="form_style">
-    
-
     <view class="form-row">
-        <view class="form-row-label-view">
-            <text>工号</text>
-        </view>
-        <view class="form-row-item">
-            <input class="form-row-input" bindinput="bindInput3" name="input" placeholder="" />
-        </view>
+      <view class="form-row-label-view">
+        <text>绑定工号</text>
+      </view>
+      <view class="form-row-item">
+        <input class="form-row-input" bindinput="bindInput1" maxlength="15" />
+      </view>
     </view>
     <view class="form-row">
-        <view class="form-row-label-view">
-            <text>手机号码</text>
-        </view>
-        <view class="form-row-item">
-            <input class="form-row-input" bindinput="bindInput2" name="input" placeholder="" />
-        </view>
+      <view class="form-row-label-view">
+      </view>
+      <view class="form-row-item-left">
+        <button style="background-color:#FECA41;margin-top:10px;" disabled="{{sms}}" bindtap="tapSendSms">发送验证码</button>
+      </view>
     </view>
     <view class="form-row">
-        <view class="form-row-label-view">
-        </view>
-        <view class="form-row-item-left">
-        <button style="background-color:white;margin-top:10px;" disabled="{{sendWait>0}}" bindtap="tapSendSms">发送验证码{{sendWait}}</button>
-        </view>
+      <view class="form-row-label-view">
+        <text>验证码</text>
+      </view>
+      <view class="form-row-item">
+        <input class="form-row-input" bindinput="bindInput2" maxlength="10" />
+      </view>
     </view>
     <view class="form-row">
-        <view class="form-row-label-view">
-            <text>验证码</text>
-        </view>
-        <view class="form-row-item">
-            <input class="form-row-input" bindinput="bindInput1" name="input" placeholder="" />
-        </view>
-    </view>
-    <view class="form-row">
-        <view  bindtap="tapShowMap" class="form-row-label-view">
-        </view>
-        <view class="form-row-item-left ">
+      <view bindtap="tapShowMap" class="form-row-label-view">
+      </view>
+      <view class="form-row-item-left ">
         <button style="background-color:#FECA41;margin-top:10px;" bindtap="tapSubmit">点击绑定</button>
-        </view>
+      </view>
     </view>
-</view>
+  </view>
 </view>

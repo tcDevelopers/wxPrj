@@ -19,7 +19,7 @@ Page({
       title: '正在加载',
     });
     wx.request({
-      url:"https://www.meafe.cn/litest/staff_list?dls="+options.dls,
+      url:"https://www.meafe.cn/lite/staff_list?dls="+options.dls,
       success: (res) => that.data.staffList = res.data,
       complete: () => wx.hideLoading(),
     });

@@ -34,7 +34,11 @@
       <image class="btn_icon" src="/img/contact.png" mode="aspectFill"></image>
       内网通讯录
     </view>
-    <block wx:for="{{funcList}}" style="width:100%;" wx:for-item="item" wx:key="unique">
+    <view hidden="{{!userInfo.STAFF_NO}}" class="nw_btn" hover-class='hover' bindtap="bindOrder">
+      <image class="btn_icon" src="/img/food.png" mode="aspectFill"></image>
+      食堂订餐
+    </view>
+    <block wx:for="{{funcList}}" style="width:100%;" wx:for-item="item" wx:key="unique" wx:if="{{userInfo.STAFF_NO}}">
       <view class="nw_btn" bindtap="bindOpenWeb" id="{{item.URL}}" hover-class='hover'>
         <image class="btn_icon" src="{{item.IMG?item.IMG:'../../img/note.png'}}" mode="aspectFill"></image>
         {{item.NAME}}
