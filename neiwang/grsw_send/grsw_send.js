@@ -16,7 +16,6 @@ Page({
       3：转发
     */
     let that = this;
-    that.data.tp = options.tp;
     that.data.dls = options.dls;
     if (options.tp == '2') {
       wx.setNavigationBarTitle({
@@ -31,6 +30,7 @@ Page({
         'nm': sender
       }]);
       that.setData({
+        tp: options.tp,
         title: '回复 ' + sender + ' ' + options.title
       })
     } else if (options.tp == '3') {
@@ -39,8 +39,8 @@ Page({
       });
       wx.setStorageSync('selected', []);
       that.shouid = options.shouid;
-      that.fjid = options.fjid;
       that.setData({
+        tp: options.tp,
         title: '转自' + options.sender + ' ' + options.title
       });
     } else {
@@ -114,7 +114,6 @@ Page({
     let url = 'https://www.meafe.cn/lite/grsw_send';
     if (that.data.tp == '3') {
       data.shouid = that.shouid;
-      data.fjid = that.fjid;
       url = 'https://www.meafe.cn/lite/grsw_forward';
     }
     wx.request({

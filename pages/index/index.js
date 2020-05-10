@@ -103,10 +103,10 @@ Page({
       success: res => {
         app.code = res.code;
         wx.request({
-          url: 'https://www.meafe.cn/paidan/page_wx_xcx/get_xcx_openid.jsp?code=' + app.code,
+          url: 'https://www.meafe.cn/lite/openid?code=' + app.code,
           success: res => {
-            if (res.statusCode == 200) {
-              app.userInfo.openid = res.data;
+            if (res.statusCode == 200 && res.data.openid) {
+              app.userInfo.openid = res.data.openid;
               _this.loginRemoteServer();
             } else {
               _this.setLoginFailed("系统正在维护...(openid未获取)");

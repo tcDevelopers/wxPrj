@@ -18,23 +18,23 @@
     </view>
   </view>
   <view class="nw">
-    <view hidden="{{!userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bindNwXx">
+    <view wx:if="{{userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bindNwXx">
       <image class="btn_icon" src="/img/laba.png" mode="aspectFill"></image>
       公司内网信息
     </view>
-    <view hidden="{{!userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bingNwGrsw">
+    <view wx:if="{{userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bingNwGrsw">
       <image class="btn_icon" src="/img/man.png" mode="aspectFill"></image>
       个人事务({{nwUnread}})
     </view>
-    <view hidden="{{!userInfo.DLSID}}" class="nw_btn" bindtap="bindDlsGrsw" hover-class='hover'>
+    <view wx:if="{{userInfo.DLSID}}" class="nw_btn" bindtap="bindDlsGrsw" hover-class='hover'>
       <image class="btn_icon" src="/img/dls.png" mode="aspectFill"></image>
       代理商({{dlsUnread}})
     </view>
-    <view hidden="{{!userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bindNwTxl">
+    <view wx:if="{{userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bindNwTxl">
       <image class="btn_icon" src="/img/contact.png" mode="aspectFill"></image>
       内网通讯录
     </view>
-    <view hidden="{{!userInfo.STAFF_NO}}" class="nw_btn" hover-class='hover' bindtap="bindOrder">
+    <view wx:if="{{userInfo.STAFF_NO}}" class="nw_btn" hover-class='hover' bindtap="bindOrder">
       <image class="btn_icon" src="/img/food.png" mode="aspectFill"></image>
       食堂订餐
     </view>

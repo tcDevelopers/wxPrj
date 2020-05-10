@@ -37,6 +37,13 @@ Page({
         })
       },
     });
+    let {
+      pageSize,
+      sender,
+      title,
+      dls
+    } = that.data;
+    that.getList(app.userInfo.STAFF_NO, pageSize, sender, title, dls);
   },
 
   /**
@@ -49,7 +56,6 @@ Page({
       title,
       dls
     } = this.data;
-    this.getList(app.userInfo.STAFF_NO, pageSize, sender, title, dls);
   },
 
   /**
