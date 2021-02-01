@@ -3,12 +3,10 @@
     "pages/index/index",
     "order/order",
     "pages/file_download/file_download",
-    "pages/page_preview_image/page_preview_image",
     "pages/page_bind/page_bind",
     "pages/webview/webview",
-    "page_rec_photo/page_add/page_add",
-    "page_rec_photo/page_main/page_main",
-    "pages/map/map"
+    "pages/map/map",
+    "map/map"
   ],
   "subPackages": [
     {

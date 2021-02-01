@@ -13,7 +13,7 @@ Page({
     pageSize: [20, 20, 20, 20],
     loadingHidden: true,
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     try {
       let {
         tabs
@@ -143,7 +143,7 @@ Page({
   handlerTabTap(e) {
     this._updateSelectedPage(e.currentTarget.dataset.index);
   },
-  loadMore: function(e) {
+  loadMore: function (e) {
     let _this = this;
     let tab = _this.data.activeTab;
     let pagesize = _this.data.pageSize;
@@ -153,7 +153,7 @@ Page({
       loadingHidden: false
     });
     wx.request({
-      url: 'https://www.meafe.cn/lite/news_list',
+      url: app.server + 'news_list',
       method: 'POST',
       data: {
         'top': pagesize[tab] + 20,
@@ -181,13 +181,13 @@ Page({
       }),
     })
   },
-  reLoad: function(tab) {
+  reLoad: function (tab) {
     var _this = this;
     // wx.showLoading({
     //   title: '数据加载中...',
     // });
     wx.request({
-      url: 'https://www.meafe.cn/lite/news_list',
+      url: app.server + 'news_list',
       method: 'POST',
       data: {
         'top': _this.data.pageSize[tab],
@@ -203,12 +203,12 @@ Page({
       complete: () => wx.hideLoading(),
     })
   },
-  reloadPage: function(e) {
+  reloadPage: function (e) {
     this.reLoad(this.data.activeTab);
   },
-  newsDetail: function(e) {
+  newsDetail: function (e) {
     var id = e.currentTarget.dataset.id;
-    app.webview_url = 'https://www.meafe.cn/lite/nw_detail?id=' + id + '&grsw=0&dls=0';
+    app.webview_url = app.server + 'nw_detail?id=' + id + '&grsw=0';
     wx.navigateTo({
       url: '/pages/webview/webview',
     })

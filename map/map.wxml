@@ -1,0 +1,11 @@
+<view class="" hover-class="none" hover-stop-propagation="false" style="width: 100%; height: 100vh;">
+  <map id="myMap" style="width: 100%; height:93%;" latitude="{{latitude}}" longitude="{{longitude}}"
+    markers="{{markers}}" scale="17" bindmarkertap="markertap" bindregionchange="regionchange"
+    enable-satellite="{{satellite}}" show-location></map>
+  <view style="display:flex;flex-direction:row;height:7%;align-items: center;">
+    <button style="background-color:white;flex:1;" bindtap="myposition">我的位置</button>
+    <button style="background-color:white;flex:1;" bindtap="guide">导航</button>
+    <button style="background-color:white;flex:1;" bindtap="changetp" wx:if="{{!rid}}">模式切换</button>
+    <button style="background-color:white;flex:1;" bindtap="submit" wx:else>提交位置</button>
+  </view>
+</view>

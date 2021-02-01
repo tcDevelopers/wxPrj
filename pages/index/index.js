@@ -1,109 +1,81 @@
 var app = getApp();
-var meafe = require('../../utils/util_meafe.js');
 Page({
   data: {
     userInfo: {},
-    funcList: {},
     nwUnread: 0,
-    dlsUnread: 0,
     notice: 0,
     noticeTitle: '',
     noticeContent: '',
   },
-  bindGGWUser: function() {
+  bindUser: function () {
     wx.navigateTo({
       url: '../page_bind/page_bind'
     })
   },
-  bindKehuPhoto: function() {
+  bindMap: function (e) {
     wx.navigateTo({
-      url: '/page_rec_photo/page_main/page_main'
+      url: '/map/map?tp=1'
     })
   },
-  bindOrder: function() {
-    wx.navigateTo({
-      url: '/order/order'
-    })
-  },
-  mdConfirm: function() {
+  mdConfirm: function () {
     this.setData({
       notice: 0
     })
   },
-  mdCancel: function() {
+  mdCancel: function () {
     app.notice = 0;
     this.setData({
       notice: 0
     })
   },
-  onLoad: function() {
-    let that = this;
-    if (app.notice && app.userInfo.STAFF_NO)
-      wx.request({
-        url: 'https://www.meafe.cn/lite/notice',
-        success: (res) => {
-          if (res.data)
-            that.setData({
-              notice: 1,
-              noticeTitle: res.data.title,
-              noticeContent: res.data.cnt
-            })
-        }
-      })
-    that.tryLogin();
+  onLoad: function () {
+    this.tryLogin();
   },
   //每次显示时执行，分为全新登录，有openid登录和有work_id刷新未读数3种情况
-  onShow: function() {
+  onShow: function () {
     this.getNwUnread();
-    this.getDlsUnread();
   },
   //公司信息
-  bindNwXx: function() {
+  bindNews: function () {
     wx.navigateTo({
       url: '/neiwang/news_list/news_list'
     })
   },
   //内网个人事务
-  bingNwGrsw: function() {
+  bindGrsw: function () {
     wx.navigateTo({
-      url: '/neiwang/grsw_list/grsw_list?dls=0'
-    })
-  },
-  //代理商个人事务
-  bindDlsGrsw: function() {
-    wx.navigateTo({
-      url: '/neiwang/grsw_list/grsw_list?dls=1'
+      url: '/neiwang/grsw_list/grsw_list'
     })
   },
   //内网通讯录
-  bindNwTxl: function() {
+  bindTxl: function () {
     wx.navigateTo({
       url: '/neiwang/txl/txl'
     })
   },
-  bindOpenWeb: function(opt) {
-    app.webview_url = opt.currentTarget.id;
-    if (app.webview_url.indexOf("?") > -1) {
-      app.webview_url += "&staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid
-    } else {
-      app.webview_url += "?staff_no=" + app.userInfo.STAFF_NO + "&openid=" + app.userInfo.openid;
-    }
-
+  //支撑系统的2个链接
+  bindOpenWeb: function (e) {
+    let url = 'https://www.meafe.cn/paidan/';
+    if (e.currentTarget.dataset.tp == '1')
+      app.webview_url = url + 'page_login.jsp?staff_no=' + app.userInfo.staff_no + '&openid=' + app.userInfo.openid;
+    else if (e.currentTarget.dataset.tp == '2')
+      app.webview_url = url + 'page_weihubu_wuliaoguanli/index.jsp?staff_no=' + app.userInfo.staff_no + '&openid=' + app.userInfo.openid;
+    else
+      return 0;
     wx.navigateTo({
       url: '/pages/webview/webview'
     })
   },
   //获取openid和userinfo
-  tryLogin: function() {
+  tryLogin: function () {
     var _this = this;
     wx.showLoading({
       title: '登陆中...',
     });
     wx.login({
       success: res => {
-        app.code = res.code;
         wx.request({
-          url: 'https://www.meafe.cn/lite/openid?code=' + app.code,
+          url: 'https://www.meafe.cn/lite/openid?code=' + res.code,
           success: res => {
             if (res.statusCode == 200 && res.data.openid) {
               app.userInfo.openid = res.data.openid;
@@ -119,13 +91,13 @@ Page({
       complete: () => wx.hideLoading(),
     })
   },
-  loginRemoteServer: function() {
+  loginRemoteServer: function () {
     var that = this;
     wx.showLoading({
       title: '登陆中...',
     })
     wx.request({
-      url: 'https://www.meafe.cn/lite/user_info',
+      url: app.server + 'user_info',
       method: 'POST',
       data: {
         'openid': app.userInfo.openid
@@ -136,33 +108,43 @@ Page({
           that.setData({
             userInfo: res.data
           });
+          if (app.notice)
+            wx.request({
+              url: app.server + 'notice',
+              success: (res) => {
+                if (res.data)
+                  that.setData({
+                    notice: 1,
+                    noticeTitle: res.data.title,
+                    noticeContent: res.data.cnt
+                  })
+              }
+            })
           that.getNwUnread();
-          that.getDlsUnread();
-          that.getFuncList();
         }
       },
       fail: () => that.setLoginFailed("系统正在维护...获取用户信息失败"),
       complete: () => wx.hideLoading(),
     })
   },
-  setLoginFailed: function(msg) {
-    var that = this;
+  setLoginFailed: function (msg) {
+    let that = this;
     wx.showModal({
       title: '登陆出错，是否重试',
       content: msg ? msg : "",
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           that.tryLogin();
         }
       }
     })
   },
-  getNwUnread: function() {
+  getNwUnread: function () {
     var that = this;
-    if (app.userInfo.NWID) {
+    if (app.userInfo.nw_role) {
       wx.request({
-        url: 'https://www.meafe.cn/lite/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=0',
-        success: function(res) {
+        url: app.server + 'grsw_unread?staff_no=' + app.userInfo.staff_no,
+        success: function (res) {
           if (res.statusCode == 200)
             that.setData({
               nwUnread: res.data
@@ -171,37 +153,4 @@ Page({
       })
     }
   },
-  getDlsUnread: function() {
-    var that = this;
-    if (app.userInfo.DLSID) {
-      wx.request({
-        url: 'https://www.meafe.cn/lite/grsw_unread?staff_no=' + app.userInfo.STAFF_NO + '&dls=1',
-        success: function(res) {
-          if (res.statusCode == 200)
-            that.setData({
-              dlsUnread: res.data
-            })
-        }
-      })
-    }
-  },
-  getFuncList: function() {
-    var _this = this;
-    meafe.ListData({
-      service: "selectXcxFuncList",
-      staff_no: app.userInfo.STAFF_NO ? app.userInfo.STAFF_NO : ""
-    }, function(re) {
-      _this.setData({
-        funcList: re
-      })
-    }, function() {
-      wx.showModal({
-        title: '菜单加载失败，是否重新加载',
-        content: '',
-        success: function(res) {
-          _this.getFuncList();
-        }
-      })
-    })
-  }
 })

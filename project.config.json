@@ -1,73 +1,78 @@
 {
-	"description": "项目配置文件。",
-	"setting": {
-		"urlCheck": true,
-		"es6": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"coverView": true,
-		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
-		"checkInvalidKey": true,
-		"checkSiteMap": false,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		}
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.11.0",
-	"appid": "wxe2fab7d8fade2cff",
-	"projectname": "taicangzhicheng",
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": [
-				{
-					"name": "test",
-					"pathName": "",
-					"title": "",
-					"cacheKey": ""
-				}
-			]
-		},
-		"conversation": {
-			"current": 0,
-			"list": [
-				{
-					"name": "test",
-					"query": "",
-					"boxQI": "",
-					"service": {}
-				}
-			]
-		},
-		"game": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": -1,
-			"list": [
-				{
-					"name": "test",
-					"pathName": "COMPONENT/music",
-					"query": "a=哈哈",
-					"scene": 1044,
-					"shareInfo": {},
-					"referrerInfo": {}
-				}
-			]
-		}
-	}
+  "description": "项目配置文件。",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": false,
+    "uploadWithSourceMap": true,
+    "useMultiFrameRuntime": false,
+    "useApiHook": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "useIsolateContext": true,
+    "useCompilerModule": true,
+    "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "bundle": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "2.14.0",
+  "appid": "wxe2fab7d8fade2cff",
+  "projectname": "taicangzhicheng",
+  "simulatorType": "wechat",
+  "simulatorPluginLibVersion": {},
+  "condition": {
+    "search": {
+      "list": [
+        {
+          "name": "test",
+          "pathName": "",
+          "title": "",
+          "cacheKey": ""
+        }
+      ]
+    },
+    "conversation": {
+      "list": [
+        {
+          "name": "test",
+          "query": "",
+          "boxQI": "",
+          "service": {}
+        }
+      ]
+    },
+    "game": {
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "test",
+          "pathName": "COMPONENT/music",
+          "query": "a=哈哈",
+          "scene": 1044,
+          "shareInfo": {},
+          "referrerInfo": {}
+        }
+      ]
+    }
+  }
 }

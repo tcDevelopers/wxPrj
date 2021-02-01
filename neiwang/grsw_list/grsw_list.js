@@ -9,28 +9,20 @@ Page({
     sender: '',
     title: '',
     pageData: [],
-    dls: 0,
     scrollViewHeight: 900
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    // 通过页面参数dls来区分内网还是代理商;
+  onLoad: function (options) {
     var that = this;
-    if (options.dls == '1') {
-      that.data.dls = 1;
-      wx.setNavigationBarTitle({
-        title: '代理商个人事务'
-      });
-    }
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         let height = res.windowHeight;
         var query = wx.createSelectorQuery() //创建节点查询器 query
         query.select('#search_bar').boundingClientRect() //这段代码的意思是选择Id=the-id的节点，获取节点位置信息的查询请求
-        query.exec(function(res) {
+        query.exec(function (res) {
           that.setData({
             scrollViewHeight: height - res[0].height
           });
@@ -41,27 +33,21 @@ Page({
       pageSize,
       sender,
       title,
-      dls
     } = that.data;
-    that.getList(app.userInfo.STAFF_NO, pageSize, sender, title, dls);
+    that.getList(app.userInfo.staff_no, pageSize, sender, title);
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    let {
-      pageSize,
-      sender,
-      title,
-      dls
-    } = this.data;
+  onShow: function () {
+
   },
 
   /**
    * 发件人更新
    */
-  changeSender: function(e) {
+  changeSender: function (e) {
     this.setData({
       sender: e.detail.value
     });
@@ -70,7 +56,7 @@ Page({
   /**
    * 标题更新
    */
-  changeTitle: function(e) {
+  changeTitle: function (e) {
     this.setData({
       title: e.detail.value
     });
@@ -79,16 +65,16 @@ Page({
   /**
    * 搜索列表
    */
-  search: function(e) {
+  search: function (e) {
     this.reLoad();
   },
 
   /**
    * 获取个人事务列表
    */
-  getList: function(p1, p2, p3, p4, p5) {
+  getList: function (p1, p2, p3, p4) {
     var _this = this;
-    var url = 'https://www.meafe.cn/lite/grsw_list';
+    var url = app.server + 'grsw_list';
     wx.showLoading({
       title: '正在加载...'
     })
@@ -100,14 +86,13 @@ Page({
         'topnum': p2,
         'search_user': p3,
         'search_title': p4,
-        'dls': p5
       },
-      success: function(res) {
+      success: function (res) {
         _this.setData({
           pageData: res.data
         })
       },
-      complete: function(res) {
+      complete: function (res) {
         wx.hideLoading();
       }
     })
@@ -116,31 +101,29 @@ Page({
   /**
    * 下拉刷新
    */
-  reLoad: function(e) {
+  reLoad: function (e) {
     this.setData({
       pageSize: 20
     });
     let {
       pageSize,
       sender,
-      title,
-      dls
+      title
     } = this.data;
-    this.getList(app.userInfo.STAFF_NO, pageSize, sender, title, dls);
+    this.getList(app.userInfo.staff_no, pageSize, sender, title);
   },
 
   /**
    * 下拉更多加载
    */
-  loadMore: function(e) {
+  loadMore: function (e) {
     let _this = this;
     let {
       pageSize,
       sender,
-      title,
-      dls
+      title
     } = _this.data;
-    let url = 'https://www.meafe.cn/lite/grsw_list';
+    let url = app.server + 'grsw_list';
     wx.showLoading({
       title: '正在加载..',
       mask: true
@@ -149,13 +132,12 @@ Page({
       url: url,
       method: 'POST',
       data: {
-        'staff_no': app.userInfo.STAFF_NO,
+        'staff_no': app.userInfo.staff_no,
         'topnum': pageSize + 20,
         'search_user': sender,
-        'search_title': title,
-        'dls': dls
+        'search_title': title
       },
-      success: function(res) {
+      success: function (res) {
         if (res.data.length > pageSize)
           pageSize += 20;
         _this.setData({
@@ -163,14 +145,14 @@ Page({
           pageSize: pageSize
         })
       },
-      fail: function() {
+      fail: function () {
         wx.showToast({
           title: '数据加载失败',
           icon: 'loading',
           mask: true
         })
       },
-      complete: function() {
+      complete: function () {
         wx.hideLoading();
       }
     })
@@ -179,13 +161,11 @@ Page({
   /**
    * 跳转个人事务详细页面
    */
-  grswDetail: function(e) {
+  grswDetail: function (e) {
     let shouid = e.currentTarget.dataset.id;
-    let dls = this.data.dls;
-    let url = 'https://www.meafe.cn/lite/grsw_read?';
-    url += 'staff_no=' + app.userInfo.STAFF_NO;
+    let url = app.server + 'grsw_read?';
+    url += 'staff_no=' + app.userInfo.staff_no;
     url += '&shouid=' + shouid;
-    url += '&dls=' + dls;
     wx.showLoading({
       title: '数据加载中...',
       mask: true,
@@ -193,7 +173,7 @@ Page({
     wx.request({
       url: url
     });
-    app.webview_url = 'https://www.meafe.cn/lite/nw_detail?id=' + shouid + '&grsw=1&dls=' + dls;
+    app.webview_url = app.server + 'nw_detail?id=' + shouid + '&grsw=1';
     wx.hideLoading();
     wx.navigateTo({
       url: '/pages/webview/webview',
@@ -203,47 +183,47 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-  open_send: function() {
+  open_send: function () {
     wx.navigateTo({
-      url: '/neiwang/grsw_send/grsw_send?tp=1&dls=' + this.data.dls
+      url: '/neiwang/grsw_send/grsw_send?tp=1'
     });
   }
 })

@@ -8,41 +8,39 @@
     <view>
       <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
     </view>
-    <view hidden="{{!userInfo.STAFF_NO}}" class="userinfo-txt-view">
-      <text class="userinfo-txt1">{{userInfo.STAFF_NM}}</text>
-      <text class="userinfo-txt2">{{userInfo.BM}}</text>
+    <view wx:if="{{userInfo.staff_no}}" class="userinfo-txt-view">
+      <text class="userinfo-txt1">{{userInfo.staff_nm}}</text>
+      <text class="userinfo-txt2">{{userInfo.bm}}</text>
     </view>
-    <view hidden="{{userInfo.STAFF_NO}}" class="userinfo-txt-view">
-      <button style="background-color:white;margin-top:0px;height:64rpx;width:500rpx;font-size:28rpx;border:0rpx solid white;color:#4B89F2;" bindtap="bindGGWUser">员工绑定</button>
+    <view wx:if="{{!userInfo.staff_no}}" class="userinfo-txt-view">
+      <button style="background-color:white;margin-top:0px;height:64rpx;width:500rpx;font-size:28rpx;border:0rpx solid white;color:#4B89F2;" bindtap="bindUser">员工绑定</button>
       <button style="background-color:white;margin-top:0px;height:64rpx;margin-top:6rpx;width:500rpx;font-size:28rpx;border:0rpx solid white;color:#4B89F2;" bindtap="tryLogin">已绑定-直接登陆</button>
     </view>
   </view>
   <view class="nw">
-    <view wx:if="{{userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bindNwXx">
+    <view wx:if="{{userInfo.nw_role>=2}}" class="nw_btn" hover-class='hover' bindtap="bindNews">
       <image class="btn_icon" src="/img/laba.png" mode="aspectFill"></image>
-      公司内网信息
+      公司信息
     </view>
-    <view wx:if="{{userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bingNwGrsw">
+    <view wx:if="{{userInfo.nw_role}}" class="nw_btn" hover-class='hover' bindtap="bindGrsw">
       <image class="btn_icon" src="/img/man.png" mode="aspectFill"></image>
       个人事务({{nwUnread}})
     </view>
-    <view wx:if="{{userInfo.DLSID}}" class="nw_btn" bindtap="bindDlsGrsw" hover-class='hover'>
-      <image class="btn_icon" src="/img/dls.png" mode="aspectFill"></image>
-      代理商({{dlsUnread}})
-    </view>
-    <view wx:if="{{userInfo.NWID}}" class="nw_btn" hover-class='hover' bindtap="bindNwTxl">
+    <view wx:if="{{userInfo.nw_role}}" class="nw_btn" hover-class='hover' bindtap="bindTxl">
       <image class="btn_icon" src="/img/contact.png" mode="aspectFill"></image>
-      内网通讯录
+      通讯录
     </view>
-    <view wx:if="{{userInfo.STAFF_NO}}" class="nw_btn" hover-class='hover' bindtap="bindOrder">
-      <image class="btn_icon" src="/img/food.png" mode="aspectFill"></image>
-      食堂订餐
+    <view wx:if="{{userInfo.nw_role}}" class="nw_btn" hover-class='hover' bindtap="bindMap">
+      <image class="btn_icon" src="/img/jizhan.jpg" mode="aspectFill"></image>
+      基站查询
     </view>
-    <block wx:for="{{funcList}}" style="width:100%;" wx:for-item="item" wx:key="unique" wx:if="{{userInfo.STAFF_NO}}">
-      <view class="nw_btn" bindtap="bindOpenWeb" id="{{item.URL}}" hover-class='hover'>
-        <image class="btn_icon" src="{{item.IMG?item.IMG:'../../img/note.png'}}" mode="aspectFill"></image>
-        {{item.NAME}}
-      </view>
-    </block>
+    <view wx:if="{{userInfo.staff_no}}" class="nw_btn" bindtap="bindOpenWeb" data-tp="1" hover-class='hover'>
+      <image class="btn_icon" src="/img/note.png" mode="aspectFill"></image>
+      支撑系统
+    </view>
+    <view wx:if="{{userInfo.staff_no}}" class="nw_btn" bindtap="bindOpenWeb" data-tp="2" hover-class='hover'>
+      <image class="btn_icon" src="/img/scanner.png" mode="aspectFill"></image>
+      物料管理
+    </view>
   </view>
 </view>

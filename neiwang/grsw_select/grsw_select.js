@@ -1,30 +1,29 @@
 // neiwang/grsw_select.js
 var app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     searchList: [],
-    staffList:[],
+    staffList: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     let that = this;
     wx.showLoading({
       title: '正在加载',
     });
     wx.request({
-      url:"https://www.meafe.cn/lite/staff_list?dls="+options.dls,
+      url: app.server + 'staff_list',
       success: (res) => that.data.staffList = res.data,
       complete: () => wx.hideLoading(),
     });
     let selected = wx.getStorageSync('selected');
-    if (selected&&selected.length)
+    if (selected && selected.length)
       that.setData({
         searchList: selected
       });
@@ -44,11 +43,11 @@ Page({
     });
   },
 
-  changeName: function(e) {
+  changeName: function (e) {
     this.search(e.detail.value);
   },
 
-  search: function(name) {
+  search: function (name) {
     if (!name) return;
     let that = this;
     //保留之前searchList中checked的元素
@@ -67,7 +66,7 @@ Page({
     });
   },
 
-  submit: function() {
+  submit: function () {
     let selected = this.data.searchList.filter(val => val.checked);
     if (!selected.length) {
       wx.showModal({
@@ -86,49 +85,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

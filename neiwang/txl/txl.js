@@ -1,3 +1,4 @@
+var app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -9,7 +10,6 @@ Page({
     bm: '',
     phone: '',
     short_phone: '',
-    dls: 0,
     actionSheetHidden: true,
     actionSheetItems: []
   },
@@ -17,38 +17,38 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
 
   },
 
   /*输入框更改函数*/
-  changeNm: function(e) {
+  changeNm: function (e) {
     this.data.staff_nm = e.detail.value;
   },
-  changeStaff: function(e) {
+  changeStaff: function (e) {
     this.data.staff_no = e.detail.value;
   },
-  changeBm: function(e) {
+  changeBm: function (e) {
     this.data.bm = e.detail.value;
   },
-  changePhone: function(e) {
+  changePhone: function (e) {
     this.data.phone = e.detail.value;
   },
-  changeShort: function(e) {
+  changeShort: function (e) {
     this.data.short_phone = e.detail.value;
   },
-  changeGh: function(e) {
+  changeGh: function (e) {
     this.data.gd_phone = e.detail.value;
   },
   /*查询函数 */
-  search: function() {
+  search: function () {
     let that = this;
     wx.showLoading({
       title: '正在加载...',
       mask: true
     });
     wx.request({
-      url: 'https://www.meafe.cn/lite/staff_list',
+      url: app.server + 'staff_list',
       method: 'POST',
       data: {
         'staff_no': that.data.staff_no,
@@ -57,71 +57,70 @@ Page({
         'phone': that.data.phone,
         'short_phone': that.data.short_phone,
         'gd_phone': that.data.gd_phone,
-        'dls': that.data.dls,
       },
       success: res => {
         that.setData({
           staffList: res.data
         })
       },
-      complete: ()=>wx.hideLoading(),
+      complete: () => wx.hideLoading(),
     })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-  makeCall: function(e) {
+  makeCall: function (e) {
     var nbr = e.currentTarget.dataset.id;
     wx.makePhoneCall({
       phoneNumber: nbr
     })
   },
-  openMakeCallOption: function(e) {
+  openMakeCallOption: function (e) {
     var item = e.currentTarget.dataset.id;
     var nbrs = [];
     if (item[3] && item[3].length == 11) {
@@ -138,7 +137,7 @@ Page({
       actionSheetHidden: false
     });
   },
-  listenerActionSheet: function(e) {
+  listenerActionSheet: function (e) {
     this.setData({
       actionSheetHidden: true
     })

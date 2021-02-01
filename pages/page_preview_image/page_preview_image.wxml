@@ -1,1 +1,0 @@
-<image bindtap="tapCloseNav" class="image-view" mode="widthFix" src="{{imageSrc}}"></image>

@@ -1,14 +1,15 @@
-var app = getApp();
-var meafe = require('utils/util_meafe.js');
 App({
   onLaunch: function() {
     //调用API从本地缓存中获取数据
-    var _this = this;
   },
-  code: '',
   userInfo: {
-    STAFF_NO: ""
+    openid: "",
+    staff_no: "",
+    staff_nm: "",
+    bm: "",
+    nw_role: 0,
   },
+  server: "https://www.meafe.cn/lite/",
   webview_url: "",
   downloadTask: null,
   notice: 1

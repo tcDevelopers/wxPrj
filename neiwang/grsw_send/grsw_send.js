@@ -7,16 +7,14 @@ Page({
     content: '',
     dx: false,
     tp: '1',
-    dls: '0',
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     /*依据tp字段有3种场景
       1：发送
       2：回复
       3：转发
     */
     let that = this;
-    that.data.dls = options.dls;
     if (options.tp == '2') {
       wx.setNavigationBarTitle({
         title: '回复个人事务'
@@ -47,10 +45,10 @@ Page({
       wx.setStorageSync('selected', []);
     }
   },
-  onReady: function() {
+  onReady: function () {
     // 页面渲染完成
   },
-  onShow: function() {
+  onShow: function () {
     let selected = wx.getStorageSync('selected');
     if (selected && selected.length)
       this.setData({
@@ -58,28 +56,28 @@ Page({
         staffs: selected.map(val => val.staff)
       });
   },
-  textBlur: function(e) {
+  textBlur: function (e) {
     this.setData({
       title: e.detail.value
     });
   },
-  textBlur2: function(e) {
+  textBlur2: function (e) {
     this.setData({
       content: e.detail.value
     });
   },
-  ifdx: function(e) {
+  ifdx: function (e) {
     this.setData({
       dx: e.detail.value
     });
   },
-  bindSelect: function() {
+  bindSelect: function () {
     if (this.data.tp == '2') return;
     wx.navigateTo({
-      url: '../grsw_select/grsw_select?dls=' + this.data.dls,
+      url: '../grsw_select/grsw_select',
     })
   },
-  submit: function() {
+  submit: function () {
     var that = this;
     if (!that.data.staffs.length) {
       wx.showToast({
@@ -103,24 +101,23 @@ Page({
       title: '正在发送...',
     })
     let data = {
-      staff_no: app.userInfo.STAFF_NO,
-      dls: that.data.dls,
+      staff_no: app.userInfo.staff_no,
       receivers: that.data.staffs,
       title: that.data.title,
       content: that.data.content,
       dx: that.data.dx,
-      staff_nm: app.userInfo.STAFF_NM,
+      staff_nm: app.userInfo.staff_nm,
     };
-    let url = 'https://www.meafe.cn/lite/grsw_send';
+    let url = app.server + 'grsw_send';
     if (that.data.tp == '3') {
       data.shouid = that.shouid;
-      url = 'https://www.meafe.cn/lite/grsw_forward';
+      url = app.server + 'grsw_forward';
     }
     wx.request({
       url: url,
       data: data,
       method: "POST",
-      success: function(res) {
+      success: function (res) {
         wx.hideLoading();
         if (res.data) {
           wx.showToast({
@@ -142,7 +139,7 @@ Page({
           });
         }
       },
-      fail: function(res) {
+      fail: function (res) {
         wx.hideLoading();
         wx.showToast({
           title: '发送失败',

@@ -99,8 +99,8 @@ Page({
         })
       }
     })
-  }
-  ,
+  },
+
   tapMyposition:function(){
     var thiz = this;
     wx.getLocation({

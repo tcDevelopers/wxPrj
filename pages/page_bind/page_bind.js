@@ -5,30 +5,30 @@ Page({
     staff_no: '',
     sms: false,
   },
-  onLoad: function(options) {},
-  onReady: function() {
+  onLoad: function (options) {},
+  onReady: function () {
     // 页面渲染完成
   },
-  onShow: function() {},
-  onHide: function() {
+  onShow: function () {},
+  onHide: function () {
     // 页面隐藏
   },
-  onUnload: function() {},
-  bindInput1: function(e) {
+  onUnload: function () {},
+  bindInput1: function (e) {
     this.setData({
       staff_no: e.detail.value
     })
   },
-  bindInput2: function(e) {
+  bindInput2: function (e) {
     this.setData({
       verify_code: e.detail.value
     })
   },
-  tapSendSms: function() {
+  tapSendSms: function () {
     let that = this;
-    if (!that.data.staff_no.trim().length) {
+    if (that.data.staff_no.trim().length < 4) {
       wx.showToast({
-        title: '请填写工号',
+        title: '请填写正确工号',
         icon: 'loading',
         duration: 1500,
         mask: true,
@@ -36,19 +36,20 @@ Page({
       return;
     }
     wx.request({
-      url: 'https://www.meafe.cn/lite/bind_staff',
+      url: app.server + 'bind_staff',
       method: 'POST',
       data: {
         tp: 0,
         staff_no: that.data.staff_no
       },
       success: res => {
-        wx.showToast({
-          title: res.data,
-          icon: 'loading',
-          duration: 1500,
-          mask: true,
-        });
+        if (res.statusCode == 200)
+          wx.showToast({
+            title: res.data,
+            icon: 'loading',
+            duration: 1500,
+            mask: true,
+          });
         that.setData({
           sms: true
         });
@@ -58,7 +59,7 @@ Page({
       }
     })
   },
-  tapSubmit: function() {
+  tapSubmit: function () {
     let that = this;
     //检查是否满足提交的条件
     if (!that.data.verify_code.trim().length) {
@@ -70,9 +71,9 @@ Page({
       });
       return;
     }
-    if (!that.data.staff_no.trim().length) {
+    if (that.data.staff_no.trim().length < 4) {
       wx.showToast({
-        title: '请填写工号',
+        title: '请填写正确工号',
         icon: 'loading',
         duration: 1500,
         mask: true,
@@ -81,10 +82,10 @@ Page({
     }
     wx.showLoading({
       title: '加载中...',
-      mask:true,
+      mask: true,
     })
     wx.request({
-      url: 'https://www.meafe.cn/lite/bind_staff',
+      url: app.server + 'bind_staff',
       method: 'POST',
       data: {
         tp: 1,
@@ -92,9 +93,9 @@ Page({
         verify_code: that.data.verify_code,
         open_id: app.userInfo.openid,
       },
-      success: res=>{
+      success: res => {
         wx.hideLoading();
-        if(res.data.success)
+        if (res.data.success)
           wx.showToast({
             title: '绑定成功',
             icon: 'success',
@@ -112,10 +113,10 @@ Page({
             mask: true
           })
       },
-      fail:()=>{
+      fail: () => {
         wx.hideLoading();
         wx.showToast({
-          title:'绑定失败',
+          title: '绑定失败',
           icon: 'loading',
           duration: 1500,
           mask: true,
