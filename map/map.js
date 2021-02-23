@@ -20,14 +20,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //tp=1基站，2 光分摸查，34 ZC订单，56 机房管理
     this.data.tp = options.tp;
-    if (options.tp == '3' || options.tp == '4')
+    if (options.tp == '3' || options.tp == '4' || options.tp == '5' || options.tp == '6')
       this.setData({
         rid: options.rid
       });
     else if (options.tp == '1')
       this.data.satellite = false;
-    if (options.tp != '4') {
+    if (options.tp != '4' && options.tp != '6') {
       wx.getLocation({
         type: 'gcj02',
         success: res => {
@@ -46,25 +47,55 @@ Page({
 
   remarker: function (lon, lat, tp) {
     let url = '';
-    if (tp == '1')
-      url = app.server + 'station';
-    else
-      url = app.server + 'light';
-    wx.request({
-      url: url + '?lon=' + lon + '&lat=' + lat + '&tp=' + tp,
-      success: res =>
-        this.setData({
+    if (tp == '5')
+      this.setData({
+        longitude: lon,
+        latitude: lat,
+        markers: [{
+          id: 0,
           longitude: lon,
           latitude: lat,
-          markers: res.data,
-          satellite: this.data.satellite
-        })
-    })
+          width: 50,
+          length: 50,
+          iconPath: '/img/4.png'
+        }],
+        satellite: this.data.satellite
+      })
+    else if (tp == '6')
+      this.setData({
+        longitude: lon,
+        latitude: lat,
+        markers: [{
+          id: 0,
+          longitude: lon,
+          latitude: lat,
+          width: 50,
+          length: 50,
+          iconPath: '/img/blue.png'
+        }],
+        satellite: this.data.satellite
+      })
+    else {
+      if(tp == '1')
+        url = app.server + 'station';
+      else
+        url = app.server + 'light';
+      wx.request({
+        url: url + '?lon=' + lon + '&lat=' + lat + '&tp=' + tp,
+        success: res =>
+          this.setData({
+            longitude: lon,
+            latitude: lat,
+            markers: res.data,
+            satellite: this.data.satellite
+          })
+      })
+    }
   },
 
   regionchange: function (e) {
     // 地图发生变化的时候，获取中间点
-    if (e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
+    if (this.data.tp != '6' && e.type == 'end' && (e.causedBy == 'scale' || e.causedBy == 'drag')) {
       let lon = e.detail.centerLocation.longitude;
       let lat = e.detail.centerLocation.latitude;
       this.remarker(lon, lat, this.data.tp);
@@ -72,13 +103,25 @@ Page({
   },
 
   submit: function () {
-    let params = {
-      tableName: 'ly_sys_ZC定单系统',
-      id: this.data.rid,
-      map: {
-        COL2: this.data.longitude + "," + this.data.latitude
-      },
-    };
+    let params;
+    if (this.data.tp == '3' || this.data.tp == '4') {
+      params = {
+        tableName: 'ly_sys_ZC定单系统',
+        id: this.data.rid,
+        map: {
+          COL2: this.data.longitude + "," + this.data.latitude
+        },
+      }
+    } else if (this.data.tp == '5') {
+      params = {
+        tableName: 'ly_sys_后端机房管理模块',
+        id: this.data.rid,
+        map: {
+          COL5: this.data.longitude + "," + this.data.latitude
+        },
+      }
+    } else
+      return;
     wx.showModal({
       title: '提示',
       content: '是否提交该位置？',
@@ -113,10 +156,12 @@ Page({
   },
 
   markertap: function (e) {
-    this.data.taplon = this.data.markers[e.detail.markerId].longitude;
-    this.data.taplat = this.data.markers[e.detail.markerId].latitude;
-    let tapnm = this.data.markers[e.detail.markerId].callout.content;
-    this.data.tapnm = tapnm.match(/:([\u4e00-\u9fa5]+)/)[1];
+    if (this.data.tp == '1' || this.data.tp == '2' || this.data.tp == '3' || this.data.tp == '4') {
+      this.data.taplon = this.data.markers[e.detail.markerId].longitude;
+      this.data.taplat = this.data.markers[e.detail.markerId].latitude;
+      let tapnm = this.data.markers[e.detail.markerId].callout.content;
+      this.data.tapnm = tapnm.match(/:([\u4e00-\u9fa5]+)/)[1];
+    }
   },
 
   changetp: function () {
@@ -126,12 +171,13 @@ Page({
   },
 
   myposition: function () {
-    wx.getLocation({
-      type: 'gcj02',
-      success: res => {
-        this.remarker(res.longitude, res.latitude, this.data.tp)
-      }
-    })
+    if (this.data.tp != '6')
+      wx.getLocation({
+        type: 'gcj02',
+        success: res => {
+          this.remarker(res.longitude, res.latitude, this.data.tp)
+        }
+      })
   },
 
   guide: function (e) {
